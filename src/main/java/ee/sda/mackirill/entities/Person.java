@@ -9,7 +9,7 @@ public class Person {
     @Id
     @GeneratedValue
     private int id;
-    private String nickname;
+    private String name;
     private String email;
     private String password;
     private String phoneNumber;
