@@ -18,6 +18,9 @@
         <mapping class="ee.sda.mackirill.entities.Order"/>
         <mapping class="ee.sda.mackirill.entities.PaymentType"/>
         <mapping class="ee.sda.mackirill.entities.Table" />
+        <mapping class="ee.sda.mackirill.entities.Item" />
+        <mapping class="ee.sda.mackirill.entities.Menu" />
+        <mapping class="ee.sda.mackirill.entities.OrderedMenuItem" />
 
     </session-factory>
 </hibernate-configuration>
