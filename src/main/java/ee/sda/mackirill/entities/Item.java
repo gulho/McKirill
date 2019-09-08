@@ -1,6 +1,7 @@
 package ee.sda.mackirill.entities;
 
 import javax.persistence.*;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "Item")
@@ -16,6 +17,10 @@ public class Item {
     @OneToOne
     @JoinColumn(name = "item_id")
     private Menu menu;
+
+    public Item(){
+
+    }
 
     public Item(int id, Integer name, Double type, Menu menu) {
         this.id = id;
