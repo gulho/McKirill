@@ -16,8 +16,8 @@
         <mapping class="ee.sda.mackirill.entities.Person" />
         <mapping class="ee.sda.mackirill.entities.PersonType" />
         <mapping class="ee.sda.mackirill.entities.Order"/>
-        <mapping class="ee.sda.mackirill.entities.PaymentType"/>
         <mapping class="ee.sda.mackirill.entities.Table" />
+        <mapping class="ee.sda.mackirill.entities.OrderStatus" />
         <mapping class="ee.sda.mackirill.entities.Item" />
         <mapping class="ee.sda.mackirill.entities.Menu" />
         <mapping class="ee.sda.mackirill.entities.OrderedMenuItem" />

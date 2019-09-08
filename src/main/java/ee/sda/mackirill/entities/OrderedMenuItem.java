@@ -9,6 +9,9 @@ public class OrderedMenuItem {
     @Id
     @GeneratedValue
     private int id;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
     @Column(name = "menu_id", nullable = false)
     private Integer menu;
     @Column(name = "quantity", nullable = false)
