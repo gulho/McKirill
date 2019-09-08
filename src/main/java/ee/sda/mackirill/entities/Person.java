@@ -1,27 +1,34 @@
 package ee.sda.mackirill.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "person")
 public class Person {
     @Id
     @GeneratedValue
     private int id;
+    @Column(name = "name", nullable = false)
     private String name;
+    @Column(name = "email", nullable = false)
     private String email;
+    @Column(name = "password", nullable = false)
     private String password;
+    @Column(name = "phone_number")
     private String phoneNumber;
-    private int type_id;
+    @OneToOne
+    @JoinColumn(name = "person_type_id")
+    private PersonType personType;
 
-    public Person(int id, String name, String email, String password, String phoneNumber, int type_id) {
-        this.id = id;
+    public Person() {
+    }
+
+    public Person(String name, String email, String password, String phoneNumber, PersonType personType) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
-        this.type_id = type_id;
+        this.personType = personType;
     }
 
     public int getId() {
@@ -64,11 +71,11 @@ public class Person {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getType_id() {
-        return type_id;
+    public PersonType getPersonType() {
+        return personType;
     }
 
-    public void setType_id(int type_id) {
-        this.type_id = type_id;
+    public void setPersonType(PersonType personType) {
+        this.personType = personType;
     }
 }
