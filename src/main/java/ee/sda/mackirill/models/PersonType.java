@@ -1,4 +1,4 @@
-package ee.sda.mackirill.entities;
+package ee.sda.mackirill.models;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
