@@ -10,6 +10,7 @@ public class db_test {
         PersonType personType = new PersonType("client");
         Person person = new Person("name1", "emal@dasf", "pass", "37253245", personType);
 
+
         personType.setPerson(person);
 
         try(Session session = new Configuration().configure().buildSessionFactory().openSession()) {
