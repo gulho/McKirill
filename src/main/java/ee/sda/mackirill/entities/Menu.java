@@ -13,6 +13,13 @@ public class Menu {
     private Integer type;
     @Column(name = "price", nullable = false)
     private Double quantity;
+    @OneToOne
+    @JoinColumn(name = "menu_id")
+    private OrderedMenuItem orderedMenuItem;
+
+    public Menu() {
+
+    }
 
     public Menu(int id, Integer type, Double quantity) {
         this.id = id;
