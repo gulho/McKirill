@@ -5,7 +5,9 @@ import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class Save_order {
     public static void main(String[] args) {
@@ -31,6 +33,12 @@ public class Save_order {
         beer_item.setMenu(beer);
         OrderedMenuItem items = new OrderedMenuItem(beer, 5, beer.getPrice().multiply(new BigDecimal(5)));
         items.setOrder(order);
+        //Create review
+        Review review = new Review(client, 5, "Some long review text", LocalDateTime.now());
+        //Create waiter tip (in this example tip go to client this is wrong)
+        WaiterTip waiterTip = new WaiterTip(client, new BigDecimal(100), order);
+        //Create holliday
+        Holliday holliday = new Holliday(LocalDate.now(), LocalTime.now().minusHours(1), LocalTime.now().plusHours(2));
 
         //Set orders person
         order.setPerson(client);
@@ -65,6 +73,9 @@ public class Save_order {
             session.saveOrUpdate(items);
             session.saveOrUpdate(beer);
             session.saveOrUpdate(beer_item);
+            session.saveOrUpdate(review);
+            session.saveOrUpdate(waiterTip);
+            session.saveOrUpdate(holliday);
 
             session.getTransaction().commit();
         }
