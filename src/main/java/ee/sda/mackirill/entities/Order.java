@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "order")
+@Table(name = "order_booking")
 public class Order {
     @Id
     @GeneratedValue
@@ -20,16 +20,19 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "table_id")
     private ee.sda.mackirill.entities.Table table;
-    //private List<OrderedMenuItem> orderedMenuItems;
+    @OneToMany(mappedBy = "order")
+    private List<OrderedMenuItem> orderedMenuItems;
     private BigDecimal totalSum;
     @OneToOne
     @JoinColumn(name = "payment_id")
     private PaymentType paymentType;
-   // private OrderStatus status;
+    @OneToOne
+    @JoinColumn(name = "order_status_id")
+    private OrderStatus status;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 
-    public Order(int id) {
+    public Order() {
     }
 
     public int getId() {
@@ -38,6 +41,14 @@ public class Order {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
     public int getPeoples() {
@@ -56,6 +67,22 @@ public class Order {
         this.timeToOrder = timeToOrder;
     }
 
+    public ee.sda.mackirill.entities.Table getTable() {
+        return table;
+    }
+
+    public void setTable(ee.sda.mackirill.entities.Table table) {
+        this.table = table;
+    }
+
+    public List<OrderedMenuItem> getOrderedMenuItems() {
+        return orderedMenuItems;
+    }
+
+    public void setOrderedMenuItems(List<OrderedMenuItem> orderedMenuItems) {
+        this.orderedMenuItems = orderedMenuItems;
+    }
+
     public BigDecimal getTotalSum() {
         return totalSum;
     }
@@ -70,6 +97,14 @@ public class Order {
 
     public void setPaymentType(PaymentType paymentType) {
         this.paymentType = paymentType;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
 
     public LocalDateTime getCreateDate() {

@@ -1,6 +1,7 @@
 package ee.sda.mackirill.entities;
 
 import javax.persistence.*;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "Menu")

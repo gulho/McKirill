@@ -1,8 +1,6 @@
 package ee.sda.mackirill.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.persistence.Table;
 
 @Entity
@@ -11,4 +9,7 @@ public class OrderedMenuItem {
     @Id
     @GeneratedValue
     private int id;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
 }
