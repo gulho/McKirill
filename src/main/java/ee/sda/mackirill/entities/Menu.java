@@ -2,6 +2,7 @@ package ee.sda.mackirill.entities;
 
 import javax.persistence.*;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "Menu")
@@ -9,22 +10,20 @@ public class Menu {
     @Id
     @GeneratedValue
     private int id;
-    @Column(name = "item_id", nullable = false)
-    private Integer type;
-    @Column(name = "price", nullable = false)
-    private Double quantity;
     @OneToOne
-    @JoinColumn(name = "menu_id")
+    @JoinColumn(name = "item_id")
+    private Item item;
+    @OneToOne(mappedBy = "menu")
     private OrderedMenuItem orderedMenuItem;
+    private BigDecimal price;
 
     public Menu() {
 
     }
 
-    public Menu(int id, Integer type, Double quantity) {
-        this.id = id;
-        this.type = type;
-        this.quantity = quantity;
+    public Menu(Item item, BigDecimal price) {
+        this.item = item;
+        this.price = price;
     }
 
     public int getId() {
@@ -35,19 +34,27 @@ public class Menu {
         this.id = id;
     }
 
-    public Integer getType() {
-        return type;
+    public Item getItem() {
+        return item;
     }
 
-    public void setType(Integer type) {
-        this.type = type;
+    public void setItem(Item item) {
+        this.item = item;
     }
 
-    public Double getQuantity() {
-        return quantity;
+    public OrderedMenuItem getOrderedMenuItem() {
+        return orderedMenuItem;
     }
 
-    public void setQuantity(Double quantity) {
-        this.quantity = quantity;
+    public void setOrderedMenuItem(OrderedMenuItem orderedMenuItem) {
+        this.orderedMenuItem = orderedMenuItem;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 }

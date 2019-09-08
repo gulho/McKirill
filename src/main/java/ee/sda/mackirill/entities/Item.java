@@ -10,23 +10,20 @@ public class Item {
     @GeneratedValue
     private int id;
     @Column(name = "name", nullable = false)
-    private Integer name;
+    private String name;
     @Column(name = "type", nullable = false)
-    private Double type;
+    private String type;
 
-    @OneToOne
-    @JoinColumn(name = "item_id")
+    @OneToOne(mappedBy = "item")
     private Menu menu;
 
     public Item(){
 
     }
 
-    public Item(int id, Integer name, Double type, Menu menu) {
-        this.id = id;
+    public Item( String name, String type) {
         this.name = name;
         this.type = type;
-        this.menu = menu;
     }
 
     public int getId() {
@@ -37,19 +34,27 @@ public class Item {
         this.id = id;
     }
 
-    public Integer getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(Integer name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public Double getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Double type) {
+    public void setType(String type) {
         this.type = type;
+    }
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public void setMenu(Menu menu) {
+        this.menu = menu;
     }
 }

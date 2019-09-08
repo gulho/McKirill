@@ -25,6 +25,12 @@ public class Save_order {
         cash.setOrder(order);
         //Create order status
         OrderStatus open_order = new OrderStatus("open");
+        //Create order menu items
+        Item beer_item = new Item("Beer", "Drinks");
+        Menu beer = new Menu(beer_item, new BigDecimal(30));
+        beer_item.setMenu(beer);
+        OrderedMenuItem items = new OrderedMenuItem(beer, 5, beer.getPrice().multiply(new BigDecimal(5)));
+        items.setOrder(order);
 
         //Set orders person
         order.setPerson(client);
@@ -44,6 +50,8 @@ public class Save_order {
         order.setCreateDate(LocalDateTime.now());
         //Set update date
         order.setUpdateDate(LocalDateTime.now());
+        //Set menu items
+        order.getOrderedMenuItems().add(items);
 
         try(Session session = new Configuration().configure().buildSessionFactory().openSession()) {
             session.beginTransaction();
@@ -54,6 +62,9 @@ public class Save_order {
             session.saveOrUpdate(table);
             session.saveOrUpdate(clientType);
             session.saveOrUpdate(client);
+            session.saveOrUpdate(items);
+            session.saveOrUpdate(beer);
+            session.saveOrUpdate(beer_item);
 
             session.getTransaction().commit();
         }

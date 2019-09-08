@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,7 +22,7 @@ public class Order {
     @JoinColumn(name = "table_id")
     private ee.sda.mackirill.entities.Table table;
     @OneToMany(mappedBy = "order")
-    private List<OrderedMenuItem> orderedMenuItems;
+    private List<OrderedMenuItem> orderedMenuItems = new ArrayList<>();
     private BigDecimal totalSum;
     @OneToOne
     @JoinColumn(name = "payment_id")

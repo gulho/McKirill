@@ -2,6 +2,7 @@ package ee.sda.mackirill.entities;
 
 import javax.persistence.*;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name= "ordered_menu_item")
@@ -12,23 +13,22 @@ public class OrderedMenuItem {
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
-    @Column(name = "menu_id", nullable = false)
-    private Integer menu;
+    @OneToOne
+    @JoinColumn(name = "menu_id")
+    private Menu menu;
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
     @Column(name = "total_price", nullable = false)
-    private Double sum;
+    private BigDecimal sum;
 
     public OrderedMenuItem () {
         
     }
 
-    public OrderedMenuItem(int id, Integer menu, Integer quantity, Double sum, Order order) {
-        this.id = id;
+    public OrderedMenuItem(Menu menu, Integer quantity, BigDecimal sum) {
         this.menu = menu;
         this.quantity = quantity;
         this.sum = sum;
-        this.order = order;
     }
 
     public int getId() {
@@ -39,11 +39,11 @@ public class OrderedMenuItem {
         this.id = id;
     }
 
-    public Integer getMenu() {
+    public Menu getMenu() {
         return menu;
     }
 
-    public void setMenu(Integer menu) {
+    public void setMenu(Menu menu) {
         this.menu = menu;
     }
 
@@ -55,11 +55,11 @@ public class OrderedMenuItem {
         this.quantity = quantity;
     }
 
-    public Double getSum() {
+    public BigDecimal getSum() {
         return sum;
     }
 
-    public void setSum(Double sum) {
+    public void setSum(BigDecimal sum) {
         this.sum = sum;
     }
 
