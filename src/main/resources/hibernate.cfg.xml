@@ -15,6 +15,9 @@
 
         <mapping class="ee.sda.mackirill.entities.Person" />
         <mapping class="ee.sda.mackirill.entities.PersonType" />
+        <mapping class="ee.sda.mackirill.entities.Order"/>
+        <mapping class="ee.sda.mackirill.entities.PaymentType"/>
+        <mapping class="ee.sda.mackirill.entities.Table" />
 
     </session-factory>
 </hibernate-configuration>
