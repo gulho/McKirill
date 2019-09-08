@@ -19,10 +19,6 @@ public class OrderedMenuItem {
     @Column(name = "total_price", nullable = false)
     private Double sum;
 
-    @OneToOne
-    @JoinColumn(name = "List<order_id>")
-    private Order order;
-
     public OrderedMenuItem () {
         
     }
