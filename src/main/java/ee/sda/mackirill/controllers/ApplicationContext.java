@@ -35,21 +35,19 @@ public class ApplicationContext {
     private void checkDBHaveEnumsValue () {
         session.beginTransaction();
         for (PersonTypeEnum personTypeEnum: PersonTypeEnum.values()) {
-            PersonType personType = session.byNaturalId(PersonType.class)
-                    .using("type", personTypeEnum).load();
-            if(personType == null) {
-                personType = new PersonType(personTypeEnum);
-                session.saveOrUpdate(personType);
+            Optional<PersonType> personType = session.byNaturalId(PersonType.class)
+                    .using("type", personTypeEnum).loadOptional();
+            if(personType.isEmpty()) {
+                session.saveOrUpdate(new PersonType(personTypeEnum));
 
             }
         }
 
         for(OrderStatusEnum orderStatusEnum: OrderStatusEnum.values()) {
-            OrderStatus orderStatus = session.byNaturalId(OrderStatus.class)
-                    .using("name", orderStatusEnum).load();
-            if(orderStatus == null) {
-                orderStatus = new OrderStatus(orderStatusEnum);
-                session.saveOrUpdate(orderStatus);
+            Optional<OrderStatus> orderStatus = session.byNaturalId(OrderStatus.class)
+                    .using("name", orderStatusEnum).loadOptional();
+            if(orderStatus.isEmpty()) {
+                session.saveOrUpdate(new OrderStatus(orderStatusEnum));
             }
         }
 
