@@ -1,5 +1,7 @@
 package ee.sda.mackirill.entities;
 
+import org.hibernate.annotations.NaturalId;
+
 import javax.persistence.*;
 import javax.persistence.Table;
 
@@ -9,6 +11,8 @@ public class OrderStatus {
     @Id
     @GeneratedValue
     private int id;
+    @NaturalId
+    @Column(nullable = false)
     private String name;
     @OneToOne(mappedBy = "status")
     private Order order;

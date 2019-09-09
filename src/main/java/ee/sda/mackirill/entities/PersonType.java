@@ -1,5 +1,7 @@
 package ee.sda.mackirill.entities;
 
+import org.hibernate.annotations.NaturalId;
+
 import javax.persistence.*;
 import javax.persistence.Table;
 
@@ -9,6 +11,7 @@ public class PersonType {
     @Id
     @GeneratedValue
     private int id;
+    @NaturalId
     @Column(name = "type", nullable = false)
     private String type;
     @OneToOne(mappedBy = "personType", cascade = CascadeType.ALL)

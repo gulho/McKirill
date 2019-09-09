@@ -1,4 +1,4 @@
-package ee.sda.mackirill;
+package ee.sda.mackirill.controllers;
 
 import ee.sda.mackirill.entities.Person;
 import ee.sda.mackirill.entities.Review;
@@ -6,18 +6,18 @@ import org.hibernate.Session;
 
 import java.util.Scanner;
 
-public class ClientReviewManage {
+public class ClientReviewController {
     private Person clientPerson;
     private Review review;
     private Scanner scanner;
     private Session session;
 
-    public ClientReviewManage(Session session, Person clientPerson) {
+    public ClientReviewController(Session session, Person clientPerson) {
         this.clientPerson = clientPerson;
         review = new Review();
     }
 
-    public ClientReviewManage(Session session, Person clientPerson, Review review) {
+    public ClientReviewController(Session session, Person clientPerson, Review review) {
         this.clientPerson = clientPerson;
         review = review;
     }
