@@ -1,5 +1,8 @@
 package ee.sda.mackirill.entities;
 
+import ee.sda.mackirill.enums.PersonTypeEnum;
+import org.hibernate.annotations.NaturalId;
+
 import javax.persistence.*;
 import javax.persistence.Table;
 
@@ -9,15 +12,17 @@ public class PersonType {
     @Id
     @GeneratedValue
     private int id;
+    @NaturalId
     @Column(name = "type", nullable = false)
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private PersonTypeEnum type;
     @OneToOne(mappedBy = "personType", cascade = CascadeType.ALL)
     private Person person;
 
     public PersonType() {
     }
 
-    public PersonType(String type) {
+    public PersonType(PersonTypeEnum type) {
         this.type = type;
     }
 
@@ -29,11 +34,11 @@ public class PersonType {
         this.id = id;
     }
 
-    public String getType() {
+    public PersonTypeEnum getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(PersonTypeEnum type) {
         this.type = type;
     }
 

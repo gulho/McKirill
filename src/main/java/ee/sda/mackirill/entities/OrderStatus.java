@@ -1,5 +1,8 @@
 package ee.sda.mackirill.entities;
 
+import ee.sda.mackirill.enums.OrderStatusEnum;
+import org.hibernate.annotations.NaturalId;
+
 import javax.persistence.*;
 import javax.persistence.Table;
 
@@ -9,14 +12,17 @@ public class OrderStatus {
     @Id
     @GeneratedValue
     private int id;
-    private String name;
+    @NaturalId
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private OrderStatusEnum name;
     @OneToOne(mappedBy = "status")
     private Order order;
 
     public OrderStatus() {
     }
 
-    public OrderStatus(String name) {
+    public OrderStatus(OrderStatusEnum name) {
         this.name = name;
     }
 
@@ -28,11 +34,11 @@ public class OrderStatus {
         this.id = id;
     }
 
-    public String getName() {
+    public OrderStatusEnum getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(OrderStatusEnum name) {
         this.name = name;
     }
 
