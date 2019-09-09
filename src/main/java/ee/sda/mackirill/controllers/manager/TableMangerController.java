@@ -2,33 +2,32 @@ package ee.sda.mackirill.controllers.manager;
 
 import ee.sda.mackirill.controllers.AbstractController;
 import ee.sda.mackirill.entities.Person;
+import ee.sda.mackirill.entities.Table;
 import ee.sda.mackirill.strings.BaseString;
-import ee.sda.mackirill.strings.ManagerUIStrings;
 
-public class ManagerController extends AbstractController {
-
-    public ManagerController(Person person) {
+public class TableMangerController extends AbstractController {
+    public TableMangerController(Person person) {
         super(person);
     }
 
     @Override
     public void start() {
-        while (true) {
-            System.out.println(ManagerUIStrings.MANAGER_MAIN_ACTION);
+        while(true) {
             switch (scanner.nextLine()) {
                 case "1":
-                    System.out.println("order");
                     break;
                 case "2":
-                    System.out.println("review");
+                    editTable(new Table());
                     break;
-                case "exit":
-                case "e":
-                    System.out.println(BaseString.EXIT);
+                case "0":
                     return;
                 default:
                     System.out.println(BaseString.WRONG_COMMAND);
             }
         }
+    }
+
+    private void editTable(Table table) {
+        System.out.println();
     }
 }

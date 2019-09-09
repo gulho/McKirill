@@ -5,6 +5,7 @@ import ee.sda.mackirill.controllers.ApplicationContext;
 import ee.sda.mackirill.controllers.Factory;
 import ee.sda.mackirill.controllers.client.ClientController;
 import ee.sda.mackirill.entities.Person;
+import ee.sda.mackirill.enums.PersonTypeEnum;
 import ee.sda.mackirill.strings.BaseString;
 
 /**
@@ -33,6 +34,7 @@ public class McKirillAppStart {
                 session.saveOrUpdate(person);
                1 session.getTransaction().commit();
             }*/
+            person.getPersonType().setType(PersonTypeEnum.MANAGER);
             AbstractController controller = Factory.getController(person);
             controller.start();
 
