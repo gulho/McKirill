@@ -1,5 +1,7 @@
 package ee.sda.mackirill.entities;
 
+import ee.sda.mackirill.enums.MenuItemsTypeEnum;
+
 import javax.persistence.*;
 import javax.persistence.Table;
 
@@ -11,8 +13,9 @@ public class Item {
     private int id;
     @Column(name = "name", nullable = false)
     private String name;
+    @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)
-    private String type;
+    private MenuItemsTypeEnum type;
 
     @OneToOne(mappedBy = "item")
     private Menu menu;
@@ -21,7 +24,7 @@ public class Item {
 
     }
 
-    public Item( String name, String type) {
+    public Item(String name, MenuItemsTypeEnum type) {
         this.name = name;
         this.type = type;
     }
@@ -42,11 +45,11 @@ public class Item {
         this.name = name;
     }
 
-    public String getType() {
+    public MenuItemsTypeEnum getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(MenuItemsTypeEnum type) {
         this.type = type;
     }
 

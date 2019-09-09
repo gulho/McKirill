@@ -1,4 +1,5 @@
 import ee.sda.mackirill.entities.*;
+import ee.sda.mackirill.enums.MenuItemsTypeEnum;
 import ee.sda.mackirill.enums.OrderStatusEnum;
 import ee.sda.mackirill.enums.PaymentTypeEnum;
 import ee.sda.mackirill.enums.PersonTypeEnum;
@@ -31,7 +32,7 @@ public class Save_order {
         //Create order status
         OrderStatus open_order = new OrderStatus(OrderStatusEnum.OPEN);
         //Create order menu items
-        Item beer_item = new Item("Beer", "Drinks");
+        Item beer_item = new Item("Beer", MenuItemsTypeEnum.BEER);
         Menu beer = new Menu(beer_item, new BigDecimal(30));
         beer_item.setMenu(beer);
         OrderedMenuItem items = new OrderedMenuItem(beer, 5, beer.getPrice().multiply(new BigDecimal(5)));

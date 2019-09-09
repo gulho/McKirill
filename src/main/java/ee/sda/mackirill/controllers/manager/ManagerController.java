@@ -22,6 +22,10 @@ public class ManagerController extends AbstractController {
                 case "2":
                     System.out.println("review");
                     break;
+                case "4":
+                    TableMangerController tableMangerController = new TableMangerController(person);
+                    tableMangerController.start();
+                    break;
                 case "exit":
                 case "e":
                     System.out.println(BaseString.EXIT);
