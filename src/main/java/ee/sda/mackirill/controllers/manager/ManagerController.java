@@ -14,13 +14,17 @@ public class ManagerController extends AbstractController {
     @Override
     public void start() {
         while (true) {
-            System.out.println(ManagerUIStrings.ACTIONSELECT);
+            System.out.println(ManagerUIStrings.MANAGER_MAIN_ACTION);
             switch (scanner.nextLine()) {
                 case "1":
                     System.out.println("order");
                     break;
                 case "2":
                     System.out.println("review");
+                    break;
+                case "4":
+                    TableMangerController tableMangerController = new TableMangerController(person);
+                    tableMangerController.start();
                     break;
                 case "exit":
                 case "e":

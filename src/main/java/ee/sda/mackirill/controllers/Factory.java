@@ -8,10 +8,11 @@ public class Factory {
     public static AbstractController getController(Person person) {
         AbstractController returnController;
         switch(person.getPersonType().getType()) {
-            case MANAGER:
+            //case MANAGER:
+            case CLIENT:
                 returnController = new ManagerController(person);
                 break;
-            case CLIENT:
+            //case CLIENT:
             default:
                 returnController = new ClientController(person);
         }

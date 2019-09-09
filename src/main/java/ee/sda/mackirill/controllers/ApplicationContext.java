@@ -24,7 +24,7 @@ public class ApplicationContext {
         return new Configuration().configure().buildSessionFactory().openSession();
     }
 
-    public Session getSession() {
+    public static Session getSession() {
         return session;
     }
 

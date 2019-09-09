@@ -5,8 +5,6 @@ import ee.sda.mackirill.entities.Person;
 import ee.sda.mackirill.strings.BaseString;
 import ee.sda.mackirill.strings.ClientUIStrings;
 
-import java.util.Scanner;
-
 public class ClientController extends AbstractController {
     public ClientController(Person person) {
         super(person);
@@ -33,6 +31,6 @@ public class ClientController extends AbstractController {
     }
 
     private void printClientMainSelect() {
-        System.out.println(ClientUIStrings.ACTIONSELECT);
+        System.out.println(ClientUIStrings.CLIENT_MAIN_ACTION);
     }
 }
