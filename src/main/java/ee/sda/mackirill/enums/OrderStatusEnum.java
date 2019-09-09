@@ -1,7 +1,7 @@
 package ee.sda.mackirill.enums;
 
 public enum OrderStatusEnum {
-    BOOKED,
+    OPEN,
     SERVING,
     PAID,
     CLOSED,

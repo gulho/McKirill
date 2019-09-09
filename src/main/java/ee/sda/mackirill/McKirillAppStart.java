@@ -25,17 +25,18 @@ public class McKirillAppStart {
              * Now it select By select
              **/
             Person person = applicationContext.getSession().get(Person.class, 5);
-            /*switch(person.getPersonType().getType()) {
-                case PersonTypeEnum.CLIENT:
+            switch(person.getPersonType().getType()) {
+                case CLIENT:
                 System.out.println("client");
                 break;
-                case PersonTypeEnum.MANAGER:
+                case MANAGER:
+                    System.out.println("mageer");
                 break;
-                case PersonTypeEnum.WAITER:
+                case WAITER:
                 break;
                 default:
 
-            }*/
+            }
 
 
 

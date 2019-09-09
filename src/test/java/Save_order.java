@@ -1,20 +1,23 @@
-package ee.sda.mackirill;
-
 import ee.sda.mackirill.entities.*;
+import ee.sda.mackirill.enums.OrderStatusEnum;
+import ee.sda.mackirill.enums.PaymentTypeEnum;
+import ee.sda.mackirill.enums.PersonTypeEnum;
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
+import org.junit.jupiter.api.Disabled;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+@Disabled
 public class Save_order {
     public static void main(String[] args) {
         Order order = new Order();
 
         //Create person
-        PersonType clientType = new PersonType("client");
+        PersonType clientType = new PersonType(PersonTypeEnum.CLIENT);
         Person client = new Person("client name", "email@asdf.com", "pass", "37235235", clientType);
         clientType.setPerson(client);
 
@@ -23,10 +26,10 @@ public class Save_order {
         table.getOrders().add(order);
 
         //Create payment type
-        PaymentType cash = new PaymentType("cash");
+        PaymentType cash = new PaymentType(PaymentTypeEnum.CASH);
         cash.setOrder(order);
         //Create order status
-        OrderStatus open_order = new OrderStatus("open");
+        OrderStatus open_order = new OrderStatus(OrderStatusEnum.OPEN);
         //Create order menu items
         Item beer_item = new Item("Beer", "Drinks");
         Menu beer = new Menu(beer_item, new BigDecimal(30));
@@ -38,7 +41,7 @@ public class Save_order {
         //Create waiter tip (in this example tip go to client this is wrong)
         WaiterTip waiterTip = new WaiterTip(client, new BigDecimal(100), order);
         //Create holliday
-        Holliday holliday = new Holliday(LocalDate.now(), LocalTime.now().minusHours(1), LocalTime.now().plusHours(2));
+        Holiday holiday = new Holiday(LocalDate.now(), LocalTime.now().minusHours(1), LocalTime.now().plusHours(2));
 
         //Set orders person
         order.setPerson(client);
@@ -75,7 +78,7 @@ public class Save_order {
             session.saveOrUpdate(beer_item);
             session.saveOrUpdate(review);
             session.saveOrUpdate(waiterTip);
-            session.saveOrUpdate(holliday);
+            session.saveOrUpdate(holiday);
 
             session.getTransaction().commit();
         }

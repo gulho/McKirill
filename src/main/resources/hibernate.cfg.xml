@@ -22,7 +22,7 @@
         <mapping class="ee.sda.mackirill.entities.Menu"/>
         <mapping class="ee.sda.mackirill.entities.OrderedMenuItem"/>
         <mapping class="ee.sda.mackirill.entities.PaymentType"/>
-        <mapping class="ee.sda.mackirill.entities.Holliday"/>
+        <mapping class="ee.sda.mackirill.entities.Holiday"/>
         <mapping class="ee.sda.mackirill.entities.Review"/>
         <mapping class="ee.sda.mackirill.entities.WaiterTip"/>
 

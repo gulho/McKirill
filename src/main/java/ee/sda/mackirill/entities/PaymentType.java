@@ -1,5 +1,6 @@
 package ee.sda.mackirill.entities;
 
+import ee.sda.mackirill.enums.PaymentTypeEnum;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -13,14 +14,15 @@ public class PaymentType {
     private int id;
     @NaturalId
     @Column(name = "payment_name", nullable = false)
-    private String paymentName;
+    @Enumerated(EnumType.STRING)
+    private PaymentTypeEnum paymentName;
     @OneToOne(mappedBy = "paymentType")
     private Order order;
 
     public PaymentType() {
     }
 
-    public PaymentType(String paymentName) {
+    public PaymentType(PaymentTypeEnum paymentName) {
         this.paymentName = paymentName;
     }
 
@@ -32,11 +34,11 @@ public class PaymentType {
         this.id = id;
     }
 
-    public String getPaymentName() {
+    public PaymentTypeEnum getPaymentName() {
         return paymentName;
     }
 
-    public void setPaymentName(String paymentName) {
+    public void setPaymentName(PaymentTypeEnum paymentName) {
         this.paymentName = paymentName;
     }
 

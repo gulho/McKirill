@@ -36,9 +36,9 @@ public class ApplicationContext {
         session.beginTransaction();
         for (PersonTypeEnum personTypeEnum: PersonTypeEnum.values()) {
             PersonType personType = session.byNaturalId(PersonType.class)
-                    .using("type", personTypeEnum.toString().toLowerCase()).load();
+                    .using("type", personTypeEnum).load();
             if(personType == null) {
-                personType = new PersonType(personTypeEnum.toString().toLowerCase());
+                personType = new PersonType(personTypeEnum);
                 session.saveOrUpdate(personType);
 
             }
@@ -46,18 +46,18 @@ public class ApplicationContext {
 
         for(OrderStatusEnum orderStatusEnum: OrderStatusEnum.values()) {
             OrderStatus orderStatus = session.byNaturalId(OrderStatus.class)
-                    .using("name", orderStatusEnum.toString().toLowerCase()).load();
+                    .using("name", orderStatusEnum).load();
             if(orderStatus == null) {
-                orderStatus = new OrderStatus(orderStatusEnum.toString().toLowerCase());
+                orderStatus = new OrderStatus(orderStatusEnum);
                 session.saveOrUpdate(orderStatus);
             }
         }
 
         for (PaymentTypeEnum paymentTypeEnum: PaymentTypeEnum.values()) {
             Optional<PaymentType> paymentType = session.byNaturalId(PaymentType.class)
-                    .using("paymentName", paymentTypeEnum.toString().toLowerCase()).loadOptional();
+                    .using("paymentName", paymentTypeEnum).loadOptional();
             if(paymentType.isEmpty()) {
-                session.saveOrUpdate(new PaymentType(paymentTypeEnum.toString().toLowerCase()));
+                session.saveOrUpdate(new PaymentType(paymentTypeEnum));
             }
         }
         session.getTransaction().commit();

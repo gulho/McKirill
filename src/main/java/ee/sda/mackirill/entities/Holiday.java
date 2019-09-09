@@ -6,8 +6,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
-@Table
-public class Holliday {
+@Table(name = "holiday")
+public class Holiday {
     @Id
     @GeneratedValue
     private int id;
@@ -17,10 +17,10 @@ public class Holliday {
     @Column(name = "to_time")
     private LocalTime toTime;
 
-    public Holliday() {
+    public Holiday() {
     }
 
-    public Holliday(LocalDate date, LocalTime fromTime, LocalTime toTime) {
+    public Holiday(LocalDate date, LocalTime fromTime, LocalTime toTime) {
         this.date = date;
         this.fromTime = fromTime;
         this.toTime = toTime;
