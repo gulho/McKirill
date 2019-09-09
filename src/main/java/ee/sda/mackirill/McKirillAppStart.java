@@ -1,12 +1,11 @@
 package ee.sda.mackirill;
 
+import ee.sda.mackirill.controllers.AbstractController;
 import ee.sda.mackirill.controllers.ApplicationContext;
+import ee.sda.mackirill.controllers.Factory;
+import ee.sda.mackirill.controllers.client.ClientController;
 import ee.sda.mackirill.entities.Person;
-import ee.sda.mackirill.entities.PersonType;
-import ee.sda.mackirill.enums.PersonTypeEnum;
-import org.hibernate.ConnectionReleaseMode;
-import org.hibernate.Session;
-import org.hibernate.cfg.Configuration;
+import ee.sda.mackirill.strings.BaseString;
 
 /**
  *  McKirill app starting point
@@ -18,27 +17,24 @@ public class McKirillAppStart {
 
     public static void main(String[] args) {
         try {
+            System.out.println(BaseString.WELCOME);
             applicationContext = new ApplicationContext();
             /**TODO: Log in/ Register.
              * Return Person Object
              * Depends PersonType select Controller
              * Now it select By select
              **/
-            Person person = applicationContext.getSession().get(Person.class, 5);
-            switch(person.getPersonType().getType()) {
-                case CLIENT:
-                System.out.println("client");
-                break;
-                case MANAGER:
-                    System.out.println("mageer");
-                break;
-                case WAITER:
-                break;
-                default:
-
-            }
-
-
+            Person person = applicationContext.getSession().get(Person.class, 12);
+            /*if (person == null) {
+                Session session = applicationContext.getSession();
+                PersonType client = session.byNaturalId(PersonType.class).using("type",PersonTypeEnum.CLIENT).load();
+                session.beginTransaction();
+                person = new Person("name", "emal", "password", "23452345", client);
+                session.saveOrUpdate(person);
+               1 session.getTransaction().commit();
+            }*/
+            AbstractController controller = Factory.getController(person);
+            controller.start();
 
         } catch (Exception ex) {
             System.out.println("Application catch exception");

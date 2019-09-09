@@ -1,4 +1,4 @@
-package ee.sda.mackirill.controllers;
+package ee.sda.mackirill.controllers.client;
 
 import ee.sda.mackirill.entities.Person;
 import ee.sda.mackirill.entities.Review;
