@@ -1,6 +1,6 @@
 package ee.sda.mackirill;
 
-import ee.sda.mackirill.models.Person;
+import ee.sda.mackirill.util.PasswordField;
 import ee.sda.mackirill.util.Validation;
 
 import java.util.Scanner;
@@ -10,32 +10,13 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to MacKirill restaurant system");
         System.out.println("Please enter your login details");
+        System.out.print("Email: ");
+        String email = scanner.nextLine();
 
-        Validation validation = new Validation();
+        System.out.print("Password: ");
+        String password = scanner.nextLine();
 
-        System.out.println("Email: ");
-        String email;
-        do {
-            email = scanner.nextLine();
-
-            switch (validation.isEmailValid(email)) {
-                case 1:
-                    System.out.println("Invalid email format - please try again:");
-                    break;
-                case 2:
-                    System.out.println("Invalid User, please register");
-                    //Registration block
-                    break;
-
-                default:
-                    System.out.println("Password: ");
-                    String password = scanner.nextLine();
-            }
-        } while (validation.isEmailValid(email) == 1);
-
-
-        // Person person = new Person(email, password);
-
-
+        Validation validation = new Validation(email, password);
+        validation.validate();
     }
 }
