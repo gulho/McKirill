@@ -32,10 +32,8 @@ public class Save_order {
         //Create order status
         OrderStatus open_order = new OrderStatus(OrderStatusEnum.OPEN);
         //Create order menu items
-        Item beer_item = new Item("Beer", MenuItemsTypeEnum.BEER);
-        Menu beer = new Menu(beer_item, new BigDecimal(30));
-        beer_item.setMenu(beer);
-        OrderedMenuItem items = new OrderedMenuItem(beer, 5, beer.getPrice().multiply(new BigDecimal(5)));
+        MenuItem beer_Menu_item = new MenuItem("Beer", MenuItemsTypeEnum.BEER, new BigDecimal(30) );
+        OrderedMenuItem items = new OrderedMenuItem(beer_Menu_item, 5, beer_Menu_item.getPrice().multiply(new BigDecimal(5)));
         items.setOrder(order);
         //Create review
         Review review = new Review(client, 5, "Some long review text", LocalDateTime.now());
@@ -75,8 +73,7 @@ public class Save_order {
             session.saveOrUpdate(clientType);
             session.saveOrUpdate(client);
             session.saveOrUpdate(items);
-            session.saveOrUpdate(beer);
-            session.saveOrUpdate(beer_item);
+            session.saveOrUpdate(beer_Menu_item);
             session.saveOrUpdate(review);
             session.saveOrUpdate(waiterTip);
             session.saveOrUpdate(holiday);

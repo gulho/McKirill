@@ -1,7 +1,7 @@
 package ee.sda.mackirill.controllers.manager;
 
 import ee.sda.mackirill.controllers.AbstractController;
-import ee.sda.mackirill.entities.Menu;
+import ee.sda.mackirill.entities.MenuItem;
 import ee.sda.mackirill.entities.Person;
 import ee.sda.mackirill.strings.BaseString;
 import ee.sda.mackirill.strings.ManagerUIStrings;
@@ -19,7 +19,7 @@ public class MenuManagerController extends AbstractController {
                 case "1":
                     break;
                 case "2":
-                    editMenu(new Menu());
+                    editMenu(new MenuItem());
                     break;
                 default:
                     System.out.println(BaseString.WRONG_COMMAND);
@@ -27,11 +27,11 @@ public class MenuManagerController extends AbstractController {
         }
     }
 
-    private void editMenu(Menu menu) {
+    private void editMenu(MenuItem menuItem) {
         while (true) {
             System.out.println(ManagerUIStrings.MENU_SET_NAME);
-            menu.getItem().setName(scanner.nextLine());
-            if(!menu.getItem().getName().isEmpty()) {
+            menuItem.setName(scanner.nextLine());
+            if(!menuItem.getName().isEmpty()) {
                 break;
             } else {
                 System.out.println(ManagerUIStrings.MENU_EMPTY_NAME);
