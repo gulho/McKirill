@@ -1,5 +1,6 @@
 package ee.sda.mackirill.util;
 
+import ee.sda.mackirill.enums.PersonTypeEnum;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
@@ -38,7 +39,7 @@ public class Validation {
                     System.out.print("Phone number: ");
                     String phoneNumber = scanner.nextLine();
 
-                    UserRegistration userRegistration = new UserRegistration(name, email, password, phoneNumber, "client");
+                    UserRegistration userRegistration = new UserRegistration(name, email, password, phoneNumber, PersonTypeEnum.CLIENT);
                     userRegistration.commitRegistration();
                     break;
 

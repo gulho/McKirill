@@ -2,6 +2,7 @@ package ee.sda.mackirill.util;
 
 import ee.sda.mackirill.entities.Person;
 import ee.sda.mackirill.entities.PersonType;
+import ee.sda.mackirill.enums.PersonTypeEnum;
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
 
@@ -11,7 +12,7 @@ public class UserRegistration {
 
     UserRegistration(){}
 
-    public UserRegistration(String name, String email, String password, String phoneNumber, String userType){
+    public UserRegistration(String name, String email, String password, String phoneNumber, PersonTypeEnum userType){
         this.personType = new PersonType();
         personType.setType(userType);
         this.person = new Person(name, email, password, phoneNumber, personType);
