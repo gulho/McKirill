@@ -1,7 +1,9 @@
 package ee.sda.mackirill.controllers.manager;
 
 import ee.sda.mackirill.controllers.AbstractController;
+import ee.sda.mackirill.controllers.Factory;
 import ee.sda.mackirill.entities.Person;
+import ee.sda.mackirill.enums.ControllrsEnum;
 import ee.sda.mackirill.strings.BaseString;
 import ee.sda.mackirill.strings.ManagerUIStrings;
 
@@ -12,19 +14,18 @@ public class ManagerController extends AbstractController {
     }
 
     @Override
-    public void start() {
+    public void start() throws Exception {
         while (true) {
             System.out.println(ManagerUIStrings.MANAGER_MAIN_ACTION);
             switch (scanner.nextLine()) {
                 case "1":
-                    System.out.println("order");
+                    Factory.getController(person, ControllrsEnum.ORDER).start();
                     break;
                 case "2":
-                    System.out.println("review");
+                    Factory.getController(person, ControllrsEnum.MENU).start();
                     break;
                 case "4":
-                    TableMangerController tableMangerController = new TableMangerController(person);
-                    tableMangerController.start();
+                    Factory.getController(person, ControllrsEnum.TABLE).start();
                     break;
                 case "exit":
                 case "e":

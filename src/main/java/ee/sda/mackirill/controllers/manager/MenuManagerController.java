@@ -1,10 +1,12 @@
 package ee.sda.mackirill.controllers.manager;
 
 import ee.sda.mackirill.controllers.AbstractController;
-import ee.sda.mackirill.entities.Menu;
+import ee.sda.mackirill.entities.MenuItem;
 import ee.sda.mackirill.entities.Person;
+import ee.sda.mackirill.enums.MenuItemsTypeEnum;
 import ee.sda.mackirill.strings.BaseString;
 import ee.sda.mackirill.strings.ManagerUIStrings;
+import org.hibernate.Session;
 
 public class MenuManagerController extends AbstractController {
     public MenuManagerController(Person person) {
@@ -19,7 +21,9 @@ public class MenuManagerController extends AbstractController {
                 case "1":
                     break;
                 case "2":
-                    editMenu(new Menu());
+                    System.out.println(ManagerUIStrings.MENU_ADD_NEW);
+                    editMenu(new MenuItem());
+                    System.out.println("ee");
                     break;
                 default:
                     System.out.println(BaseString.WRONG_COMMAND);
@@ -27,15 +31,44 @@ public class MenuManagerController extends AbstractController {
         }
     }
 
-    private void editMenu(Menu menu) {
+    private void editMenu(MenuItem menuItem) {
         while (true) {
             System.out.println(ManagerUIStrings.MENU_SET_NAME);
-            menu.getItem().setName(scanner.nextLine());
-            if(!menu.getItem().getName().isEmpty()) {
+            menuItem.setName(scanner.nextLine());
+            if(!menuItem.getName().isEmpty()) {
                 break;
             } else {
                 System.out.println(ManagerUIStrings.MENU_EMPTY_NAME);
             }
         }
+        while (true) {
+            System.out.println(ManagerUIStrings.MENU_SET_TYPE);
+            for(MenuItemsTypeEnum menuItemsTypeEnum: MenuItemsTypeEnum.values()) {
+                System.out.println( menuItemsTypeEnum.toString());
+            }
+            try {
+                menuItem.setType(MenuItemsTypeEnum.valueOf(scanner.nextLine().toUpperCase()));
+                break;
+            } catch (Exception e) {
+                System.out.println(ManagerUIStrings.MENU_WRONG_TYPE);
+            }
+        }
+        while (true) {
+            System.out.println(ManagerUIStrings.MENU_SET_PRICE);
+            menuItem.setPrice(scanner.nextBigDecimal());
+            if (menuItem.getPrice().signum() >= 0 ) {
+                break;
+            } else {
+                System.out.println(ManagerUIStrings.MENU_PRICE_0_LOW);
+            }
+        }
+        saveMenuItem(menuItem);
+    }
+
+    private void saveMenuItem(MenuItem menuItem) {
+        session.beginTransaction();
+        session.saveOrUpdate(menuItem);
+        session.getTransaction().commit();
+        System.out.println(BaseString.SAVE_IN_DB);
     }
 }

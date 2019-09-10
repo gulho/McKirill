@@ -28,7 +28,7 @@ public class ManagerUIStrings extends BaseString {
 
     public static final String TABLE_ADD_NEW = "Add new table.";
     public static final String TABLE_SELECT_SIZE = "Print Table size (1 - 15): ";
-    public static final String TABLE_WRONG_SIZE = "Table size is wrong! It should be between 1 and 15.";
+    public static final String TABLE_WRONG_SIZE = RED + "Table size is wrong! It should be between 1 and 15." + RESET;
 
     //Menu strings
     public static final String MANAGER_MENU_MAIN_ACTION = PLEASE_SELECT_ACTION + BR
@@ -38,8 +38,11 @@ public class ManagerUIStrings extends BaseString {
             + "4. Remove Menu item" + BR
             + O_RETURN_BACK;
 
-    public static final String MENU_ADD_NEW = "Add new Menu item";
-    public static final String MENU_SET_NAME = "Print Menu item name:";
-    public static final String MENU_EMPTY_NAME = "Menu item name can not be empty!";
-    public static final String MENU_SET_TYPE = "Print Menu item type";
+    public static final String MENU_ADD_NEW = RED + GREEN_BACKGROUND +"Add new Menu item" + RESET;
+    public static final String MENU_SET_NAME = GREEN + "Print Menu item name:" + RESET;
+    public static final String MENU_EMPTY_NAME = RED + "Menu item name can not be empty!" + RESET;
+    public static final String MENU_SET_TYPE = GREEN + "Print Menu item type:" + RESET;
+    public static final String MENU_WRONG_TYPE = RED + "Type is incorrect" + RESET;
+    public static final String MENU_SET_PRICE = GREEN + "Print Menu item price:" + RESET;
+    public static final String MENU_PRICE_0_LOW = RED + "Price can not be lower that 0" + RESET;
 }
