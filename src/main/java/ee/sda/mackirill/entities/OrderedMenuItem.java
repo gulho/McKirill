@@ -14,8 +14,8 @@ public class OrderedMenuItem {
     @JoinColumn(name = "order_id")
     private Order order;
     @OneToOne
-    @JoinColumn(name = "menu_id")
-    private Menu menu;
+    @JoinColumn(name = "menu_item_id")
+    private MenuItem menuItem;
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
     @Column(name = "total_price", nullable = false)
@@ -25,8 +25,8 @@ public class OrderedMenuItem {
         
     }
 
-    public OrderedMenuItem(Menu menu, Integer quantity, BigDecimal sum) {
-        this.menu = menu;
+    public OrderedMenuItem(MenuItem menuItem, Integer quantity, BigDecimal sum) {
+        this.menuItem = menuItem;
         this.quantity = quantity;
         this.sum = sum;
     }
@@ -39,12 +39,20 @@ public class OrderedMenuItem {
         this.id = id;
     }
 
-    public Menu getMenu() {
-        return menu;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setMenu(Menu menu) {
-        this.menu = menu;
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public MenuItem getMenuItem() {
+        return menuItem;
+    }
+
+    public void setMenuItem(MenuItem menuItem) {
+        this.menuItem = menuItem;
     }
 
     public Integer getQuantity() {
@@ -61,13 +69,5 @@ public class OrderedMenuItem {
 
     public void setSum(BigDecimal sum) {
         this.sum = sum;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
     }
 }

@@ -14,6 +14,6 @@ public abstract class AbstractController {
         this.person = person;
     }
 
-    public abstract void start();
+    public abstract void start() throws Exception;
 
 }

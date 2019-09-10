@@ -4,10 +4,11 @@ import ee.sda.mackirill.enums.MenuItemsTypeEnum;
 
 import javax.persistence.*;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "item")
-public class Item {
+public class MenuItem {
     @Id
     @GeneratedValue
     private int id;
@@ -16,17 +17,16 @@ public class Item {
     @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)
     private MenuItemsTypeEnum type;
+    @OneToOne(mappedBy = "menuItem")
+    private OrderedMenuItem orderedMenuItem;
+    private BigDecimal price;
 
-    @OneToOne(mappedBy = "item")
-    private Menu menu;
+    public MenuItem(){}
 
-    public Item(){
-
-    }
-
-    public Item(String name, MenuItemsTypeEnum type) {
+    public MenuItem(String name, MenuItemsTypeEnum type, BigDecimal price) {
         this.name = name;
         this.type = type;
+        this.price = price;
     }
 
     public int getId() {
@@ -53,11 +53,19 @@ public class Item {
         this.type = type;
     }
 
-    public Menu getMenu() {
-        return menu;
+    public OrderedMenuItem getOrderedMenuItem() {
+        return orderedMenuItem;
     }
 
-    public void setMenu(Menu menu) {
-        this.menu = menu;
+    public void setOrderedMenuItem(OrderedMenuItem orderedMenuItem) {
+        this.orderedMenuItem = orderedMenuItem;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 }
