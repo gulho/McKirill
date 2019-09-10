@@ -1,6 +1,6 @@
 package ee.sda.mackirill;
 
-import ee.sda.mackirill.util.PasswordField;
+//import ee.sda.mackirill.util.PasswordField;
 import ee.sda.mackirill.util.Validation;
 
 import java.util.Scanner;
