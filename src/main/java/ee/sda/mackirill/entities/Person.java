@@ -1,3 +1,4 @@
+
 package ee.sda.mackirill.entities;
 
 import javax.persistence.*;
@@ -78,5 +79,17 @@ public class Person {
 
     public void setPersonType(PersonType personType) {
         this.personType = personType;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", personType=" + personType +
+                '}';
     }
 }
