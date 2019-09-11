@@ -12,6 +12,7 @@ import ee.sda.mackirill.util.Validation;
 import org.hibernate.Session;
 
 import java.util.Optional;
+import java.util.Scanner;
 
 /**
  *  McKirill app starting point
@@ -52,6 +53,14 @@ public class App {
                 applicationContext.getSession().close();
             }
         }
+    }
+
+    public static int numb() {
+        Scanner scanner = new Scanner(System.in);
+        int a = scanner.nextInt();
+        int b = scanner.nextInt();
+        System.out.println(a+b);
+        return a+b;
     }
 
 
