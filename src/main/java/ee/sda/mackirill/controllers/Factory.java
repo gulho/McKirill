@@ -34,11 +34,10 @@ public class Factory {
             /*case CLIENT_ORDER:
                 //TODO
                 //returnController =
-                break;
-            case CLIENT_REVIEW:
-                //TODO:
-                //returnController = new ClientReviewController(person);
                 break;*/
+            case CLIENT_REVIEW:
+                returnController = new ClientReviewController(person);
+                break;
             default:
                 throw new Exception("Controller is not exist in factory method");
         }
