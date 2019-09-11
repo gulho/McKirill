@@ -52,6 +52,10 @@ public class Validation {
                 default:
                     if (isPasswordValid(email, password)) {
                         System.out.println("Welcome!");
+                        returnPerson = session
+                                .createQuery("from Person where email = :email ", Person.class)
+                                .setParameter("email", email).getSingleResult();
+                        System.out.println(returnPerson);
                     } else {
                         int numberOfAttempts = 1;
                         boolean isPasswordInvalid = true;
@@ -63,7 +67,8 @@ public class Validation {
                             if (isPasswordValid(email, password)) {
                                 System.out.println("Welcome!");
                                 isPasswordInvalid = false;
-                                returnPerson = session.createQuery("select Person from Person where email = :e", Person.class)
+                                returnPerson = session
+                                        .createQuery("from Person where email = :email ", Person.class)
                                         .setParameter("email", email).getSingleResult();
                                 break;
                             }
