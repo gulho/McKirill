@@ -10,4 +10,7 @@ public class BaseString extends ConsoleColors {
     public static final String WRONG_COMMAND = RED + "Command is wrong. Please print correct command." + RESET;
     public static final String O_RETURN_BACK = "0. return back.";
     public static final String SAVE_IN_DB = GREEN + "Saved in databse" + RESET;
+
+    public static final String NOT_LOGIN = RED + "Yo do not log in" + RESET;
+
 }

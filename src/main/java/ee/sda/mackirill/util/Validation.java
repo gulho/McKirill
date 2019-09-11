@@ -1,6 +1,7 @@
 package ee.sda.mackirill.util;
 
 import ee.sda.mackirill.controllers.ApplicationContext;
+import ee.sda.mackirill.entities.Person;
 import ee.sda.mackirill.enums.PersonTypeEnum;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -8,12 +9,14 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Validation {
     private String email;
     private String password;
     private Session session = ApplicationContext.getSession();
+    private Scanner scanner = ApplicationContext.getScanner();
 
     public Validation() {
     }
@@ -23,8 +26,9 @@ public class Validation {
         this.password = password;
     }
 
-    public void validate() {
-        Scanner scanner = new Scanner(System.in);
+    public Optional<Person> validate() {
+        //Scanner scanner = new Scanner(System.in);
+        Person returnPerson = null;
         do {
             switch (isEmailValid(email)) {
                 case 1:
@@ -42,7 +46,7 @@ public class Validation {
                     String phoneNumber = scanner.nextLine();
 
                     UserRegistration userRegistration = new UserRegistration(name, email, password, phoneNumber, PersonTypeEnum.CLIENT);
-                    userRegistration.commitRegistration();
+                    returnPerson = userRegistration.commitRegistration();
                     break;
 
                 default:
@@ -59,6 +63,8 @@ public class Validation {
                             if (isPasswordValid(email, password)) {
                                 System.out.println("Welcome!");
                                 isPasswordInvalid = false;
+                                returnPerson = session.createQuery("select Person from Person where email = :e", Person.class)
+                                        .setParameter("email", email).getSingleResult();
                                 break;
                             }
                         }
@@ -68,6 +74,7 @@ public class Validation {
                     }
             }
         } while (isEmailValid(email) == 1 || isEmailValid(email) == 2);
+        return Optional.ofNullable(returnPerson);
     }
 
     public int isEmailValid(String email) {

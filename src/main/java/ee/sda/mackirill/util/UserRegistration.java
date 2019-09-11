@@ -21,7 +21,7 @@ public class UserRegistration {
         this.person = new Person(name, email, password, phoneNumber, personType);
     }
 
-    public void commitRegistration(){
+    public Person commitRegistration(){
 
         //try(Session session = new Configuration().configure().buildSessionFactory().openSession()) {
             session.beginTransaction();
@@ -30,6 +30,9 @@ public class UserRegistration {
             session.saveOrUpdate(personType);
 
             session.getTransaction().commit();
+
+            return person;
+
         /*} catch (Exception e){
             e.printStackTrace();
         }*/

@@ -8,7 +8,10 @@ import ee.sda.mackirill.entities.PersonType;
 import ee.sda.mackirill.enums.ControllrsEnum;
 import ee.sda.mackirill.enums.PersonTypeEnum;
 import ee.sda.mackirill.strings.BaseString;
+import ee.sda.mackirill.util.Validation;
 import org.hibernate.Session;
+
+import java.util.Optional;
 
 /**
  *  McKirill app starting point
@@ -27,7 +30,16 @@ public class McKirillAppStart {
              * Depends PersonType select Controller
              * Now it select By select
              **/
-            Person person = applicationContext.getSession().get(Person.class, 12);
+
+            System.out.print("Email: ");
+            String email = applicationContext.getScanner().nextLine();
+
+            System.out.print("Password: ");
+            String password = applicationContext.getScanner().nextLine();
+
+            Validation validation = new Validation(email, password);
+            Optional<Person> personOptional = validation.validate();
+            //Person person = applicationContext.getSession().get(Person.class, 12);
             /*if (person == null) {
                 Session session = applicationContext.getSession();
                 PersonType client = session.byNaturalId(PersonType.class).using("type",PersonTypeEnum.CLIENT).load();
@@ -37,8 +49,13 @@ public class McKirillAppStart {
                 session.getTransaction().commit();
             }*/
             //person.getPersonType().setType(PersonTypeEnum.MANAGER);
-            AbstractController controller = Factory.getController(person, ControllrsEnum.MAIN);
-            controller.start();
+            if (personOptional.isPresent()) {
+                AbstractController controller = Factory.getController(personOptional.get(), ControllrsEnum.MAIN);
+                controller.start();
+            } else {
+                System.out.println(BaseString.NOT_LOGIN);
+                System.out.println(BaseString.EXIT);
+            }
 
         } catch (Exception ex) {
             System.out.println("Application catch exception");
