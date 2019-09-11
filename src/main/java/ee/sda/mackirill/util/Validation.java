@@ -1,5 +1,6 @@
 package ee.sda.mackirill.util;
 
+import ee.sda.mackirill.controllers.ApplicationContext;
 import ee.sda.mackirill.enums.PersonTypeEnum;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -12,6 +13,7 @@ import java.util.Scanner;
 public class Validation {
     private String email;
     private String password;
+    private Session session = ApplicationContext.getSession();
 
     public Validation() {
     }
@@ -82,7 +84,7 @@ public class Validation {
     }
 
     public boolean isPasswordValid(String email, String password) {
-        try (Session session = new Configuration().configure().buildSessionFactory().openSession()) {
+        //try (Session session = new Configuration().configure().buildSessionFactory().openSession()) {
             String[] emailParts = email.split("@");
 
             String hql = "SELECT password FROM Person WHERE email LIKE '" + emailParts[0] + "_" + emailParts[1] + "'";
@@ -94,15 +96,15 @@ public class Validation {
                     return true;
                 }
             }
-        } catch (HibernateException e) {
+        /*} catch (HibernateException e) {
             e.printStackTrace();
-        }
+        }*/
         return false;
     }
 
 
     public boolean doesUserExist(String email) {
-        try (Session session = new Configuration().configure().buildSessionFactory().openSession()) {
+        //try (Session session = new Configuration().configure().buildSessionFactory().openSession()) {
             Query query = session.createQuery("SELECT email FROM Person");
             List<String> emailList = query.list();
             for (String emailRecord : emailList) {
@@ -110,9 +112,9 @@ public class Validation {
                     return true;
                 }
             }
-        } catch (Exception e) {
+        /*} catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
         return false;
     }
 

@@ -6,7 +6,6 @@ import ee.sda.mackirill.entities.Person;
 import ee.sda.mackirill.enums.MenuItemsTypeEnum;
 import ee.sda.mackirill.strings.BaseString;
 import ee.sda.mackirill.strings.ManagerUIStrings;
-import org.hibernate.Session;
 
 public class MenuManagerController extends AbstractController {
     public MenuManagerController(Person person) {
@@ -17,14 +16,17 @@ public class MenuManagerController extends AbstractController {
     public void start() {
         while (true) {
             System.out.println(ManagerUIStrings.MANAGER_MENU_MAIN_ACTION);
-            switch (scanner.nextLine()) {
+            String actionSelect = scanner.nextLine();
+            switch (actionSelect) {
                 case "1":
                     break;
                 case "2":
                     System.out.println(ManagerUIStrings.MENU_ADD_NEW);
                     editMenu(new MenuItem());
-                    System.out.println("ee");
+                    scanner.nextLine();
                     break;
+                case "0":
+                    return;
                 default:
                     System.out.println(BaseString.WRONG_COMMAND);
             }

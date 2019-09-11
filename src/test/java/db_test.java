@@ -12,7 +12,7 @@ public class db_test {
         Person person = new Person("name1", "emal@dasf", "pass", "37253245", personType);
 
 
-        personType.setPerson(person);
+        personType.getPersons().add(person);
 
         try(Session session = new Configuration().configure().buildSessionFactory().openSession()) {
             session.beginTransaction();

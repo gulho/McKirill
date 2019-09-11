@@ -16,11 +16,11 @@ public class Factory {
         AbstractController returnController;
         switch (controller) {
             case MAIN:
-                if(person.getPersonType().getType() == PersonTypeEnum.MANAGER) {
+                //if(person.getPersonType().getType() == PersonTypeEnum.MANAGER) {
                     returnController = new ManagerController(person);
-                } else {
-                    returnController = new ClientController(person);
-                }
+                //} else {
+                 //   returnController = new ClientController(person);
+                //}
                 break;
             case MENU:
                 returnController = new MenuManagerController(person);

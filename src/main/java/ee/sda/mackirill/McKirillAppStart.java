@@ -36,7 +36,7 @@ public class McKirillAppStart {
                 session.saveOrUpdate(person);
                 session.getTransaction().commit();
             }*/
-            person.getPersonType().setType(PersonTypeEnum.MANAGER);
+            //person.getPersonType().setType(PersonTypeEnum.MANAGER);
             AbstractController controller = Factory.getController(person, ControllrsEnum.MAIN);
             controller.start();
 
