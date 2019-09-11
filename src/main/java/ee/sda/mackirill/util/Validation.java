@@ -1,5 +1,7 @@
 package ee.sda.mackirill.util;
 
+import ee.sda.mackirill.controllers.ApplicationContext;
+import ee.sda.mackirill.entities.Person;
 import ee.sda.mackirill.enums.PersonTypeEnum;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -7,11 +9,14 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Validation {
     private String email;
     private String password;
+    private Session session = ApplicationContext.getSession();
+    private Scanner scanner = ApplicationContext.getScanner();
 
     public Validation() {
     }
@@ -21,8 +26,9 @@ public class Validation {
         this.password = password;
     }
 
-    public void validate() {
-        Scanner scanner = new Scanner(System.in);
+    public Optional<Person> validate() {
+        //Scanner scanner = new Scanner(System.in);
+        Person returnPerson = null;
         do {
             switch (isEmailValid(email)) {
                 case 1:
@@ -40,12 +46,16 @@ public class Validation {
                     String phoneNumber = scanner.nextLine();
 
                     UserRegistration userRegistration = new UserRegistration(name, email, password, phoneNumber, PersonTypeEnum.CLIENT);
-                    userRegistration.commitRegistration();
+                    returnPerson = userRegistration.commitRegistration();
                     break;
 
                 default:
                     if (isPasswordValid(email, password)) {
                         System.out.println("Welcome!");
+                        returnPerson = session
+                                .createQuery("from Person where email = :email ", Person.class)
+                                .setParameter("email", email).getSingleResult();
+                        System.out.println(returnPerson);
                     } else {
                         int numberOfAttempts = 1;
                         boolean isPasswordInvalid = true;
@@ -57,6 +67,9 @@ public class Validation {
                             if (isPasswordValid(email, password)) {
                                 System.out.println("Welcome!");
                                 isPasswordInvalid = false;
+                                returnPerson = session
+                                        .createQuery("from Person where email = :email ", Person.class)
+                                        .setParameter("email", email).getSingleResult();
                                 break;
                             }
                         }
@@ -66,6 +79,7 @@ public class Validation {
                     }
             }
         } while (isEmailValid(email) == 1 || isEmailValid(email) == 2);
+        return Optional.ofNullable(returnPerson);
     }
 
     public int isEmailValid(String email) {
@@ -82,7 +96,7 @@ public class Validation {
     }
 
     public boolean isPasswordValid(String email, String password) {
-        try (Session session = new Configuration().configure().buildSessionFactory().openSession()) {
+        //try (Session session = new Configuration().configure().buildSessionFactory().openSession()) {
             String[] emailParts = email.split("@");
 
             String hql = "SELECT password FROM Person WHERE email LIKE '" + emailParts[0] + "_" + emailParts[1] + "'";
@@ -94,15 +108,15 @@ public class Validation {
                     return true;
                 }
             }
-        } catch (HibernateException e) {
+        /*} catch (HibernateException e) {
             e.printStackTrace();
-        }
+        }*/
         return false;
     }
 
 
     public boolean doesUserExist(String email) {
-        try (Session session = new Configuration().configure().buildSessionFactory().openSession()) {
+        //try (Session session = new Configuration().configure().buildSessionFactory().openSession()) {
             Query query = session.createQuery("SELECT email FROM Person");
             List<String> emailList = query.list();
             for (String emailRecord : emailList) {
@@ -110,9 +124,9 @@ public class Validation {
                     return true;
                 }
             }
-        } catch (Exception e) {
+        /*} catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
         return false;
     }
 

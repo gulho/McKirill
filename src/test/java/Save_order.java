@@ -20,7 +20,7 @@ public class Save_order {
         //Create person
         PersonType clientType = new PersonType(PersonTypeEnum.CLIENT);
         Person client = new Person("client name", "email@asdf.com", "pass", "37235235", clientType);
-        clientType.setPerson(client);
+        clientType.getPersons().add(client);
 
         //Create table
         Table table = new Table(5, false);

@@ -5,6 +5,8 @@ import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "person_type")
@@ -16,8 +18,8 @@ public class PersonType {
     @Column(name = "type", nullable = false)
     @Enumerated(EnumType.STRING)
     private PersonTypeEnum type;
-    @OneToOne(mappedBy = "personType", cascade = CascadeType.ALL)
-    private Person person;
+    @OneToMany(mappedBy = "personType")
+    private List<Person> persons = new ArrayList<>();
 
     public PersonType() {
     }
@@ -42,11 +44,11 @@ public class PersonType {
         this.type = type;
     }
 
-    public Person getPerson() {
-        return person;
+    public List<Person> getPersons() {
+        return persons;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setPersons(List<Person> persons) {
+        this.persons = persons;
     }
 }

@@ -18,7 +18,7 @@ public class Person {
     private String password;
     @Column(name = "phone_number")
     private String phoneNumber;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "person_type_id")
     private PersonType personType;
 

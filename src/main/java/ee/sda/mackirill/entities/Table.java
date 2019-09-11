@@ -15,7 +15,7 @@ public class Table {
     private int id;
     private int size;
     private boolean is_avalible;
-    @OneToMany(mappedBy = "")
+    @OneToMany(mappedBy = "table")
     private List<Order> orders = new ArrayList<>();
 
     public Table() {
