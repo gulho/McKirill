@@ -1,11 +1,10 @@
-package ee.sda.mackirill.controllers.waiters;
+package ee.sda.mackirill.controllers.UI;
 
-import ee.sda.mackirill.controllers.AbstractController;
 import ee.sda.mackirill.entities.Person;
 import ee.sda.mackirill.strings.BaseString;
 
-public class WaitersController extends AbstractController {
-    public WaitersController(Person person) {
+public class WaitersUIController extends AbstractUIController {
+    public WaitersUIController(Person person) {
         super(person);
     }
 

@@ -1,16 +1,12 @@
-package ee.sda.mackirill.controllers.client;
+package ee.sda.mackirill.controllers.UI;
 
-import ee.sda.mackirill.controllers.AbstractController;
+import ee.sda.mackirill.controllers.UI.AbstractUIController;
 import ee.sda.mackirill.entities.Person;
-import ee.sda.mackirill.entities.Review;
 import ee.sda.mackirill.strings.BaseString;
-import org.hibernate.Session;
 
-import java.util.Scanner;
+public class ReviewUIController extends AbstractUIController {
 
-public class ClientReviewController extends AbstractController {
-
-    public ClientReviewController(Person person) {
+    public ReviewUIController(Person person) {
         super(person);
     }
 

@@ -1,14 +1,15 @@
-package ee.sda.mackirill.controllers.manager;
+package ee.sda.mackirill.controllers.UI;
 
-import ee.sda.mackirill.controllers.AbstractController;
+import ee.sda.mackirill.controllers.EntetiesControllers.MenuController;
+import ee.sda.mackirill.controllers.UI.AbstractUIController;
 import ee.sda.mackirill.entities.MenuItem;
 import ee.sda.mackirill.entities.Person;
 import ee.sda.mackirill.enums.MenuItemsTypeEnum;
 import ee.sda.mackirill.strings.BaseString;
 import ee.sda.mackirill.strings.ManagerUIStrings;
 
-public class MenuManagerController extends AbstractController {
-    public MenuManagerController(Person person) {
+public class MenuUIController extends AbstractUIController {
+    public MenuUIController(Person person) {
         super(person);
     }
 
@@ -64,13 +65,8 @@ public class MenuManagerController extends AbstractController {
                 System.out.println(ManagerUIStrings.MENU_PRICE_0_LOW);
             }
         }
-        saveMenuItem(menuItem);
-    }
-
-    private void saveMenuItem(MenuItem menuItem) {
-        session.beginTransaction();
-        session.saveOrUpdate(menuItem);
-        session.getTransaction().commit();
+        MenuController.saveMenuItem(menuItem);
         System.out.println(BaseString.SAVE_IN_DB);
     }
+
 }

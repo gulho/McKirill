@@ -1,12 +1,12 @@
-package ee.sda.mackirill.controllers.manager;
+package ee.sda.mackirill.controllers.UI;
 
-import ee.sda.mackirill.controllers.AbstractController;
+import ee.sda.mackirill.controllers.UI.AbstractUIController;
 import ee.sda.mackirill.entities.Person;
 import ee.sda.mackirill.strings.BaseString;
 import ee.sda.mackirill.strings.ManagerUIStrings;
 
-public class OrderManageController extends AbstractController {
-    public OrderManageController(Person person) {
+public class OrderUIController extends AbstractUIController {
+    public OrderUIController(Person person) {
         super(person);
     }
 

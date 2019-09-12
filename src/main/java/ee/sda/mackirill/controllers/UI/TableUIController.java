@@ -1,13 +1,14 @@
-package ee.sda.mackirill.controllers.manager;
+package ee.sda.mackirill.controllers.UI;
 
-import ee.sda.mackirill.controllers.AbstractController;
+import ee.sda.mackirill.controllers.EntetiesControllers.TableController;
+import ee.sda.mackirill.controllers.UI.AbstractUIController;
 import ee.sda.mackirill.entities.Person;
 import ee.sda.mackirill.entities.Table;
 import ee.sda.mackirill.strings.BaseString;
 import ee.sda.mackirill.strings.ManagerUIStrings;
 
-public class TableMangerController extends AbstractController {
-    public TableMangerController(Person person) {
+public class TableUIController extends AbstractUIController {
+    public TableUIController(Person person) {
         super(person);
     }
 
@@ -42,12 +43,6 @@ public class TableMangerController extends AbstractController {
             }
         }
         table.setSize(tableSize);
-        saveTable(table);
-    }
-
-    private void saveTable(Table table) {
-        session.beginTransaction();
-        session.saveOrUpdate(table);
-        session.getTransaction().commit();
+        TableController.saveTable(table);
     }
 }
