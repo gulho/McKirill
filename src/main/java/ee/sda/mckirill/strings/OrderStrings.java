@@ -1,7 +1,7 @@
 package ee.sda.mckirill.strings;
 
 public class OrderStrings extends BaseString {
-    public static final String MANAGER_ORDERS_MAIN_ACTION = PLEASE_SELECT_ACTION + BR
+    public static final String MANAGER_ORDERS_MAIN_ACTION = PLEASE_SELECT_ACTION
             + "1. Show all orders" + BR
             + "2. Edit Order" + BR
             + "3. Delete Order" + BR

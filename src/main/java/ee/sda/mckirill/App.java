@@ -3,10 +3,13 @@ package ee.sda.mckirill;
 import ee.sda.mckirill.controllers.entity.PersonController;
 import ee.sda.mckirill.controllers.ApplicationContext;
 import ee.sda.mckirill.controllers.Factory;
+import ee.sda.mckirill.controllers.ui.AbstractUIController;
 import ee.sda.mckirill.entities.Person;
 import ee.sda.mckirill.enums.ControllrsEnum;
 import ee.sda.mckirill.strings.BaseString;
+import ee.sda.mckirill.util.Validation;
 
+import java.util.Optional;
 import java.util.Scanner;
 
 /**
@@ -22,7 +25,7 @@ public class App {
             applicationContext = new ApplicationContext();
             System.out.println(BaseString.WELCOME);
 
-            /*System.out.print("Email: ");
+            System.out.print("Email: ");
             String email = applicationContext.getScanner().nextLine();
 
             System.out.print("Password: ");
@@ -37,11 +40,11 @@ public class App {
             } else {
                 System.out.println(BaseString.NOT_LOGIN);
                 System.out.println(BaseString.EXIT);
-            }*/
+            }
 
             //Person person = PersonController.getById(13);
-            Person person = PersonController.getById(12);
-            Factory.getController(person, ControllrsEnum.MAIN).start();
+            //Person person = PersonController.getById(12);
+            //Factory.getController(person, ControllrsEnum.MAIN).start();
         } catch (Exception ex) {
             System.out.println("Application catch exception");
             System.out.println(ex.getMessage());

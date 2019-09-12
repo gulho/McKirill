@@ -27,7 +27,7 @@ public class OrderUIController extends AbstractUIController {
                     switch (scanner.nextLine()) {
                         case "1":
                             showOrdersList(OrderController.getList());
-                            endOfUIIntercation();
+                            //endOfUIIntercation();
                             break;
                         case "0":
                             return;
