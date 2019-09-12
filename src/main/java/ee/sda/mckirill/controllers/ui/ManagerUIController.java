@@ -19,7 +19,6 @@ public class ManagerUIController extends AbstractUIController {
             switch (scanner.nextLine()) {
                 case "1":
                     Factory.getController(person, ControllrsEnum.ORDER).start();
-                    endOfUIIntercation();
                     break;
                 case "2":
                     Factory.getController(person, ControllrsEnum.MENU).start();
