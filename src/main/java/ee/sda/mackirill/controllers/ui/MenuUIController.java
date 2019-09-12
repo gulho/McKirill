@@ -1,6 +1,6 @@
-package ee.sda.mackirill.controllers.UI;
+package ee.sda.mackirill.controllers.ui;
 
-import ee.sda.mackirill.controllers.EntityControllers.MenuController;
+import ee.sda.mackirill.controllers.entity.MenuController;
 import ee.sda.mackirill.entities.MenuItem;
 import ee.sda.mackirill.entities.Person;
 import ee.sda.mackirill.enums.MenuItemsTypeEnum;
@@ -23,7 +23,7 @@ public class MenuUIController extends AbstractUIController {
                 case "2":
                     System.out.println(MenuStrings.MENU_ADD_NEW);
                     editMenu(new MenuItem());
-                    scanner.nextLine();
+                    endOfUIIntercation();
                     break;
                 case "0":
                     return;

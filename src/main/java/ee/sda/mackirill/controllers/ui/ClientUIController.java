@@ -1,4 +1,4 @@
-package ee.sda.mackirill.controllers.UI;
+package ee.sda.mackirill.controllers.ui;
 
 import ee.sda.mackirill.controllers.Factory;
 import ee.sda.mackirill.entities.Person;
@@ -17,9 +17,11 @@ public class ClientUIController extends AbstractUIController {
             switch (scanner.nextLine()) {
                 case "1":
                     Factory.getController(person, ControllrsEnum.ORDER).start();
+                    endOfUIIntercation();
                     break;
                 case "2":
                     Factory.getController(person, ControllrsEnum.CLIENT_REVIEW);
+                    endOfUIIntercation();
                     break;
                 case "exit":
                 case "e":

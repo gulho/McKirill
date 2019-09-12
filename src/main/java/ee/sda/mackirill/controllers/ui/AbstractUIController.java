@@ -1,8 +1,7 @@
-package ee.sda.mackirill.controllers.UI;
+package ee.sda.mackirill.controllers.ui;
 
 import ee.sda.mackirill.controllers.ApplicationContext;
 import ee.sda.mackirill.entities.Person;
-import org.hibernate.Session;
 
 import java.util.Scanner;
 
@@ -16,5 +15,10 @@ public abstract class AbstractUIController {
     }
 
     public abstract void start() throws Exception;
+
+    //Creater for fic Error with scanner
+    public static void endOfUIIntercation() {
+        scanner.nextLine();
+    }
 
 }

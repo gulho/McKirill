@@ -1,6 +1,6 @@
 package ee.sda.mackirill.controllers;
 
-import ee.sda.mackirill.controllers.EntityControllers.PersonController;
+import ee.sda.mackirill.controllers.entity.PersonController;
 import ee.sda.mackirill.entities.OrderStatus;
 import ee.sda.mackirill.entities.PaymentType;
 import ee.sda.mackirill.entities.Person;
