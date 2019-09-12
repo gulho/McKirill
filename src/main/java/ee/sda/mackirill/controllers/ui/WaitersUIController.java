@@ -1,4 +1,4 @@
-package ee.sda.mackirill.controllers.UI;
+package ee.sda.mackirill.controllers.ui;
 
 import ee.sda.mackirill.entities.Person;
 import ee.sda.mackirill.strings.BaseString;

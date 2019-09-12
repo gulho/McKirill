@@ -8,4 +8,13 @@ public class OrderStrings extends BaseString {
             + O_RETURN_BACK;
 
     public static final String CLIENT_ORDER_BOOKING_DATE_SELECT = "Please type date(d.m.yyyy): ";
+    public static final String CLIENT_ORDER_DATE_IN_INVALID = RED + "Order date is invalid." + RESET;
+
+    public static final String CLIENT_ORDER_TIME_SELECT = "Please type time (H.m):";
+    public static final String CLIENT_ORDER_TIME_IN_INVALID = RED + "Order time is invalid." + RESET;
+
+    public static final String CLIENT_ORDER_PEOPLES_COUNT_SELECT = "Please type numbers of people(1-15):";
+    public static final String CLIENT_ORDER_PEOPLES_COUNT_INVALID = RED + "Peoples count is invalid" + RESET;
+
+    public static final String CLIENT_ORDER_CONFIRM = GREEN + "Your order has been accepted successfully." + RESET;
 }

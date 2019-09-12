@@ -1,4 +1,4 @@
-package ee.sda.mackirill.controllers.EntityControllers;
+package ee.sda.mackirill.controllers.entity;
 
 import ee.sda.mackirill.entities.MenuItem;
 

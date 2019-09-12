@@ -1,7 +1,7 @@
 package ee.sda.mackirill.controllers;
 
-import ee.sda.mackirill.controllers.UI.*;
-import ee.sda.mackirill.controllers.UI.ReviewUIController;
+import ee.sda.mackirill.controllers.ui.*;
+import ee.sda.mackirill.controllers.ui.ReviewUIController;
 import ee.sda.mackirill.entities.Person;
 import ee.sda.mackirill.enums.ControllrsEnum;
 import ee.sda.mackirill.enums.PersonTypeEnum;

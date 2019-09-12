@@ -1,6 +1,6 @@
 package ee.sda.mackirill.controllers.manager;
 
-import ee.sda.mackirill.controllers.UI.TableUIController;
+import ee.sda.mackirill.controllers.ui.TableUIController;
 import ee.sda.mackirill.entities.Person;
 import ee.sda.mackirill.entities.PersonType;
 import ee.sda.mackirill.enums.PersonTypeEnum;

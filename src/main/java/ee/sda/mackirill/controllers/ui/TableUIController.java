@@ -1,10 +1,9 @@
-package ee.sda.mackirill.controllers.UI;
+package ee.sda.mackirill.controllers.ui;
 
-import ee.sda.mackirill.controllers.EntityControllers.TableController;
+import ee.sda.mackirill.controllers.entity.TableController;
 import ee.sda.mackirill.entities.Person;
 import ee.sda.mackirill.entities.Table;
 import ee.sda.mackirill.strings.BaseString;
-import ee.sda.mackirill.strings.ManagerUIStrings;
 import ee.sda.mackirill.strings.TableStrings;
 
 public class TableUIController extends AbstractUIController {
@@ -22,6 +21,7 @@ public class TableUIController extends AbstractUIController {
                 case "2":
                     System.out.println(TableStrings.TABLE_ADD_NEW);
                     editTable(new Table());
+                    endOfUIIntercation();
                     break;
                 case "0":
                     return;
