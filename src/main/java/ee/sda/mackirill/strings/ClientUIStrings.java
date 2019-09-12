@@ -6,5 +6,4 @@ public class ClientUIStrings extends BaseString {
             + "2. Write review." + BR
             + EXIT_FROM_APP;
 
-    public static final String CLIENT_ORDER_BOOKING_DATE_SELECT = "Pl";
 }

@@ -1,9 +1,8 @@
-package ee.sda.mackirill.controllers.EntetiesControllers;
+package ee.sda.mackirill.controllers.EntityControllers;
 
 import ee.sda.mackirill.entities.MenuItem;
-import ee.sda.mackirill.strings.BaseString;
 
-public class MenuController extends AbstractEntitiController {
+public class MenuController extends AbstractEntityController {
     public static void saveMenuItem(MenuItem menuItem) {
         session.beginTransaction();
         session.saveOrUpdate(menuItem);

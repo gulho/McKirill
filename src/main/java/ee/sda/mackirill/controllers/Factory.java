@@ -27,10 +27,6 @@ public class Factory {
             case ORDER:
                 returnController = new OrderUIController(person);
                 break;
-            /*case CLIENT_ORDER:
-                //TODO
-                //returnController =
-                break;*/
             case CLIENT_REVIEW:
                 returnController = new ReviewUIController(person);
                 break;

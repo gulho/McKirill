@@ -11,7 +11,7 @@
 
         <property name="show_sql">false</property>
         <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
-        <property name="hbm2ddl.auto">update</property>
+        <property name="hbm2ddl.auto">validate</property>
 
         <mapping class="ee.sda.mackirill.entities.Person"/>
         <mapping class="ee.sda.mackirill.entities.PersonType"/>

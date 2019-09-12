@@ -16,7 +16,7 @@ public class ClientUIController extends AbstractUIController {
             printClientMainSelect();
             switch (scanner.nextLine()) {
                 case "1":
-                    Factory.getController(person, ControllrsEnum.CLIENT_ORDER);
+                    Factory.getController(person, ControllrsEnum.ORDER).start();
                     break;
                 case "2":
                     Factory.getController(person, ControllrsEnum.CLIENT_REVIEW);

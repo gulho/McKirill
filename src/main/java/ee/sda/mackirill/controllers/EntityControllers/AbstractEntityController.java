@@ -1,10 +1,9 @@
-package ee.sda.mackirill.controllers.EntetiesControllers;
+package ee.sda.mackirill.controllers.EntityControllers;
 
 import ee.sda.mackirill.controllers.ApplicationContext;
 import org.hibernate.Session;
 
-public class AbstractEntitiController {
+public abstract class AbstractEntityController {
     protected static Session session = ApplicationContext.getSession();
-
 
 }
