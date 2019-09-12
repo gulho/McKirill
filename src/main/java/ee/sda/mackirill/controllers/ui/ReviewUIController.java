@@ -11,12 +11,15 @@ public class ReviewUIController extends AbstractUIController {
 
     @Override
     public void start() throws Exception {
-        while (true) {
-            switch (scanner.nextLine()) {
-                case "0":
-                    return;
-                default:
-                    System.out.println(BaseString.WRONG_COMMAND);
+        switch (person.getPersonType().getType()) {
+            case CLIENT:
+            while (true) {
+                switch (scanner.nextLine()) {
+                    case "0":
+                        return;
+                    default:
+                        System.out.println(BaseString.WRONG_COMMAND);
+                }
             }
         }
     }

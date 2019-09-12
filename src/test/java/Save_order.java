@@ -28,7 +28,7 @@ public class Save_order {
 
         //Create payment type
         PaymentType cash = new PaymentType(PaymentTypeEnum.CASH);
-        cash.setOrder(order);
+        cash.getOrder().add(order);
         //Create order status
         OrderStatus open_order = new OrderStatus(OrderStatusEnum.OPEN);
         //Create order menu items

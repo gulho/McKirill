@@ -7,6 +7,9 @@ public class OrderStrings extends BaseString {
             + "3. Delete Order" + BR
             + O_RETURN_BACK;
 
+    public static String TABLE_PEOPLES_COUNT = GREEN + "Peoples" + RESET;
+    public static String TABLE_STATUS = GREEN + "Status" + RESET;
+
     public static final String CLIENT_ORDER_BOOKING_DATE_SELECT = "Please type date(d.m.yyyy): ";
     public static final String CLIENT_ORDER_DATE_IN_INVALID = RED + "Order date is invalid." + RESET;
 

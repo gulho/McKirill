@@ -5,6 +5,8 @@ import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "order_status")
@@ -16,8 +18,8 @@ public class OrderStatus {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private OrderStatusEnum name;
-    @OneToOne(mappedBy = "status")
-    private Order order;
+    @OneToMany(mappedBy = "status")
+    private List<Order> order = new ArrayList<>();
 
     public OrderStatus() {
     }
@@ -42,11 +44,11 @@ public class OrderStatus {
         this.name = name;
     }
 
-    public Order getOrder() {
+    public List<Order> getOrder() {
         return order;
     }
 
-    public void setOrder(Order order) {
+    public void setOrder(List<Order> order) {
         this.order = order;
     }
 }

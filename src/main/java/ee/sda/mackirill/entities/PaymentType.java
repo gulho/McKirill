@@ -5,6 +5,8 @@ import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "payment_type")
@@ -16,8 +18,8 @@ public class PaymentType {
     @Column(name = "payment_name", nullable = false)
     @Enumerated(EnumType.STRING)
     private PaymentTypeEnum paymentName;
-    @OneToOne(mappedBy = "paymentType")
-    private Order order;
+    @OneToMany(mappedBy = "paymentType")
+    private List<Order> order = new ArrayList<>();
 
     public PaymentType() {
     }
@@ -42,11 +44,11 @@ public class PaymentType {
         this.paymentName = paymentName;
     }
 
-    public Order getOrder() {
+    public List<Order> getOrder() {
         return order;
     }
 
-    public void setOrder(Order order) {
+    public void setOrder(List<Order> order) {
         this.order = order;
     }
 }

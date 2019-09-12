@@ -13,4 +13,7 @@ public class BaseString extends ConsoleColors {
 
     public static final String NOT_LOGIN = RED + "Yo do not log in" + RESET;
 
+    public static final String TABLE_ID = PURPLE + "ID" + RESET;
+    public static final String TABLE_PERSON = GREEN + " Person name" + RESET;
+
 }

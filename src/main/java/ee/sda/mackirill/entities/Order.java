@@ -7,6 +7,16 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedQueries({
+        @NamedQuery(
+                name = "get_all_orders",
+                query = "from Order"
+        ),
+        @NamedQuery(
+                name = "get_all_order_by_status",
+                query = "from Order where status.name = :name"
+        )
+})
 @Entity
 @Table(name = "order_booking")
 public class Order {
@@ -24,10 +34,10 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private List<OrderedMenuItem> orderedMenuItems = new ArrayList<>();
     private BigDecimal totalSum;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "payment_id")
     private PaymentType paymentType;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "order_status_id")
     private OrderStatus status;
     private LocalDateTime createDate;

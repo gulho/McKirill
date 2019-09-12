@@ -10,6 +10,7 @@ import ee.sda.mackirill.strings.OrderStrings;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Optional;
 
 public class OrderUIController extends AbstractUIController {
@@ -25,6 +26,7 @@ public class OrderUIController extends AbstractUIController {
                     System.out.println(OrderStrings.MANAGER_ORDERS_MAIN_ACTION);
                     switch (scanner.nextLine()) {
                         case "1":
+                            showOrdersList(OrderController.getList());
                             break;
                         case "0":
                             return;
@@ -38,7 +40,6 @@ public class OrderUIController extends AbstractUIController {
                     System.out.println(OrderStrings.CLIENT_ORDER_BOOKING_DATE_SELECT);
                     orderDate = validateDate(scanner.nextLine());
                     if (orderDate.isPresent()) {
-                        System.out.println(orderDate.get().toString());
                         break;
                     } else {
                         System.out.println(OrderStrings.CLIENT_ORDER_DATE_IN_INVALID);
@@ -50,7 +51,6 @@ public class OrderUIController extends AbstractUIController {
                     System.out.println(OrderStrings.CLIENT_ORDER_TIME_SELECT);
                     orderTime = validateTime(scanner.nextLine());
                     if (orderTime.isPresent()) {
-                        System.out.println(orderTime);
                         break;
                     } else {
                         System.out.println(OrderStrings.CLIENT_ORDER_TIME_IN_INVALID);
@@ -76,6 +76,18 @@ public class OrderUIController extends AbstractUIController {
                 order.setCreateDate(LocalDateTime.now());
                 OrderController.save(order);
                 System.out.println(OrderStrings.CLIENT_ORDER_CONFIRM);
+            case WAITER:
+                showOrdersList(OrderController.getList());
+        }
+    }
+
+    private void showOrdersList(List<Order> orderList) {
+        System.out.printf("%10s%45s%20s%20s%n",
+                OrderStrings.TABLE_ID,OrderStrings.TABLE_PERSON,OrderStrings.TABLE_PEOPLES_COUNT,OrderStrings.TABLE_STATUS);
+
+        for (Order order: orderList) {
+            System.out.printf("%4d%30s%10d%10s%n",
+                    order.getId(),order.getPerson().getName(),order.getPeoples(),order.getStatus().getName());
         }
     }
 
