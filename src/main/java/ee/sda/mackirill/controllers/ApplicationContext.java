@@ -1,6 +1,6 @@
 package ee.sda.mackirill.controllers;
 
-import ee.sda.mackirill.controllers.manager.PersonsController;
+import ee.sda.mackirill.controllers.EntityControllers.PersonController;
 import ee.sda.mackirill.entities.OrderStatus;
 import ee.sda.mackirill.entities.PaymentType;
 import ee.sda.mackirill.entities.Person;
@@ -74,7 +74,7 @@ public class ApplicationContext {
             System.out.println(manager);
         } catch (NoResultException nr) {
             PersonType managerPerson = session.byNaturalId(PersonType.class).using("type", PersonTypeEnum.MANAGER).load();
-            PersonsController.savePerson(new Person(
+            PersonController.savePerson(new Person(
                     DefaultManager.DEFAULT_MANAGER_NAME,
                     DefaultManager.DEFAULT_MANAGER_EMAIL,
                     DefaultManager.DEFAULT_MANAGER_PASSWORD,

@@ -1,11 +1,11 @@
 package ee.sda.mackirill.util;
 
 import ee.sda.mackirill.controllers.ApplicationContext;
+import ee.sda.mackirill.controllers.EntityControllers.PersonController;
 import ee.sda.mackirill.entities.Person;
 import ee.sda.mackirill.entities.PersonType;
 import ee.sda.mackirill.enums.PersonTypeEnum;
 import org.hibernate.Session;
-import org.hibernate.cfg.Configuration;
 
 public class UserRegistration {
     private Person person;
@@ -23,7 +23,10 @@ public class UserRegistration {
 
     public Person commitRegistration(){
 
-        //try(Session session = new Configuration().configure().buildSessionFactory().openSession()) {
+        PersonController.savePerson(person);
+        return person;
+
+        /*try(Session session = new Configuration().configure().buildSessionFactory().openSession()) {
             session.beginTransaction();
 
             session.saveOrUpdate(person);
@@ -31,9 +34,7 @@ public class UserRegistration {
 
             session.getTransaction().commit();
 
-            return person;
-
-        /*} catch (Exception e){
+        } catch (Exception e){
             e.printStackTrace();
         }*/
     }

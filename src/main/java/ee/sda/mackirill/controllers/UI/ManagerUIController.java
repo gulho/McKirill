@@ -1,15 +1,14 @@
-package ee.sda.mackirill.controllers.manager;
+package ee.sda.mackirill.controllers.UI;
 
-import ee.sda.mackirill.controllers.AbstractController;
 import ee.sda.mackirill.controllers.Factory;
 import ee.sda.mackirill.entities.Person;
 import ee.sda.mackirill.enums.ControllrsEnum;
 import ee.sda.mackirill.strings.BaseString;
 import ee.sda.mackirill.strings.ManagerUIStrings;
 
-public class ManagerController extends AbstractController {
+public class ManagerUIController extends AbstractUIController {
 
-    public ManagerController(Person person) {
+    public ManagerUIController(Person person) {
         super(person);
     }
 

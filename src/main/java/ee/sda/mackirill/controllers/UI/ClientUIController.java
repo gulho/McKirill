@@ -1,24 +1,25 @@
-package ee.sda.mackirill.controllers.client;
+package ee.sda.mackirill.controllers.UI;
 
-import ee.sda.mackirill.controllers.AbstractController;
+import ee.sda.mackirill.controllers.Factory;
 import ee.sda.mackirill.entities.Person;
+import ee.sda.mackirill.enums.ControllrsEnum;
 import ee.sda.mackirill.strings.BaseString;
 import ee.sda.mackirill.strings.ClientUIStrings;
 
-public class ClientController extends AbstractController {
-    public ClientController(Person person) {
+public class ClientUIController extends AbstractUIController {
+    public ClientUIController(Person person) {
         super(person);
     }
     @Override
-    public void start() {
+    public void start() throws Exception{
         while(true) {
             printClientMainSelect();
             switch (scanner.nextLine()) {
                 case "1":
-                    System.out.println("order");
+                    Factory.getController(person, ControllrsEnum.ORDER).start();
                     break;
                 case "2":
-                    System.out.println("review");
+                    Factory.getController(person, ControllrsEnum.CLIENT_REVIEW);
                     break;
                 case "exit":
                 case "e":

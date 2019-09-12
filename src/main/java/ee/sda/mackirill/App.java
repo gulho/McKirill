@@ -1,17 +1,15 @@
 package ee.sda.mackirill;
 
-import ee.sda.mackirill.controllers.AbstractController;
+import ee.sda.mackirill.controllers.UI.AbstractUIController;
 import ee.sda.mackirill.controllers.ApplicationContext;
 import ee.sda.mackirill.controllers.Factory;
 import ee.sda.mackirill.entities.Person;
-import ee.sda.mackirill.entities.PersonType;
 import ee.sda.mackirill.enums.ControllrsEnum;
-import ee.sda.mackirill.enums.PersonTypeEnum;
 import ee.sda.mackirill.strings.BaseString;
 import ee.sda.mackirill.util.Validation;
-import org.hibernate.Session;
 
 import java.util.Optional;
+import java.util.Scanner;
 
 /**
  *  McKirill app starting point
@@ -36,7 +34,7 @@ public class App {
             Optional<Person> personOptional = validation.validate();
 
             if (personOptional.isPresent()) {
-                AbstractController controller = Factory.getController(personOptional.get(), ControllrsEnum.MAIN);
+                AbstractUIController controller = Factory.getController(personOptional.get(), ControllrsEnum.MAIN);
                 controller.start();
             } else {
                 System.out.println(BaseString.NOT_LOGIN);
@@ -52,6 +50,14 @@ public class App {
                 applicationContext.getSession().close();
             }
         }
+    }
+
+    public static int numb() {
+        Scanner scanner = new Scanner(System.in);
+        int a = scanner.nextInt();
+        int b = scanner.nextInt();
+        System.out.println(a+b);
+        return a+b;
     }
 
 

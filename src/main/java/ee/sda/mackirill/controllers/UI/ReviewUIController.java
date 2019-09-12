@@ -1,28 +1,28 @@
-package ee.sda.mackirill.controllers.client;
+package ee.sda.mackirill.controllers.UI;
 
+import ee.sda.mackirill.controllers.UI.AbstractUIController;
 import ee.sda.mackirill.entities.Person;
-import ee.sda.mackirill.entities.Review;
-import org.hibernate.Session;
+import ee.sda.mackirill.strings.BaseString;
 
-import java.util.Scanner;
+public class ReviewUIController extends AbstractUIController {
 
-public class ClientReviewController {
-    private Person clientPerson;
-    private Review review;
-    private Scanner scanner;
-    private Session session;
-
-    public ClientReviewController(Session session, Person clientPerson) {
-        this.clientPerson = clientPerson;
-        review = new Review();
+    public ReviewUIController(Person person) {
+        super(person);
     }
 
-    public ClientReviewController(Session session, Person clientPerson, Review review) {
-        this.clientPerson = clientPerson;
-        review = review;
+    @Override
+    public void start() throws Exception {
+        while (true) {
+            switch (scanner.nextLine()) {
+                case "0":
+                    return;
+                default:
+                    System.out.println(BaseString.WRONG_COMMAND);
+            }
+        }
     }
 
-    public void processReview() {
+    /*public void processReview() {
         review.setScore(0);
         do {
             System.out.println("Please print your score (1-5):");
@@ -46,5 +46,5 @@ public class ClientReviewController {
         session.beginTransaction();
         session.saveOrUpdate(review);
         session.getTransaction().commit();
-    }
+    }*/
 }
