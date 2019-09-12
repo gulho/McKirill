@@ -1,6 +1,6 @@
-import ee.sda.mackirill.entities.Person;
-import ee.sda.mackirill.entities.PersonType;
-import ee.sda.mackirill.enums.PersonTypeEnum;
+import ee.sda.mckirill.entities.Person;
+import ee.sda.mckirill.entities.PersonType;
+import ee.sda.mckirill.enums.PersonTypeEnum;
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
 
