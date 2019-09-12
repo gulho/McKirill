@@ -1,8 +1,8 @@
-import ee.sda.mackirill.entities.*;
-import ee.sda.mackirill.enums.MenuItemsTypeEnum;
-import ee.sda.mackirill.enums.OrderStatusEnum;
-import ee.sda.mackirill.enums.PaymentTypeEnum;
-import ee.sda.mackirill.enums.PersonTypeEnum;
+import ee.sda.mckirill.entities.*;
+import ee.sda.mckirill.enums.MenuItemsTypeEnum;
+import ee.sda.mckirill.enums.OrderStatusEnum;
+import ee.sda.mckirill.enums.PaymentTypeEnum;
+import ee.sda.mckirill.enums.PersonTypeEnum;
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
 import org.junit.jupiter.api.Disabled;
@@ -28,7 +28,7 @@ public class Save_order {
 
         //Create payment type
         PaymentType cash = new PaymentType(PaymentTypeEnum.CASH);
-        cash.setOrder(order);
+        cash.getOrder().add(order);
         //Create order status
         OrderStatus open_order = new OrderStatus(OrderStatusEnum.OPEN);
         //Create order menu items
