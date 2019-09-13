@@ -21,19 +21,18 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class ApplicationContext {
-    private static Session session;
+    private static Session session = connectToDb();
     private static Scanner scanner = new Scanner(System.in);
     private static OrderStatusType orderStatusType = OrderStatusType.of();
     private static PersonTypeType personTypeType = PersonTypeType.of();
     private static PaymentTypeType paymentTypeType = PaymentTypeType.of();
 
     public ApplicationContext() {
-        session = connectToDb();
         checkManagerExist();
         checkWaiterExist();
     }
 
-    private Session connectToDb() {
+    private static Session connectToDb() {
         return new Configuration().configure().buildSessionFactory().openSession();
     }
 

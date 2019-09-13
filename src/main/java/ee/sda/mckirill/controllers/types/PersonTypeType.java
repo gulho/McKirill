@@ -17,7 +17,7 @@ public class PersonTypeType extends AbstractEntityController {
     }
 
     public static PersonTypeType of() {
-        if(personTypeType == null) {
+        if (personTypeType == null) {
             personTypeType = new PersonTypeType();
         }
         return personTypeType;

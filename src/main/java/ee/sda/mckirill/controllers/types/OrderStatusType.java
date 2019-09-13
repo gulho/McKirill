@@ -19,7 +19,7 @@ public class OrderStatusType extends AbstractEntityController {
     }
 
     public static OrderStatusType of() {
-        if(orderStatusType == null) {
+        if (orderStatusType == null) {
             orderStatusType = new OrderStatusType();
         }
         return orderStatusType;

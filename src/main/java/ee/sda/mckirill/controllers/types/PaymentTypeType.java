@@ -23,7 +23,7 @@ public class PaymentTypeType extends AbstractEntityController {
     }
 
     public PaymentType getCash() {
-        if(cashType == null){
+        if (cashType == null) {
             cashType = getByType(PaymentTypeEnum.CASH);
         }
         return cashType;

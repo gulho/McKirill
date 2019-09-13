@@ -3,6 +3,7 @@ package ee.sda.mckirill.controllers;
 import ee.sda.mckirill.controllers.ui.*;
 import ee.sda.mckirill.controllers.ui.ReviewUIController;
 import ee.sda.mckirill.entities.Person;
+import ee.sda.mckirill.entities.PersonType;
 import ee.sda.mckirill.enums.ControllrsEnum;
 import ee.sda.mckirill.enums.PersonTypeEnum;
 
@@ -12,8 +13,10 @@ public class Factory {
         AbstractUIController returnController;
         switch (controller) {
             case MAIN:
-                if(person.getPersonType().getType() == PersonTypeEnum.MANAGER) {
+                if (person.getPersonType().getType() == PersonTypeEnum.MANAGER) {
                     returnController = new ManagerUIController(person);
+                } else if (person.getPersonType().getType() == PersonTypeEnum.WAITER) {
+                    returnController = Factory.getController(person, ControllrsEnum.ORDER);
                 } else {
                     returnController = new ClientUIController(person);
                 }
