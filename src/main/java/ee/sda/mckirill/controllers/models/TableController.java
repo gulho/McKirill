@@ -1,4 +1,4 @@
-package ee.sda.mckirill.controllers.entity;
+package ee.sda.mckirill.controllers.models;
 
 import ee.sda.mckirill.entities.Table;
 

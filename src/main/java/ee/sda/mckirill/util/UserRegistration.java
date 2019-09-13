@@ -1,7 +1,7 @@
 package ee.sda.mckirill.util;
 
 import ee.sda.mckirill.controllers.ApplicationContext;
-import ee.sda.mckirill.controllers.entity.PersonController;
+import ee.sda.mckirill.controllers.models.PersonController;
 import ee.sda.mckirill.entities.Person;
 import ee.sda.mckirill.entities.PersonType;
 import ee.sda.mckirill.enums.PersonTypeEnum;
@@ -17,8 +17,7 @@ public class UserRegistration {
     public UserRegistration(String name, String email, String password, String phoneNumber, PersonTypeEnum userType){
         /*this.personType = new PersonType();
         personType.setType(userType);*/
-        personType = session.byNaturalId(PersonType.class).using("type", userType).load();
-        this.person = new Person(name, email, password, phoneNumber, personType);
+        this.person = new Person(name, email, password, phoneNumber, ApplicationContext.getPersonTypeType().getClient());
     }
 
     public Person commitRegistration(){

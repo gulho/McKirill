@@ -21,7 +21,7 @@ import java.util.List;
 @Table(name = "order_booking")
 public class Order {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @OneToOne
     @JoinColumn(name = "person_id")

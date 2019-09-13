@@ -20,7 +20,7 @@ public class ClientUIController extends AbstractUIController {
                     endOfUIIntercation();
                     break;
                 case "2":
-                    Factory.getController(person, ControllrsEnum.CLIENT_REVIEW);
+                    Factory.getController(person, ControllrsEnum.REVIEW);
                     endOfUIIntercation();
                     break;
                 case "exit":

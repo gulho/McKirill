@@ -1,32 +1,61 @@
 package ee.sda.mckirill.controllers.types;
 
-import ee.sda.mckirill.controllers.entity.AbstractEntityController;
+import ee.sda.mckirill.controllers.models.AbstractEntityController;
 import ee.sda.mckirill.entities.PersonType;
 import ee.sda.mckirill.enums.PersonTypeEnum;
 
-public class PersonTypeType extends AbstractEntityController {
-    private static PersonType manager;
-    private static PersonType client;
-    private static PersonType waiter;
+import java.util.Optional;
 
-    public static PersonType getManager() {
+public class PersonTypeType extends AbstractEntityController {
+    private static PersonTypeType personTypeType;
+
+    private PersonType manager;
+    private PersonType client;
+    private PersonType waiter;
+
+    private PersonTypeType() {
+    }
+
+    public static PersonTypeType of() {
+        if (personTypeType == null) {
+            personTypeType = new PersonTypeType();
+        }
+        return personTypeType;
+    }
+
+    public PersonType getManager() {
         if (manager == null) {
-            manager = session.byNaturalId(PersonType.class).using("type", PersonTypeEnum.MANAGER).load();
+            manager = getByType(PersonTypeEnum.MANAGER);
         }
         return manager;
     }
 
-    public static PersonType getClient() {
+    public PersonType getClient() {
         if (client == null) {
-            client = session.byNaturalId(PersonType.class).using("type", PersonTypeEnum.CLIENT).load();
+            client = getByType(PersonTypeEnum.CLIENT);
         }
         return client;
     }
 
-    public static PersonType getWaiter() {
+    public PersonType getWaiter() {
         if (waiter == null) {
-            waiter = session.byNaturalId(PersonType.class).using("type", PersonTypeEnum.WAITER).load();
+            waiter = getByType(PersonTypeEnum.WAITER);
         }
         return waiter;
+    }
+
+    private PersonType getByType(PersonTypeEnum personTypeEnum) {
+        Optional<PersonType> personType = session.byNaturalId(PersonType.class).using("type", personTypeEnum).loadOptional();
+        if (personType.isEmpty()) {
+            save(new PersonType(personTypeEnum));
+            personType = Optional.of(getByType(personTypeEnum));
+        }
+        return personType.get();
+    }
+
+    private void save(PersonType personType) {
+        session.beginTransaction();
+        session.saveOrUpdate(personType);
+        session.getTransaction().commit();
     }
 }

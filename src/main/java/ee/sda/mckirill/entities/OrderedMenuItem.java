@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 @Table(name= "ordered_menu_item")
 public class OrderedMenuItem {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne
     @JoinColumn(name = "order_id")

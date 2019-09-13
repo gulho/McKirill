@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Table(name = "review")
 public class Review {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @OneToOne
     @JoinColumn(name = "person_id")

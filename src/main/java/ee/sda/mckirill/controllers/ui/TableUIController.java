@@ -1,6 +1,6 @@
 package ee.sda.mckirill.controllers.ui;
 
-import ee.sda.mckirill.controllers.entity.TableController;
+import ee.sda.mckirill.controllers.models.TableController;
 import ee.sda.mckirill.entities.Person;
 import ee.sda.mckirill.entities.Table;
 import ee.sda.mckirill.strings.BaseString;

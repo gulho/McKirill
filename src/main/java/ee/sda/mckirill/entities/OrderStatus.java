@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "order_status")
 public class OrderStatus {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NaturalId
     @Column(nullable = false)

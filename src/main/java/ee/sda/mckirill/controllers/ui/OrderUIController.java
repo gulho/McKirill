@@ -1,7 +1,6 @@
 package ee.sda.mckirill.controllers.ui;
 
-import ee.sda.mckirill.controllers.entity.OrderController;
-import ee.sda.mckirill.controllers.types.OrderStatusType;
+import ee.sda.mckirill.controllers.models.OrderController;
 import ee.sda.mckirill.entities.Order;
 import ee.sda.mckirill.entities.Person;
 import ee.sda.mckirill.strings.BaseString;
@@ -14,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class OrderUIController extends AbstractUIController {
+    private OrderController orderController = OrderController.of();
     public OrderUIController(Person person) {
         super(person);
     }
@@ -26,7 +26,7 @@ public class OrderUIController extends AbstractUIController {
                     System.out.println(OrderStrings.MANAGER_ORDERS_MAIN_ACTION);
                     switch (scanner.nextLine()) {
                         case "1":
-                            showOrdersList(OrderController.getList());
+                            showOrdersList(orderController.getList());
                             //endOfUIIntercation();
                             break;
                         case "0":
@@ -61,7 +61,7 @@ public class OrderUIController extends AbstractUIController {
                 //TODO: Add check is time is valid
                 Order order = new Order();
                 order.setPerson(person);
-                order.setStatus(OrderStatusType.getOpen());
+                order.setStatus(orderStatus.getOpen());
                 order.setTimeToOrder(LocalDateTime.of(orderDate.get(), orderTime.get()));
 
                 while (true) {
@@ -75,11 +75,13 @@ public class OrderUIController extends AbstractUIController {
                 }
                 //TODO:Add pre-order food selection
                 order.setCreateDate(LocalDateTime.now());
-                OrderController.save(order);
+                orderController.save(order);
                 System.out.println(OrderStrings.CLIENT_ORDER_CONFIRM);
-            case WAITER:
-                showOrdersList(OrderController.getList());
         }
+    }
+
+    public void showWaiterOrdersList() {
+        showOrdersList(orderController.getList());
     }
 
     private void showOrdersList(List<Order> orderList) {
@@ -90,6 +92,20 @@ public class OrderUIController extends AbstractUIController {
             System.out.printf("%4d%30s%10d%10s%n",
                     order.getId(),order.getPerson().getName(),order.getPeoples(),order.getStatus().getName());
         }
+    }
+
+    public Order selectOrderId() {
+        Optional<Order> returnOrder;
+        while (true) {
+            System.out.println(OrderStrings.SELECT_ORDER);
+            returnOrder = orderController.findById(scanner.nextInt());
+            if(returnOrder.isEmpty()){
+                System.out.println(OrderStrings.SELECT_ORDER_WRONG_ID);
+            } else {
+                break;
+            }
+        }
+        return returnOrder.get();
     }
 
     private Optional<LocalDate> validateDate(String dateStr) {
