@@ -10,6 +10,9 @@ public class OrderStrings extends BaseString {
     public static String TABLE_PEOPLES_COUNT = GREEN + "Peoples" + RESET;
     public static String TABLE_STATUS = GREEN + "Status" + RESET;
 
+    public static final String SELECT_ORDER = GREEN + "Select order ID" + RESET;
+    public static final String SELECT_ORDER_WRONG_ID = RED + "Order ID is wrong" + RESET;
+
     public static final String CLIENT_ORDER_BOOKING_DATE_SELECT = "Please type date(d.m.yyyy): ";
     public static final String CLIENT_ORDER_DATE_IN_INVALID = RED + "Order date is invalid." + RESET;
 
@@ -20,4 +23,6 @@ public class OrderStrings extends BaseString {
     public static final String CLIENT_ORDER_PEOPLES_COUNT_INVALID = RED + "Peoples count is invalid" + RESET;
 
     public static final String CLIENT_ORDER_CONFIRM = GREEN + "Your order has been accepted successfully." + RESET;
+
+
 }

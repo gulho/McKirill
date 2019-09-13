@@ -77,9 +77,11 @@ public class OrderUIController extends AbstractUIController {
                 order.setCreateDate(LocalDateTime.now());
                 OrderController.save(order);
                 System.out.println(OrderStrings.CLIENT_ORDER_CONFIRM);
-            case WAITER:
-                showOrdersList(OrderController.getList());
         }
+    }
+
+    public void showWaiterOrdersList() {
+        showOrdersList(OrderController.getList());
     }
 
     private void showOrdersList(List<Order> orderList) {
@@ -90,6 +92,20 @@ public class OrderUIController extends AbstractUIController {
             System.out.printf("%4d%30s%10d%10s%n",
                     order.getId(),order.getPerson().getName(),order.getPeoples(),order.getStatus().getName());
         }
+    }
+
+    public Order selectOrderId() {
+        Optional<Order> returnOrder;
+        while (true) {
+            System.out.println(OrderStrings.SELECT_ORDER);
+            returnOrder = OrderController.findById(scanner.nextInt());
+            if(returnOrder.isEmpty()){
+                System.out.println(OrderStrings.SELECT_ORDER_WRONG_ID);
+            } else {
+                break;
+            }
+        }
+        return returnOrder.get();
     }
 
     private Optional<LocalDate> validateDate(String dateStr) {
