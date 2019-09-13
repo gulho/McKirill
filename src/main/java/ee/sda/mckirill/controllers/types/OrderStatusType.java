@@ -7,6 +7,8 @@ import ee.sda.mckirill.enums.OrderStatusEnum;
 import java.util.Optional;
 
 public class OrderStatusType extends AbstractEntityController {
+    private static OrderStatusType orderStatusType;
+
     private OrderStatus openStatus;
     private OrderStatus servingStatus;
     private OrderStatus paidStatus;
@@ -17,7 +19,10 @@ public class OrderStatusType extends AbstractEntityController {
     }
 
     public static OrderStatusType of() {
-        return new OrderStatusType();
+        if(orderStatusType == null) {
+            orderStatusType = new OrderStatusType();
+        }
+        return orderStatusType;
     }
 
     public OrderStatus getOpen() {

@@ -2,6 +2,7 @@ package ee.sda.mckirill.controllers;
 
 import ee.sda.mckirill.controllers.entity.PersonController;
 import ee.sda.mckirill.controllers.types.OrderStatusType;
+import ee.sda.mckirill.controllers.types.PaymentTypeType;
 import ee.sda.mckirill.controllers.types.PersonTypeType;
 import ee.sda.mckirill.entities.OrderStatus;
 import ee.sda.mckirill.entities.PaymentType;
@@ -22,14 +23,12 @@ import java.util.Scanner;
 public class ApplicationContext {
     private static Session session;
     private static Scanner scanner = new Scanner(System.in);
-    private static OrderStatusType orderStatusType;
-    private static PersonTypeType personTypeType;
+    private static OrderStatusType orderStatusType = OrderStatusType.of();
+    private static PersonTypeType personTypeType = PersonTypeType.of();
+    private static PaymentTypeType paymentTypeType = PaymentTypeType.of();
 
     public ApplicationContext() {
         session = connectToDb();
-        checkDBHaveEnumsValue();
-        orderStatusType = OrderStatusType.of();
-        personTypeType = PersonTypeType.of();
         checkManagerExist();
         checkWaiterExist();
     }
@@ -54,17 +53,8 @@ public class ApplicationContext {
         return personTypeType;
     }
 
-    private void checkDBHaveEnumsValue() {
-        session.beginTransaction();
-
-        for (PaymentTypeEnum paymentTypeEnum : PaymentTypeEnum.values()) {
-            Optional<PaymentType> paymentType = session.byNaturalId(PaymentType.class)
-                    .using("paymentName", paymentTypeEnum).loadOptional();
-            if (paymentType.isEmpty()) {
-                session.saveOrUpdate(new PaymentType(paymentTypeEnum));
-            }
-        }
-        session.getTransaction().commit();
+    public static PaymentTypeType getPaymentTypeType() {
+        return paymentTypeType;
     }
 
     private void checkManagerExist() {

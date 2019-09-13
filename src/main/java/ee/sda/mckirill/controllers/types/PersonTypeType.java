@@ -7,6 +7,8 @@ import ee.sda.mckirill.enums.PersonTypeEnum;
 import java.util.Optional;
 
 public class PersonTypeType extends AbstractEntityController {
+    private static PersonTypeType personTypeType;
+
     private PersonType manager;
     private PersonType client;
     private PersonType waiter;
@@ -15,7 +17,10 @@ public class PersonTypeType extends AbstractEntityController {
     }
 
     public static PersonTypeType of() {
-        return new PersonTypeType();
+        if(personTypeType == null) {
+            personTypeType = new PersonTypeType();
+        }
+        return personTypeType;
     }
 
     public PersonType getManager() {
@@ -40,7 +45,7 @@ public class PersonTypeType extends AbstractEntityController {
     }
 
     private PersonType getByType(PersonTypeEnum personTypeEnum) {
-        Optional<PersonType> personType = session.byNaturalId(PersonType.class).using("type", PersonTypeEnum.WAITER).loadOptional();
+        Optional<PersonType> personType = session.byNaturalId(PersonType.class).using("type", personTypeEnum).loadOptional();
         if (personType.isEmpty()) {
             save(new PersonType(personTypeEnum));
             personType = Optional.of(getByType(personTypeEnum));
