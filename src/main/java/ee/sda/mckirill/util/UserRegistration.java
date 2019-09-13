@@ -1,7 +1,7 @@
 package ee.sda.mckirill.util;
 
 import ee.sda.mckirill.controllers.ApplicationContext;
-import ee.sda.mckirill.controllers.entity.PersonController;
+import ee.sda.mckirill.controllers.models.PersonController;
 import ee.sda.mckirill.entities.Person;
 import ee.sda.mckirill.entities.PersonType;
 import ee.sda.mckirill.enums.PersonTypeEnum;

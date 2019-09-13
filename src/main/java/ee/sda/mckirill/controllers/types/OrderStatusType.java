@@ -1,6 +1,6 @@
 package ee.sda.mckirill.controllers.types;
 
-import ee.sda.mckirill.controllers.entity.AbstractEntityController;
+import ee.sda.mckirill.controllers.models.AbstractEntityController;
 import ee.sda.mckirill.entities.OrderStatus;
 import ee.sda.mckirill.enums.OrderStatusEnum;
 

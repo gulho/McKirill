@@ -1,11 +1,9 @@
 package ee.sda.mckirill.controllers.ui;
 
 import ee.sda.mckirill.controllers.Factory;
-import ee.sda.mckirill.controllers.entity.OrderController;
 import ee.sda.mckirill.entities.Order;
 import ee.sda.mckirill.entities.Person;
 import ee.sda.mckirill.enums.ControllrsEnum;
-import ee.sda.mckirill.strings.OrderStrings;
 import ee.sda.mckirill.strings.WaiterUIStrings;
 
 public class WaiterUIController extends AbstractUIController {

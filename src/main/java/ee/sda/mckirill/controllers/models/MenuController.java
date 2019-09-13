@@ -1,8 +1,9 @@
-package ee.sda.mckirill.controllers.entity;
+package ee.sda.mckirill.controllers.models;
 
 import ee.sda.mckirill.entities.MenuItem;
 
 import java.util.List;
+import java.util.Optional;
 
 public class MenuController extends AbstractEntityController {
     private static MenuController menuController;
@@ -24,5 +25,9 @@ public class MenuController extends AbstractEntityController {
 
     public List<MenuItem> getListOfMenuItems() {
         return session.createNamedQuery("get_all_menuItems", MenuItem.class).getResultList();
+    }
+
+    public Optional<MenuItem> findById(int menuItemId) {
+        return Optional.ofNullable(session.get(MenuItem.class, menuItemId));
     }
 }

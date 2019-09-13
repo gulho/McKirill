@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @NamedQueries({
         @NamedQuery(
                 name ="get_all_menuItems",
-                query = "from MenuItem"
+                query = "from MenuItem order by type"
         )
 })
 @Entity

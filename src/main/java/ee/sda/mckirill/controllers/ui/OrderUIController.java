@@ -1,7 +1,6 @@
 package ee.sda.mckirill.controllers.ui;
 
-import ee.sda.mckirill.controllers.entity.OrderController;
-import ee.sda.mckirill.controllers.types.OrderStatusType;
+import ee.sda.mckirill.controllers.models.OrderController;
 import ee.sda.mckirill.entities.Order;
 import ee.sda.mckirill.entities.Person;
 import ee.sda.mckirill.strings.BaseString;
@@ -14,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class OrderUIController extends AbstractUIController {
+    private OrderController orderController = OrderController.of();
     public OrderUIController(Person person) {
         super(person);
     }
@@ -26,7 +26,7 @@ public class OrderUIController extends AbstractUIController {
                     System.out.println(OrderStrings.MANAGER_ORDERS_MAIN_ACTION);
                     switch (scanner.nextLine()) {
                         case "1":
-                            showOrdersList(OrderController.getList());
+                            showOrdersList(orderController.getList());
                             //endOfUIIntercation();
                             break;
                         case "0":
@@ -75,13 +75,13 @@ public class OrderUIController extends AbstractUIController {
                 }
                 //TODO:Add pre-order food selection
                 order.setCreateDate(LocalDateTime.now());
-                OrderController.save(order);
+                orderController.save(order);
                 System.out.println(OrderStrings.CLIENT_ORDER_CONFIRM);
         }
     }
 
     public void showWaiterOrdersList() {
-        showOrdersList(OrderController.getList());
+        showOrdersList(orderController.getList());
     }
 
     private void showOrdersList(List<Order> orderList) {
@@ -98,7 +98,7 @@ public class OrderUIController extends AbstractUIController {
         Optional<Order> returnOrder;
         while (true) {
             System.out.println(OrderStrings.SELECT_ORDER);
-            returnOrder = OrderController.findById(scanner.nextInt());
+            returnOrder = orderController.findById(scanner.nextInt());
             if(returnOrder.isEmpty()){
                 System.out.println(OrderStrings.SELECT_ORDER_WRONG_ID);
             } else {

@@ -16,4 +16,6 @@ public class BaseString extends ConsoleColors {
     public static final String TABLE_ID = PURPLE + "ID" + RESET;
     public static final String TABLE_PERSON = GREEN + " Person name" + RESET;
 
+    public static final String SELECT_ID_NOT_INTEGER = RED + "Typed value not integer" + RESET;
+
 }

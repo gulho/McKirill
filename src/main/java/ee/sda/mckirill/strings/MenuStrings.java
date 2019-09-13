@@ -8,6 +8,10 @@ public class MenuStrings extends BaseString {
             + "4. Remove Menu item" + BR
             + O_RETURN_BACK;
 
+    public static final String TABLE_MENU_ITEM_NAME = GREEN + "Menu item Name" + RESET;
+    public static final String TABLE_MENU_ITEM_PRICE = GREEN + "Price" + RESET;
+    public static final String TABLE_MENU_ITEM_TYPE = GREEN + "Type" + RESET;
+
     public static final String MENU_ADD_NEW = RED + GREEN_BACKGROUND +"Add new Menu item" + RESET;
     public static final String MENU_SET_NAME = GREEN + "Print Menu item name:" + RESET;
     public static final String MENU_EMPTY_NAME = RED + "Menu item name can not be empty!" + RESET;
@@ -15,4 +19,10 @@ public class MenuStrings extends BaseString {
     public static final String MENU_WRONG_TYPE = RED + "Type is incorrect" + RESET;
     public static final String MENU_SET_PRICE = GREEN + "Print Menu item price:" + RESET;
     public static final String MENU_PRICE_0_LOW = RED + "Price can not be lower that 0" + RESET;
+
+    public static final String MENU_ITEM_SELECT = GREEN + "Select Menu item ID:" + RESET;
+    public static final String MENU_ITEM_SELECT_WRONG = RED + "Wrong Menu item ID" + RESET;
+
+    public static final String MENU_ITEM_SELECT_COUNT = GREEN + "Select count of menu items" + RESET;
+    public static final String MENU_ITEM_SELECT_COUNT_WRONG = RED + "Menu item count is wrong" + RESET;
 }

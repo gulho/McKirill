@@ -1,15 +1,11 @@
 package ee.sda.mckirill.controllers;
 
-import ee.sda.mckirill.controllers.entity.PersonController;
+import ee.sda.mckirill.controllers.models.PersonController;
 import ee.sda.mckirill.controllers.types.OrderStatusType;
 import ee.sda.mckirill.controllers.types.PaymentTypeType;
 import ee.sda.mckirill.controllers.types.PersonTypeType;
-import ee.sda.mckirill.entities.OrderStatus;
-import ee.sda.mckirill.entities.PaymentType;
 import ee.sda.mckirill.entities.Person;
 import ee.sda.mckirill.entities.PersonType;
-import ee.sda.mckirill.enums.OrderStatusEnum;
-import ee.sda.mckirill.enums.PaymentTypeEnum;
 import ee.sda.mckirill.enums.PersonTypeEnum;
 import ee.sda.mckirill.strings.DefaultManager;
 import ee.sda.mckirill.strings.DefaultWaiter;
@@ -17,7 +13,6 @@ import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
 
 import javax.persistence.NoResultException;
-import java.util.Optional;
 import java.util.Scanner;
 
 public class ApplicationContext {
