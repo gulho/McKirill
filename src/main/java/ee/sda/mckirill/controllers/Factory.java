@@ -16,7 +16,7 @@ public class Factory {
                 if (person.getPersonType().getType() == PersonTypeEnum.MANAGER) {
                     returnController = new ManagerUIController(person);
                 } else if (person.getPersonType().getType() == PersonTypeEnum.WAITER) {
-                    returnController = Factory.getController(person, ControllrsEnum.ORDER);
+                    returnController = new WaiterUIController(person);
                 } else {
                     returnController = new ClientUIController(person);
                 }
@@ -30,7 +30,7 @@ public class Factory {
             case ORDER:
                 returnController = new OrderUIController(person);
                 break;
-            case CLIENT_REVIEW:
+            case REVIEW:
                 returnController = new ReviewUIController(person);
                 break;
             default:

@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "payment_type")
 public class PaymentType {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NaturalId
     @Column(name = "payment_name", nullable = false)

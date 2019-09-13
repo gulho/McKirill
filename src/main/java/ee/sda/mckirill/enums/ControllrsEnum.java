@@ -5,6 +5,5 @@ public enum ControllrsEnum {
     MENU,
     TABLE,
     ORDER,
-    CLIENT_REVIEW,
-    CLIENT_ORDER
+    REVIEW,
 }

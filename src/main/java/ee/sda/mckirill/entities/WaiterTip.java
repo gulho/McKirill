@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 @Table(name = "waiter_tip")
 public class WaiterTip {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @OneToOne
     @JoinColumn(name = "person_id")

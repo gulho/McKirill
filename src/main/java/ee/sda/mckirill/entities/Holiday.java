@@ -9,7 +9,7 @@ import java.time.LocalTime;
 @Table(name = "holiday")
 public class Holiday {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private LocalDate date;
     @Column(name = "from_time")

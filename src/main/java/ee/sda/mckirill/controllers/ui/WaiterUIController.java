@@ -16,18 +16,19 @@ public class WaiterUIController extends AbstractUIController {
     @Override
     public void start() throws Exception {
         Order orderToUpdate;
-        OrderUIController OrderUI = (OrderUIController) Factory.getController(person, ControllrsEnum.ORDER);
-        MenuUIController MenuUI = (MenuUIController) Factory.getController(person, ControllrsEnum.MENU);
+        OrderUIController orderUI = (OrderUIController) Factory.getController(person, ControllrsEnum.ORDER);
+        MenuUIController menuUI = (MenuUIController) Factory.getController(person, ControllrsEnum.MENU);
         while(true) {
             System.out.println();
-            OrderUI.showWaiterOrdersList();
+            orderUI.showWaiterOrdersList();
             System.out.println(WaiterUIStrings.WAITER_MAIN_ACTION);
             switch (scanner.nextLine()) {
                 case "1":
-                    orderToUpdate = OrderUI.selectOrderId();
+                    orderToUpdate = orderUI.selectOrderId();
+                    menuUI.addAdditionalFood(orderToUpdate);
                     break;
                 case "2":
-                    orderToUpdate = OrderUI.selectOrderId();
+                    orderToUpdate = orderUI.selectOrderId();
                     break;
                 case "exit":
                 case "e":

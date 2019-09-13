@@ -6,11 +6,17 @@ import javax.persistence.*;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 
+@NamedQueries({
+        @NamedQuery(
+                name ="get_all_menuItems",
+                query = "from MenuItem"
+        )
+})
 @Entity
 @Table(name = "item")
 public class MenuItem {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name = "name", nullable = false)
     private String name;
