@@ -1,6 +1,5 @@
 package ee.sda.mckirill;
 
-import ee.sda.mckirill.controllers.entity.PersonController;
 import ee.sda.mckirill.controllers.ApplicationContext;
 import ee.sda.mckirill.controllers.Factory;
 import ee.sda.mckirill.controllers.ui.AbstractUIController;
