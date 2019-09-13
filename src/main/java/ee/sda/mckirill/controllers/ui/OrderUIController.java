@@ -61,7 +61,7 @@ public class OrderUIController extends AbstractUIController {
                 //TODO: Add check is time is valid
                 Order order = new Order();
                 order.setPerson(person);
-                order.setStatus(OrderStatusType.getOpen());
+                order.setStatus(orderStatus.getOpen());
                 order.setTimeToOrder(LocalDateTime.of(orderDate.get(), orderTime.get()));
 
                 while (true) {

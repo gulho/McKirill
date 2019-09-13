@@ -24,11 +24,12 @@ public class ApplicationContext {
     private static Scanner scanner = new Scanner(System.in);
     private static OrderStatusType orderStatusType;
     private static PersonTypeType personTypeType;
+
     public ApplicationContext() {
         session = connectToDb();
         checkDBHaveEnumsValue();
-        orderStatusType = new OrderStatusType();
-        personTypeType = new PersonTypeType();
+        orderStatusType = OrderStatusType.of();
+        personTypeType = PersonTypeType.of();
         checkManagerExist();
         checkWaiterExist();
     }
@@ -45,29 +46,21 @@ public class ApplicationContext {
         return scanner;
     }
 
-    private void checkDBHaveEnumsValue () {
+    public static OrderStatusType getOrderStatusType() {
+        return orderStatusType;
+    }
+
+    public static PersonTypeType getPersonTypeType() {
+        return personTypeType;
+    }
+
+    private void checkDBHaveEnumsValue() {
         session.beginTransaction();
-        for (PersonTypeEnum personTypeEnum: PersonTypeEnum.values()) {
-            Optional<PersonType> personType = session.byNaturalId(PersonType.class)
-                    .using("type", personTypeEnum).loadOptional();
-            if(personType.isEmpty()) {
-                session.saveOrUpdate(new PersonType(personTypeEnum));
 
-            }
-        }
-
-        for(OrderStatusEnum orderStatusEnum: OrderStatusEnum.values()) {
-            Optional<OrderStatus> orderStatus = session.byNaturalId(OrderStatus.class)
-                    .using("name", orderStatusEnum).loadOptional();
-            if(orderStatus.isEmpty()) {
-                session.saveOrUpdate(new OrderStatus(orderStatusEnum));
-            }
-        }
-
-        for (PaymentTypeEnum paymentTypeEnum: PaymentTypeEnum.values()) {
+        for (PaymentTypeEnum paymentTypeEnum : PaymentTypeEnum.values()) {
             Optional<PaymentType> paymentType = session.byNaturalId(PaymentType.class)
                     .using("paymentName", paymentTypeEnum).loadOptional();
-            if(paymentType.isEmpty()) {
+            if (paymentType.isEmpty()) {
                 session.saveOrUpdate(new PaymentType(paymentTypeEnum));
             }
         }
@@ -86,9 +79,10 @@ public class ApplicationContext {
                     DefaultManager.DEFAULT_MANAGER_EMAIL,
                     DefaultManager.DEFAULT_MANAGER_PASSWORD,
                     DefaultManager.DEFAULT_MANAGER_PHONE_NUMBER,
-                    PersonTypeType.getManager()));
+                    personTypeType.getManager()));
         }
     }
+
     private void checkWaiterExist() {
         try {
             Person waiter = session
@@ -100,7 +94,7 @@ public class ApplicationContext {
                     DefaultWaiter.DEFAULT_WAITER_EMAIL,
                     DefaultWaiter.DEFAULT_WAITER_PASSWORD,
                     DefaultWaiter.DEFAULT_WAITER_PHONE_NUMBER,
-                    PersonTypeType.getWaiter()));
+                    personTypeType.getWaiter()));
         }
     }
 }

@@ -4,51 +4,70 @@ import ee.sda.mckirill.controllers.entity.AbstractEntityController;
 import ee.sda.mckirill.entities.OrderStatus;
 import ee.sda.mckirill.enums.OrderStatusEnum;
 
-public class OrderStatusType extends AbstractEntityController {
-    private static OrderStatus openStatus;
-    private static OrderStatus servingStatus;
-    private static OrderStatus paidStatus;
-    private static OrderStatus closedStatus;
-    private static OrderStatus rejectedStatus;
+import java.util.Optional;
 
-    public static OrderStatus getOpen() {
-        if(openStatus == null) {
+public class OrderStatusType extends AbstractEntityController {
+    private OrderStatus openStatus;
+    private OrderStatus servingStatus;
+    private OrderStatus paidStatus;
+    private OrderStatus closedStatus;
+    private OrderStatus rejectedStatus;
+
+    private OrderStatusType() {
+    }
+
+    public static OrderStatusType of() {
+        return new OrderStatusType();
+    }
+
+    public OrderStatus getOpen() {
+        if (openStatus == null) {
             openStatus = getByEnum(OrderStatusEnum.OPEN);
         }
         return openStatus;
     }
-    public static OrderStatus getServing() {
-        if(servingStatus == null) {
+
+    public OrderStatus getServing() {
+        if (servingStatus == null) {
             servingStatus = getByEnum(OrderStatusEnum.SERVING);
         }
         return servingStatus;
     }
-    public static OrderStatus getPaid() {
-        if(paidStatus == null) {
+
+    public OrderStatus getPaid() {
+        if (paidStatus == null) {
             paidStatus = getByEnum(OrderStatusEnum.PAID);
         }
         return paidStatus;
     }
-    public static OrderStatus getClosed() {
-        if(closedStatus == null) {
+
+    public OrderStatus getClosed() {
+        if (closedStatus == null) {
             closedStatus = getByEnum(OrderStatusEnum.CLOSED);
         }
         return closedStatus;
     }
-    public static OrderStatus getRejected() {
-        if(rejectedStatus == null) {
+
+    public OrderStatus getRejected() {
+        if (rejectedStatus == null) {
             rejectedStatus = getByEnum(OrderStatusEnum.REJECTED);
         }
         return rejectedStatus;
     }
 
-    public static void saveOrderStatus(OrderStatus orderStatus) {
+    private void saveOrderStatus(OrderStatus orderStatus) {
         session.beginTransaction();
         session.saveOrUpdate(orderStatus);
         session.getTransaction().commit();
     }
 
-    private static OrderStatus getByEnum(OrderStatusEnum statusType) {
-        return session.byNaturalId(OrderStatus.class).using("name", statusType).load();
+    private OrderStatus getByEnum(OrderStatusEnum statusType) {
+        Optional<OrderStatus> orderStatus = session.byNaturalId(OrderStatus.class).using("name", statusType).loadOptional();
+        if (orderStatus.isEmpty()) {
+            saveOrderStatus(new OrderStatus(statusType));
+            orderStatus = Optional.of(getByEnum(statusType));
+        }
+        return orderStatus.get();
     }
+
 }

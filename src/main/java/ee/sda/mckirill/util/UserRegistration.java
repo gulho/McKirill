@@ -17,8 +17,7 @@ public class UserRegistration {
     public UserRegistration(String name, String email, String password, String phoneNumber, PersonTypeEnum userType){
         /*this.personType = new PersonType();
         personType.setType(userType);*/
-        personType = session.byNaturalId(PersonType.class).using("type", userType).load();
-        this.person = new Person(name, email, password, phoneNumber, personType);
+        this.person = new Person(name, email, password, phoneNumber, ApplicationContext.getPersonTypeType().getClient());
     }
 
     public Person commitRegistration(){
