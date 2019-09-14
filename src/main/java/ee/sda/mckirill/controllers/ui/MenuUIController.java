@@ -130,12 +130,14 @@ public class MenuUIController extends AbstractUIController {
         showAllMenuItems();
         MenuItem menuItem = selectMenuItem();
         Integer count = selectMenuItemCount();
-        order.getOrderedMenuItems().add(new OrderedMenuItem(
+        OrderedMenuItem orderedMenuItem = new OrderedMenuItem(
                 menuItem,
                 count,
                 menuItem.getPrice().multiply(BigDecimal.valueOf(count))
-        ));
+        );
+        order.getOrderedMenuItems().add(orderedMenuItem);
         order.setStatus(orderStatus.getServing());
+        menuController.saveOrderedMenuItem(orderedMenuItem);
         orderController.save(order);
     }
 
