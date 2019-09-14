@@ -11,6 +11,7 @@ public class UserRegistration {
     private Person person;
     private PersonType personType;
     private Session session = ApplicationContext.getSession();
+    private PersonController personController = PersonController.of();
 
     UserRegistration(){}
 
@@ -22,7 +23,7 @@ public class UserRegistration {
 
     public Person commitRegistration(){
 
-        PersonController.savePerson(person);
+        PersonController.of().savePerson(person);
         return person;
 
         /*try(Session session = new Configuration().configure().buildSessionFactory().openSession()) {

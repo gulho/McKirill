@@ -13,7 +13,7 @@ public class WaiterTip {
     @OneToOne
     @JoinColumn(name = "person_id")
     private Person person;
-    private BigDecimal tip;
+    private BigDecimal tip = BigDecimal.ZERO;
     @OneToOne
     @JoinColumn(name = "order_id")
     private Order order;
