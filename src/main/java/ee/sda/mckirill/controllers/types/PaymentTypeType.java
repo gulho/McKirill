@@ -36,7 +36,7 @@ public class PaymentTypeType extends AbstractEntityController {
         return cardType;
     }
 
-    private PaymentType getByType(PaymentTypeEnum paymentTypeEnum) {
+    public PaymentType getByType(PaymentTypeEnum paymentTypeEnum) {
         Optional<PaymentType> paymentType = session.byNaturalId(PaymentType.class).using("paymentName", paymentTypeEnum).loadOptional();
         if (paymentType.isEmpty()) {
             save(new PaymentType(paymentTypeEnum));

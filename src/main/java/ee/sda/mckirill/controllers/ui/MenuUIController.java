@@ -33,7 +33,7 @@ public class MenuUIController extends AbstractUIController {
                 case "2":
                     System.out.println(MenuStrings.MENU_ADD_NEW);
                     editMenu(new MenuItem());
-                    endOfUIIntercation();
+                    endOfUIInteraction();
                     break;
                 case "0":
                     return;

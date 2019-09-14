@@ -21,7 +21,7 @@ public class TableUIController extends AbstractUIController {
                 case "2":
                     System.out.println(TableStrings.TABLE_ADD_NEW);
                     editTable(new Table());
-                    endOfUIIntercation();
+                    endOfUIInteraction();
                     break;
                 case "0":
                     return;

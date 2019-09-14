@@ -1,11 +1,17 @@
 package ee.sda.mckirill.controllers.ui;
 
+import ee.sda.mckirill.controllers.ApplicationContext;
 import ee.sda.mckirill.controllers.models.OrderController;
 import ee.sda.mckirill.entities.Order;
+import ee.sda.mckirill.entities.OrderedMenuItem;
+import ee.sda.mckirill.entities.PaymentType;
 import ee.sda.mckirill.entities.Person;
+import ee.sda.mckirill.enums.PaymentTypeEnum;
 import ee.sda.mckirill.strings.BaseString;
+import ee.sda.mckirill.strings.MenuStrings;
 import ee.sda.mckirill.strings.OrderStrings;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -137,5 +143,56 @@ public class OrderUIController extends AbstractUIController {
             System.out.println(e.getMessage());
         }
         return Optional.ofNullable(orderTime);
+    }
+
+    public void payment(Order orderToUpdate) {
+        System.out.println(OrderStrings.WAITER_PAYMENT);
+        endOfUIInteraction();
+        orderToUpdate.setPaymentType(selectPaymentType());
+        orderToUpdate.setTotalSum(selectPaymentAmount(orderToUpdate));
+    }
+
+    private PaymentType selectPaymentType() {
+        while (true) {
+            PaymentTypeEnum paymentTypeEnumSelected;
+            System.out.println(OrderStrings.SELECT_PAYMENT_TYPE);
+            for (PaymentTypeEnum paymentTypeEnum : PaymentTypeEnum.values()) {
+                System.out.println(paymentTypeEnum.toString());
+            }
+            try{
+                paymentTypeEnumSelected = PaymentTypeEnum.valueOf(scanner.nextLine().toUpperCase());
+                return ApplicationContext.getPaymentTypeType().getByType(paymentTypeEnumSelected);
+            } catch (IllegalArgumentException e) {
+                System.out.println(OrderStrings.SELECT_PAYMENT_TYPE_WRONG);
+            }
+        }
+    }
+
+    private BigDecimal selectPaymentAmount(Order orderToUpdate) {
+        while (true) {
+            System.out.println(OrderStrings.SELECT_SET_AMOUNT + "(" + orderTotalAmount(orderToUpdate).toPlainString() + ")");
+            String scannerAmount = scanner.nextLine().toUpperCase();
+            if(scannerAmount.equals("") || scannerAmount.equals("Y")) {
+                return orderTotalAmount(orderToUpdate);
+            }
+            try{
+                BigDecimal returnBigDecimal = new BigDecimal(scannerAmount);
+                if(returnBigDecimal.compareTo(orderTotalAmount(orderToUpdate)) >= 0) {
+                    return returnBigDecimal;
+                } else {
+                    System.out.println(OrderStrings.SELECT_PAYMENT_AMOUNT_NOT_ENOUGH);
+                }
+            } catch (NumberFormatException e) {
+                System.out.println(OrderStrings.SELECT_PAYMENT_WRONG);
+            }
+        }
+    }
+
+    private BigDecimal orderTotalAmount(Order orderToUpdate) {
+        BigDecimal orderTotalAmount = BigDecimal.ZERO;
+        for(OrderedMenuItem orderedMenuItem: orderToUpdate.getOrderedMenuItems()) {
+            orderTotalAmount.add(orderedMenuItem.getSum());
+        }
+        return orderTotalAmount;
     }
 }

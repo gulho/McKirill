@@ -1,6 +1,6 @@
 package ee.sda.mckirill.enums;
 
-public enum ControllrsEnum {
+public enum ControllersEnum {
     MAIN,
     MENU,
     TABLE,

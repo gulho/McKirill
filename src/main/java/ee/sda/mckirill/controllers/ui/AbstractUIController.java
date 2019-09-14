@@ -2,6 +2,7 @@ package ee.sda.mckirill.controllers.ui;
 
 import ee.sda.mckirill.controllers.ApplicationContext;
 import ee.sda.mckirill.controllers.types.OrderStatusType;
+import ee.sda.mckirill.controllers.types.PaymentTypeType;
 import ee.sda.mckirill.controllers.types.PersonTypeType;
 import ee.sda.mckirill.entities.Person;
 
@@ -20,8 +21,9 @@ public abstract class AbstractUIController {
     public abstract void start() throws Exception;
 
     //Creater for fic Error with scanner
-    public static void endOfUIIntercation() {
-        scanner.nextLine();
+    public static void endOfUIInteraction() {
+        if (scanner.hasNextLine())
+            scanner.nextLine();
     }
 
 }

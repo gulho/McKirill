@@ -2,7 +2,7 @@ package ee.sda.mckirill.controllers.ui;
 
 import ee.sda.mckirill.controllers.Factory;
 import ee.sda.mckirill.entities.Person;
-import ee.sda.mckirill.enums.ControllrsEnum;
+import ee.sda.mckirill.enums.ControllersEnum;
 import ee.sda.mckirill.strings.BaseString;
 import ee.sda.mckirill.strings.ClientUIStrings;
 
@@ -16,12 +16,12 @@ public class ClientUIController extends AbstractUIController {
             printClientMainSelect();
             switch (scanner.nextLine()) {
                 case "1":
-                    Factory.getController(person, ControllrsEnum.ORDER).start();
-                    endOfUIIntercation();
+                    Factory.getController(person, ControllersEnum.ORDER).start();
+                    endOfUIInteraction();
                     break;
                 case "2":
-                    Factory.getController(person, ControllrsEnum.REVIEW);
-                    endOfUIIntercation();
+                    Factory.getController(person, ControllersEnum.REVIEW);
+                    endOfUIInteraction();
                     break;
                 case "exit":
                 case "e":

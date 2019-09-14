@@ -24,5 +24,15 @@ public class OrderStrings extends BaseString {
 
     public static final String CLIENT_ORDER_CONFIRM = GREEN + "Your order has been accepted successfully." + RESET;
 
-
+    public static final String WAITER_PAYMENT = GREEN + "Apply payment" + RESET;
+    public static final String SELECT_PAYMENT_TYPE = GREEN + "Select payment type" + RESET;
+    public static final String SELECT_PAYMENT_TYPE_WRONG = RED + "Payment type not selected" +RESET;
+    public static final String SELECT_SET_AMOUNT = GREEN + "Set amount of payment" + RESET;
+    public static final String SELECT_PAYMENT_WRONG = RED + "Amount of payment is wrong" + RESET;
+    public static final String SELECT_PAYMENT_AMOUNT_NOT_ENOUGH = RED + "Amount is not enough" + RESET;
+    public static final String SELECT_PAYMENT_ADD_CHANGE_TO_TIP = GREEN + "Add change to tip? (Y/n)" + RESET;
+    public static final String SELECT_AMOUNT_OF_TIP = GREEN + "Set amount of TIP" + RESET;
+    public static final String PAYMENT_TOTAL = GREEN + "Payment total:" + RESET;
+    public static final String PAYMENT_TOTAL_CHANGE = GREEN + "Total change:" + RESET;
+    public static final String PAYMENT_TOTAL_TIP = GREEN + "Total top:" + RESET;
 }
