@@ -2,6 +2,7 @@ package ee.sda.mckirill.strings;
 
 public class BaseString extends ConsoleColors {
     public static final String BR = System.lineSeparator();
+    public static final char EURO =  0x20AC;
 
     public static final String PLEASE_SELECT_ACTION = "Please select action." + BR;
     public static final String EXIT_FROM_APP = "exit: To quit from app";

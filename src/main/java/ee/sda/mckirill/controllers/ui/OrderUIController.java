@@ -2,10 +2,8 @@ package ee.sda.mckirill.controllers.ui;
 
 import ee.sda.mckirill.controllers.ApplicationContext;
 import ee.sda.mckirill.controllers.models.OrderController;
-import ee.sda.mckirill.entities.Order;
-import ee.sda.mckirill.entities.OrderedMenuItem;
-import ee.sda.mckirill.entities.PaymentType;
-import ee.sda.mckirill.entities.Person;
+import ee.sda.mckirill.controllers.models.PersonController;
+import ee.sda.mckirill.entities.*;
 import ee.sda.mckirill.enums.PaymentTypeEnum;
 import ee.sda.mckirill.strings.BaseString;
 import ee.sda.mckirill.strings.MenuStrings;
@@ -97,6 +95,20 @@ public class OrderUIController extends AbstractUIController {
         for (Order order: orderList) {
             System.out.printf("%4d%30s%10d%10s%n",
                     order.getId(),order.getPerson().getName(),order.getPeoples(),order.getStatus().getName());
+            if (order.getOrderedMenuItems().isEmpty() == false) {
+                System.out.printf("      %42s%19s%22s%18s%n",
+                        MenuStrings.TABLE_MENU_ITEM_NAME,
+                        MenuStrings.TABLE_MENU_ITEM_TYPE,
+                        OrderStrings.TABLE_QUANTITY,
+                        MenuStrings.TABLE_MENU_ITEM_PRICE);
+                for (OrderedMenuItem orderedMenuItem: order.getOrderedMenuItems()) {
+                    System.out.printf("      %30s%10s%7d%10s%n",
+                            orderedMenuItem.getMenuItem().getName(),
+                            orderedMenuItem.getMenuItem().getType().toString(),
+                            orderedMenuItem.getQuantity(),
+                            orderedMenuItem.getSum().toString() + OrderStrings.EURO);
+                }
+            }
         }
     }
 
@@ -150,6 +162,18 @@ public class OrderUIController extends AbstractUIController {
         endOfUIInteraction();
         orderToUpdate.setPaymentType(selectPaymentType());
         orderToUpdate.setTotalSum(selectPaymentAmount(orderToUpdate));
+        orderToUpdate.setStatus(orderStatus.getPaid());
+        orderController.save(orderToUpdate);
+
+        WaiterTip waiterTip = setWaiterTip(orderToUpdate);
+        if (waiterTip.getTip().compareTo(BigDecimal.ZERO) > 0) {
+            waiterTip.setPerson(person);
+            waiterTip.setOrder(orderToUpdate);
+            PersonController.of().saveWaiterTip(waiterTip);
+        }
+        System.out.println(OrderStrings.PAYMENT_TOTAL + orderToUpdate.getTotalSum().toPlainString());
+        System.out.println(OrderStrings.PAYMENT_TOTAL_CHANGE + (orderToUpdate.getTotalSum().subtract(orderTotalAmount(orderToUpdate)).toPlainString()));
+        System.out.println(OrderStrings.PAYMENT_TOTAL_TIP + waiterTip.getTip().toPlainString());
     }
 
     private PaymentType selectPaymentType() {
@@ -179,7 +203,7 @@ public class OrderUIController extends AbstractUIController {
                 BigDecimal returnBigDecimal = new BigDecimal(scannerAmount);
                 if(returnBigDecimal.compareTo(orderTotalAmount(orderToUpdate)) >= 0) {
                     return returnBigDecimal;
-                } else {
+                }else {
                     System.out.println(OrderStrings.SELECT_PAYMENT_AMOUNT_NOT_ENOUGH);
                 }
             } catch (NumberFormatException e) {
@@ -191,8 +215,23 @@ public class OrderUIController extends AbstractUIController {
     private BigDecimal orderTotalAmount(Order orderToUpdate) {
         BigDecimal orderTotalAmount = BigDecimal.ZERO;
         for(OrderedMenuItem orderedMenuItem: orderToUpdate.getOrderedMenuItems()) {
-            orderTotalAmount.add(orderedMenuItem.getSum());
+            orderTotalAmount = orderTotalAmount.add(orderedMenuItem.getSum());
         }
         return orderTotalAmount;
+    }
+
+    private WaiterTip setWaiterTip(Order orderToUpdate) {
+        WaiterTip waiterTip = new WaiterTip();
+        while (true) {
+            System.out.println(OrderStrings.SELECT_AMOUNT_OF_TIP);
+            BigDecimal tip = scanner.nextBigDecimal();
+            if (tip.compareTo(BigDecimal.ZERO) >= 0) {
+                waiterTip.setTip(waiterTip.getTip().add(tip));
+                break;
+            } else {
+                System.out.println(OrderStrings.SELECT_AMOUNT_OF_TIP_CANT_BE_NEGATIVE);
+            }
+        }
+        return waiterTip;
     }
 }
