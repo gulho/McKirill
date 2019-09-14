@@ -133,7 +133,8 @@ public class MenuUIController extends AbstractUIController {
         OrderedMenuItem orderedMenuItem = new OrderedMenuItem(
                 menuItem,
                 count,
-                menuItem.getPrice().multiply(BigDecimal.valueOf(count))
+                menuItem.getPrice().multiply(BigDecimal.valueOf(count)),
+                order
         );
         order.getOrderedMenuItems().add(orderedMenuItem);
         order.setStatus(orderStatus.getServing());

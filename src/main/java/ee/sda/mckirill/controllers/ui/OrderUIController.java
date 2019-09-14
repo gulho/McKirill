@@ -97,6 +97,15 @@ public class OrderUIController extends AbstractUIController {
         for (Order order: orderList) {
             System.out.printf("%4d%30s%10d%10s%n",
                     order.getId(),order.getPerson().getName(),order.getPeoples(),order.getStatus().getName());
+            if (order.getOrderedMenuItems().isEmpty() == false) {
+                for (OrderedMenuItem orderedMenuItem: order.getOrderedMenuItems()) {
+                    System.out.printf("      %30s%10s%5d%n",
+                            orderedMenuItem.getMenuItem().getName(),
+                            orderedMenuItem.getMenuItem().getType().toString(),
+                            orderedMenuItem.getQuantity(),
+                            orderedMenuItem.getSum().toString() + OrderStrings.EURO);
+                }
+            }
         }
     }
 

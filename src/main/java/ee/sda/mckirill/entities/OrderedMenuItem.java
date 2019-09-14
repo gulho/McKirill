@@ -25,10 +25,11 @@ public class OrderedMenuItem {
         
     }
 
-    public OrderedMenuItem(MenuItem menuItem, Integer quantity, BigDecimal sum) {
+    public OrderedMenuItem(MenuItem menuItem, Integer quantity, BigDecimal sum, Order order) {
         this.menuItem = menuItem;
         this.quantity = quantity;
         this.sum = sum;
+        this.order = order;
     }
 
     public int getId() {

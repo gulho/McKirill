@@ -33,8 +33,7 @@ public class Save_order {
         OrderStatus open_order = new OrderStatus(OrderStatusEnum.OPEN);
         //Create order menu items
         MenuItem beer_Menu_item = new MenuItem("Beer", MenuItemsTypeEnum.BEER, new BigDecimal(30) );
-        OrderedMenuItem items = new OrderedMenuItem(beer_Menu_item, 5, beer_Menu_item.getPrice().multiply(new BigDecimal(5)));
-        items.setOrder(order);
+        OrderedMenuItem items = new OrderedMenuItem(beer_Menu_item, 5, beer_Menu_item.getPrice().multiply(new BigDecimal(5)), order);
         //Create review
         Review review = new Review(client, 5, "Some long review text", LocalDateTime.now());
         //Create waiter tip (in this example tip go to client this is wrong)
