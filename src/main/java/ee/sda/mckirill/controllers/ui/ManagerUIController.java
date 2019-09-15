@@ -6,6 +6,10 @@ import ee.sda.mckirill.enums.ControllersEnum;
 import ee.sda.mckirill.strings.BaseString;
 import ee.sda.mckirill.strings.ManagerUIStrings;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Consumer;
+
 public class ManagerUIController extends AbstractUIController {
 
     public ManagerUIController(Person person) {
@@ -13,28 +17,16 @@ public class ManagerUIController extends AbstractUIController {
     }
 
     @Override
-    public void start() throws Exception {
-        while (true) {
-            System.out.println(ManagerUIStrings.MANAGER_MAIN_ACTION);
-            switch (scanner.nextLine()) {
-                case "1":
-                    Factory.getController(person, ControllersEnum.ORDER).start();
-                    break;
-                case "2":
-                    Factory.getController(person, ControllersEnum.MENU).start();
-                    endOfUIInteraction();
-                    break;
-                case "4":
-                    Factory.getController(person, ControllersEnum.TABLE).start();
-                    endOfUIInteraction();
-                    break;
-                case "exit":
-                case "e":
-                    System.out.println(BaseString.EXIT);
-                    return;
-                default:
-                    System.out.println(BaseString.WRONG_COMMAND);
-            }
-        }
+    public void start() {
+        Map<Integer, Consumer> managerActions = new HashMap<>();
+        managerActions.put(1, T -> Factory.getController(person, ControllersEnum.ORDER).start());
+        managerActions.put(2, T -> Factory.getController(person, ControllersEnum.MENU).start());
+        managerActions.put(3, T -> System.out.println(BaseString.TODO)); //TODO
+        managerActions.put(4, T -> Factory.getController(person, ControllersEnum.TABLE).start());
+        managerActions.put(5, T -> System.out.println(BaseString.TODO)); //TODO
+        managerActions.put(6, T -> System.out.println(BaseString.TODO)); //TODO
+        managerActions.put(7, T -> System.out.println(BaseString.TODO)); //TODO
+
+        selectMenuAction(ManagerUIStrings.MANAGER_MAIN_ACTION, managerActions);
     }
 }

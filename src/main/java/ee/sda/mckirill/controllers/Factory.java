@@ -8,8 +8,8 @@ import ee.sda.mckirill.enums.PersonTypeEnum;
 
 public class Factory {
 
-    public static AbstractUIController getController(Person person, ControllersEnum controller) throws Exception {
-        AbstractUIController returnController;
+    public static AbstractUIController getController(Person person, ControllersEnum controller) {
+        AbstractUIController returnController = null;
         switch (controller) {
             case MAIN:
                 if (person.getPersonType().getType() == PersonTypeEnum.MANAGER) {
@@ -32,8 +32,6 @@ public class Factory {
             case REVIEW:
                 returnController = new ReviewUIController(person);
                 break;
-            default:
-                throw new Exception("Controller is not exist in factory method");
         }
         return returnController;
     }

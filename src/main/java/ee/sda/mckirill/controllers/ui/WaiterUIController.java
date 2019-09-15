@@ -6,33 +6,24 @@ import ee.sda.mckirill.entities.Person;
 import ee.sda.mckirill.enums.ControllersEnum;
 import ee.sda.mckirill.strings.WaiterUIStrings;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Consumer;
+
 public class WaiterUIController extends AbstractUIController {
     public WaiterUIController(Person person) {
         super(person);
     }
 
     @Override
-    public void start() throws Exception {
+    public void start() {
         Order orderToUpdate;
         OrderUIController orderUI = (OrderUIController) Factory.getController(person, ControllersEnum.ORDER);
         MenuUIController menuUI = (MenuUIController) Factory.getController(person, ControllersEnum.MENU);
-        while(true) {
-            System.out.println();
-            orderUI.showWaiterOrdersList();
-            System.out.println(WaiterUIStrings.WAITER_MAIN_ACTION);
-            switch (scanner.nextLine()) {
-                case "1":
-                    orderToUpdate = orderUI.selectOrderId();
-                    menuUI.addAdditionalFood(orderToUpdate);
-                    break;
-                case "2":
-                    orderToUpdate = orderUI.selectOrderId();
-                    orderUI.payment(orderToUpdate);
-                    break;
-                case "exit":
-                case "e":
-                    return;
-            }
-        }
+        Map<Integer, Consumer> waiterActions = new HashMap<>();
+        waiterActions.put(1, T -> menuUI.addAdditionalFood(orderUI.selectOrderId()));
+        waiterActions.put(2, T -> orderUI.payment(orderUI.selectOrderId()));
+
+        selectMenuAction(WaiterUIStrings.WAITER_MAIN_ACTION, waiterActions);
     }
 }

@@ -1,6 +1,5 @@
 package ee.sda.mckirill.controllers.ui;
 
-import ee.sda.mckirill.controllers.Factory;
 import ee.sda.mckirill.controllers.models.MenuController;
 import ee.sda.mckirill.controllers.models.OrderController;
 import ee.sda.mckirill.entities.MenuItem;
@@ -12,8 +11,11 @@ import ee.sda.mckirill.strings.BaseString;
 import ee.sda.mckirill.strings.MenuStrings;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class MenuUIController extends AbstractUIController {
@@ -26,27 +28,16 @@ public class MenuUIController extends AbstractUIController {
 
     @Override
     public void start() {
-        while (true) {
-            System.out.println(MenuStrings.MANAGER_MENU_MAIN_ACTION);
-            String actionSelect = scanner.nextLine();
-            switch (actionSelect) {
-                case "1":
-                    break;
-                case "2":
-                    System.out.println(MenuStrings.MENU_ADD_NEW);
-                    editMenu(new MenuItem());
-                    endOfUIInteraction();
-                    break;
-                case "0":
-                    return;
-                default:
-                    System.out.println(BaseString.WRONG_COMMAND);
-            }
-        }
+        Map<Integer, Consumer> menuActions = new HashMap<>();
+        menuActions.put(1, T -> System.out.println(BaseString.TODO)); //TODO
+        menuActions.put(2, T -> editMenu(new MenuItem()));
+        menuActions.put(3, T -> System.out.println(BaseString.TODO)); //TODO
+        menuActions.put(4, T -> System.out.println(BaseString.TODO)); //TODO
     }
 
     private void editMenu(MenuItem menuItem) {
-        menuItem.setName(selectString(MenuStrings.MENU_SET_NAME,MenuStrings.MENU_EMPTY_NAME,50));
+        System.out.println(MenuStrings.MENU_ADD_NEW);
+        menuItem.setName(selectString(MenuStrings.MENU_SET_NAME, MenuStrings.MENU_EMPTY_NAME, 50));
         menuItem.setType(selectEnum(MenuStrings.MENU_SET_TYPE, MenuStrings.MENU_WRONG_TYPE, MenuItemsTypeEnum.class));
         menuItem.setPrice(selectBigDecimal(MenuStrings.MENU_SET_PRICE, MenuStrings.MENU_PRICE_0_LOW));
         menuController.saveMenuItem(menuItem);
