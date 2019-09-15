@@ -65,15 +65,7 @@ public class MenuUIController extends AbstractUIController {
                 System.out.println(MenuStrings.MENU_WRONG_TYPE);
             }
         }
-        while (true) {
-            System.out.println(MenuStrings.MENU_SET_PRICE);
-            menuItem.setPrice(scanner.nextBigDecimal());
-            if (menuItem.getPrice().signum() >= 0) {
-                break;
-            } else {
-                System.out.println(MenuStrings.MENU_PRICE_0_LOW);
-            }
-        }
+        menuItem.setPrice(getBigDecimal(MenuStrings.MENU_SET_PRICE, MenuStrings.MENU_PRICE_0_LOW));
         menuController.saveMenuItem(menuItem);
         System.out.println(BaseString.SAVE_IN_DB);
     }

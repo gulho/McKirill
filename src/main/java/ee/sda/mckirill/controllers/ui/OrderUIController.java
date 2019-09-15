@@ -165,10 +165,11 @@ public class OrderUIController extends AbstractUIController {
         orderToUpdate.setStatus(orderStatus.getPaid());
         orderController.save(orderToUpdate);
 
-        WaiterTip waiterTip = setWaiterTip(orderToUpdate);
+        WaiterTip waiterTip = new WaiterTip(
+                person,
+                getBigDecimal(OrderStrings.SELECT_AMOUNT_OF_TIP,OrderStrings.SELECT_AMOUNT_OF_TIP_CANT_BE_NEGATIVE),
+                orderToUpdate);
         if (waiterTip.getTip().compareTo(BigDecimal.ZERO) > 0) {
-            waiterTip.setPerson(person);
-            waiterTip.setOrder(orderToUpdate);
             PersonController.of().saveWaiterTip(waiterTip);
         }
         System.out.println(OrderStrings.PAYMENT_TOTAL + orderToUpdate.getTotalSum().toPlainString());
@@ -218,20 +219,5 @@ public class OrderUIController extends AbstractUIController {
             orderTotalAmount = orderTotalAmount.add(orderedMenuItem.getSum());
         }
         return orderTotalAmount;
-    }
-
-    private WaiterTip setWaiterTip(Order orderToUpdate) {
-        WaiterTip waiterTip = new WaiterTip();
-        while (true) {
-            System.out.println(OrderStrings.SELECT_AMOUNT_OF_TIP);
-            BigDecimal tip = scanner.nextBigDecimal();
-            if (tip.compareTo(BigDecimal.ZERO) >= 0) {
-                waiterTip.setTip(waiterTip.getTip().add(tip));
-                break;
-            } else {
-                System.out.println(OrderStrings.SELECT_AMOUNT_OF_TIP_CANT_BE_NEGATIVE);
-            }
-        }
-        return waiterTip;
     }
 }
