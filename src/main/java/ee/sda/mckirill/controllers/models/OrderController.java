@@ -27,7 +27,7 @@ public class OrderController extends AbstractEntityController {
         return session.createNamedQuery("get_all_orders").getResultList();
     }
 
-    public Optional<Order> findById(int id) {
+    public Optional<Order> findById(Integer id) {
         return Optional.ofNullable(session.get(Order.class, id));
     }
 }

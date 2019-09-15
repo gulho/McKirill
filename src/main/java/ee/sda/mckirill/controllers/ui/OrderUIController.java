@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 public class OrderUIController extends AbstractUIController {
     private OrderController orderController = OrderController.of();
@@ -104,7 +105,7 @@ public class OrderUIController extends AbstractUIController {
     }
 
     public Order selectOrderId() {
-        Optional<Order> returnOrder;
+        /*Optional<Order> returnOrder;
         while (true) {
             System.out.println(OrderStrings.SELECT_ORDER);
             returnOrder = orderController.findById(scanner.nextInt());
@@ -114,7 +115,9 @@ public class OrderUIController extends AbstractUIController {
                 break;
             }
         }
-        return returnOrder.get();
+        return returnOrder.get();*/
+        Function<Integer, Optional<Order>> function = T -> orderController.findById(T);
+        return selectObjectById(OrderStrings.SELECT_ORDER, OrderStrings.SELECT_ORDER_WRONG_ID, function);
     }
 
     private Optional<LocalDate> validateDate(String dateStr) {

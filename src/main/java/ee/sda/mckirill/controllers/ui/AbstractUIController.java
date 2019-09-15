@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.function.Function;
 
 public abstract class AbstractUIController<U> {
     protected static Person person;
@@ -88,5 +89,19 @@ public abstract class AbstractUIController<U> {
                 System.out.println(errorString);
             }
         }
+    }
+
+    public static <T,R> R selectObjectById(String headerString, String errorString, Function function) {
+        Optional<R> returnObject;
+        while (true) {
+            System.out.println(headerString);
+            returnObject = (Optional<R>) function.apply(Integer.valueOf(scanner.nextInt()));
+            if(returnObject.isEmpty()){
+                System.out.println(errorString);
+            } else {
+                break;
+            }
+        }
+        return returnObject.get();
     }
 }
