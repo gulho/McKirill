@@ -1,5 +1,6 @@
 package ee.sda.mckirill.controllers.ui;
 
+import ee.sda.mckirill.controllers.Factory;
 import ee.sda.mckirill.controllers.models.MenuController;
 import ee.sda.mckirill.controllers.models.OrderController;
 import ee.sda.mckirill.entities.MenuItem;
@@ -13,6 +14,7 @@ import ee.sda.mckirill.strings.MenuStrings;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 public class MenuUIController extends AbstractUIController {
     private MenuController menuController = MenuController.of();
@@ -44,36 +46,9 @@ public class MenuUIController extends AbstractUIController {
     }
 
     private void editMenu(MenuItem menuItem) {
-        while (true) {
-            System.out.println(MenuStrings.MENU_SET_NAME);
-            menuItem.setName(scanner.nextLine());
-            if (!menuItem.getName().isEmpty()) {
-                break;
-            } else {
-                System.out.println(MenuStrings.MENU_EMPTY_NAME);
-            }
-        }
-        while (true) {
-            System.out.println(MenuStrings.MENU_SET_TYPE);
-            for (MenuItemsTypeEnum menuItemsTypeEnum : MenuItemsTypeEnum.values()) {
-                System.out.println(menuItemsTypeEnum.toString());
-            }
-            try {
-                menuItem.setType(MenuItemsTypeEnum.valueOf(scanner.nextLine().toUpperCase()));
-                break;
-            } catch (Exception e) {
-                System.out.println(MenuStrings.MENU_WRONG_TYPE);
-            }
-        }
-        while (true) {
-            System.out.println(MenuStrings.MENU_SET_PRICE);
-            menuItem.setPrice(scanner.nextBigDecimal());
-            if (menuItem.getPrice().signum() >= 0) {
-                break;
-            } else {
-                System.out.println(MenuStrings.MENU_PRICE_0_LOW);
-            }
-        }
+        menuItem.setName(selectString(MenuStrings.MENU_SET_NAME,MenuStrings.MENU_EMPTY_NAME,50));
+        menuItem.setType(selectEnum(MenuStrings.MENU_SET_TYPE, MenuStrings.MENU_WRONG_TYPE, MenuItemsTypeEnum.class));
+        menuItem.setPrice(selectBigDecimal(MenuStrings.MENU_SET_PRICE, MenuStrings.MENU_PRICE_0_LOW));
         menuController.saveMenuItem(menuItem);
         System.out.println(BaseString.SAVE_IN_DB);
     }
@@ -88,48 +63,11 @@ public class MenuUIController extends AbstractUIController {
         }
     }
 
-    private MenuItem selectMenuItem() {
-        Optional<MenuItem> returnMenuItem;
-        while (true) {
-            System.out.println(MenuStrings.MENU_ITEM_SELECT);
-            int scannerSelect;
-            while (true) {
-                try {
-                    scannerSelect = Integer.valueOf(scanner.nextLine());
-                    break;
-                } catch (NumberFormatException e) {
-                    System.out.println(MenuStrings.SELECT_ID_NOT_INTEGER);
-                }
-
-            }
-            returnMenuItem = menuController.findById(scannerSelect);
-            if(returnMenuItem.isEmpty()) {
-                System.out.println(MenuStrings.MENU_ITEM_SELECT_WRONG);
-            } else {
-                break;
-            }
-        }
-        return returnMenuItem.get();
-    }
-
-    private int selectMenuItemCount() {
-        int returnCount;
-        while(true) {
-            System.out.println(MenuStrings.MENU_ITEM_SELECT_COUNT);
-            returnCount = scanner.nextInt();
-            if(returnCount < 0 ){
-                System.out.println(MenuStrings.MENU_ITEM_SELECT_COUNT_WRONG);
-            } else {
-                break;
-            }
-        }
-        return returnCount;
-    }
-
     public void addAdditionalFood(Order order) {
         showAllMenuItems();
-        MenuItem menuItem = selectMenuItem();
-        Integer count = selectMenuItemCount();
+        Function<Integer, Optional<MenuItem>> getMenuItemFunction = T -> menuController.findById(T);
+        MenuItem menuItem = selectObjectById(MenuStrings.MENU_ITEM_SELECT, MenuStrings.MENU_ITEM_SELECT_WRONG, getMenuItemFunction);
+        Integer count = selectUnsignedInteger(MenuStrings.MENU_ITEM_SELECT_COUNT, MenuStrings.MENU_ITEM_SELECT_COUNT_WRONG, 100);
         OrderedMenuItem orderedMenuItem = new OrderedMenuItem(
                 menuItem,
                 count,
