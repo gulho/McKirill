@@ -1,6 +1,7 @@
 package ee.sda.mckirill.controllers.ui;
 
 import ee.sda.mckirill.controllers.ApplicationContext;
+import ee.sda.mckirill.controllers.DatabaseController;
 import ee.sda.mckirill.controllers.types.OrderStatusType;
 import ee.sda.mckirill.entities.Person;
 import ee.sda.mckirill.strings.BaseString;
@@ -10,7 +11,7 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public abstract class AbstractUIController<U> {
+public abstract class AbstractUIController extends DatabaseController {
     protected static Person person;
     protected static Scanner scanner = ApplicationContext.getScanner();
     protected static OrderStatusType orderStatus = ApplicationContext.getOrderStatusType();
