@@ -3,37 +3,23 @@ package ee.sda.mckirill.controllers.ui;
 import ee.sda.mckirill.controllers.Factory;
 import ee.sda.mckirill.entities.Person;
 import ee.sda.mckirill.enums.ControllersEnum;
-import ee.sda.mckirill.strings.BaseString;
 import ee.sda.mckirill.strings.ClientUIStrings;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Consumer;
 
 public class ClientUIController extends AbstractUIController {
     public ClientUIController(Person person) {
         super(person);
     }
-    @Override
-    public void start() throws Exception{
-        while(true) {
-            printClientMainSelect();
-            switch (scanner.nextLine()) {
-                case "1":
-                    Factory.getController(person, ControllersEnum.ORDER).start();
-                    endOfUIInteraction();
-                    break;
-                case "2":
-                    Factory.getController(person, ControllersEnum.REVIEW);
-                    endOfUIInteraction();
-                    break;
-                case "exit":
-                case "e":
-                    System.out.println(BaseString.EXIT);
-                    return;
-                default:
-                    System.out.println(BaseString.WRONG_COMMAND);
-            }
-        }
-    }
 
-    private void printClientMainSelect() {
-        System.out.println(ClientUIStrings.CLIENT_MAIN_ACTION);
+    @Override
+    public void start() {
+        Map<Integer, Consumer> clientActions = new HashMap<>();
+        clientActions.put(1, T -> Factory.getController(person, ControllersEnum.ORDER).start());
+        clientActions.put(2, T -> Factory.getController(person, ControllersEnum.REVIEW).start());
+
+        selectMenuAction(ClientUIStrings.CLIENT_MAIN_ACTION, clientActions);
     }
 }

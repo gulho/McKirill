@@ -9,7 +9,7 @@ public class OrderStrings extends BaseString {
 
     public static String TABLE_PEOPLES_COUNT = GREEN + "Peoples" + RESET;
     public static String TABLE_STATUS = GREEN + "Status" + RESET;
-    public static String TABLE_QUANTITY = GREEN + "Quamtity" + RESET;
+    public static String TABLE_QUANTITY = GREEN + "Quantity" + RESET;
 
     public static final String SELECT_ORDER = GREEN + "Select order ID" + RESET;
     public static final String SELECT_ORDER_WRONG_ID = RED + "Order ID is wrong" + RESET;
@@ -27,7 +27,7 @@ public class OrderStrings extends BaseString {
 
     public static final String WAITER_PAYMENT = GREEN + "Apply payment" + RESET;
     public static final String SELECT_PAYMENT_TYPE = GREEN + "Select payment type" + RESET;
-    public static final String SELECT_PAYMENT_TYPE_WRONG = RED + "Payment type not selected" +RESET;
+    public static final String SELECT_PAYMENT_TYPE_WRONG = RED + "Payment type not selected" + RESET;
     public static final String SELECT_SET_AMOUNT = GREEN + "Set amount of payment" + RESET;
     public static final String SELECT_PAYMENT_WRONG = RED + "Amount of payment is wrong" + RESET;
     public static final String SELECT_PAYMENT_AMOUNT_NOT_ENOUGH = RED + "Amount is not enough" + RESET;

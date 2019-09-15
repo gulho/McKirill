@@ -6,9 +6,8 @@ import ee.sda.mckirill.entities.Person;
 import ee.sda.mckirill.strings.BaseString;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 public abstract class AbstractUIController<U> {
@@ -21,7 +20,7 @@ public abstract class AbstractUIController<U> {
         this.person = person;
     }
 
-    public abstract void start() throws Exception;
+    public abstract void start();
 
     //Creater for fic Error with scanner
     public static void endOfUIInteraction() {
@@ -83,25 +82,50 @@ public abstract class AbstractUIController<U> {
             Optional returnEnum = Arrays.stream(enumType.getEnumConstants())
                     .filter(e -> e.name().equals(typedEnumItem))
                     .findFirst();
-            if(returnEnum.isPresent()) {
-                return (E)returnEnum.get();
+            if (returnEnum.isPresent()) {
+                return (E) returnEnum.get();
             } else {
                 System.out.println(errorString);
             }
         }
     }
 
-    public static <T,R> R selectObjectById(String headerString, String errorString, Function function) {
+    public static <R> R selectObjectById(String headerString, String errorString, Function function) {
         Optional<R> returnObject;
         while (true) {
-            System.out.println(headerString);
-            returnObject = (Optional<R>) function.apply(Integer.valueOf(scanner.nextInt()));
-            if(returnObject.isEmpty()){
-                System.out.println(errorString);
-            } else {
-                break;
+            try {
+                System.out.println(headerString);
+                returnObject = (Optional<R>) function.apply(Integer.valueOf(scanner.nextInt()));
+                if (returnObject.isEmpty()) {
+                    System.out.println(errorString);
+                } else {
+                    break;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println(BaseString.SELECT_ID_NOT_INTEGER);
+            } finally {
+                endOfUIInteraction();
             }
         }
         return returnObject.get();
+    }
+
+    public static void selectMenuAction(String headerString, Map<Integer, Consumer> actionMap) {
+        while (true) {
+            System.out.println(headerString);
+            try {
+                Integer action = scanner.nextInt();
+                if (action == 0) {
+                    return;
+                }
+                actionMap.get(action).accept(null);
+            } catch (InputMismatchException e) {
+                System.out.println(BaseString.SELECT_ID_NOT_INTEGER);
+            } catch (NullPointerException e) {
+                System.out.println(BaseString.WRONG_COMMAND);
+            } finally {
+                endOfUIInteraction();
+            }
+        }
     }
 }

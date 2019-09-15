@@ -1,7 +1,7 @@
 package ee.sda.mckirill.util;
 
 import ee.sda.mckirill.controllers.ApplicationContext;
-import ee.sda.mckirill.controllers.models.PersonController;
+import ee.sda.mckirill.controllers.DatabaseController;
 import ee.sda.mckirill.entities.Person;
 import ee.sda.mckirill.entities.PersonType;
 import ee.sda.mckirill.enums.PersonTypeEnum;
@@ -11,7 +11,7 @@ public class UserRegistration {
     private Person person;
     private PersonType personType;
     private Session session = ApplicationContext.getSession();
-    private PersonController personController = PersonController.of();
+    private DatabaseController databaseController = DatabaseController.of();
 
     UserRegistration(){}
 
@@ -23,7 +23,7 @@ public class UserRegistration {
 
     public Person commitRegistration(){
 
-        PersonController.of().savePerson(person);
+        databaseController.save(person);
         return person;
 
         /*try(Session session = new Configuration().configure().buildSessionFactory().openSession()) {

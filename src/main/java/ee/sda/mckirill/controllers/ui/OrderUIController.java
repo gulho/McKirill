@@ -1,8 +1,7 @@
 package ee.sda.mckirill.controllers.ui;
 
 import ee.sda.mckirill.controllers.ApplicationContext;
-import ee.sda.mckirill.controllers.models.OrderController;
-import ee.sda.mckirill.controllers.models.PersonController;
+import ee.sda.mckirill.controllers.DatabaseController;
 import ee.sda.mckirill.entities.*;
 import ee.sda.mckirill.enums.PaymentTypeEnum;
 import ee.sda.mckirill.strings.BaseString;
@@ -13,12 +12,13 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class OrderUIController extends AbstractUIController {
-    private OrderController orderController = OrderController.of();
+    private DatabaseController databaseController = DatabaseController.of();
+
     public OrderUIController(Person person) {
         super(person);
     }
@@ -28,17 +28,12 @@ public class OrderUIController extends AbstractUIController {
         switch (person.getPersonType().getType()) {
             case MANAGER:
                 while (true) {
-                    System.out.println(OrderStrings.MANAGER_ORDERS_MAIN_ACTION);
-                    switch (scanner.nextLine()) {
-                        case "1":
-                            showOrdersList(orderController.getList());
-                            //endOfUIIntercation();
-                            break;
-                        case "0":
-                            return;
-                        default:
-                            System.out.println(BaseString.WRONG_COMMAND);
-                    }
+                    Map<Integer, Consumer> orderManagerActions = new HashMap<>();
+                    orderManagerActions.put(1, T -> showOrdersList(databaseController.getOrdersList()));
+                    orderManagerActions.put(2, T -> System.out.println(BaseString.TODO)); //TODO
+                    orderManagerActions.put(3, T -> System.out.println(BaseString.TODO)); //TODO
+
+                    selectMenuAction(OrderStrings.MANAGER_ORDERS_MAIN_ACTION, orderManagerActions);
                 }
             case CLIENT:
                 Optional<LocalDate> orderDate;
@@ -71,29 +66,29 @@ public class OrderUIController extends AbstractUIController {
                 order.setPeoples(selectUnsignedInteger(OrderStrings.CLIENT_ORDER_PEOPLES_COUNT_SELECT, OrderStrings.CLIENT_ORDER_PEOPLES_COUNT_INVALID, 15));
                 //TODO:Add pre-order food selection
                 order.setCreateDate(LocalDateTime.now());
-                orderController.save(order);
+                databaseController.save(order);
                 System.out.println(OrderStrings.CLIENT_ORDER_CONFIRM);
         }
     }
 
     public void showWaiterOrdersList() {
-        showOrdersList(orderController.getList());
+        showOrdersList(databaseController.getOrdersList());
     }
 
     private void showOrdersList(List<Order> orderList) {
         System.out.printf("%10s%45s%20s%20s%n",
-                OrderStrings.TABLE_ID,OrderStrings.TABLE_PERSON,OrderStrings.TABLE_PEOPLES_COUNT,OrderStrings.TABLE_STATUS);
+                OrderStrings.TABLE_ID, OrderStrings.TABLE_PERSON, OrderStrings.TABLE_PEOPLES_COUNT, OrderStrings.TABLE_STATUS);
 
-        for (Order order: orderList) {
+        for (Order order : orderList) {
             System.out.printf("%4d%30s%10d%10s%n",
-                    order.getId(),order.getPerson().getName(),order.getPeoples(),order.getStatus().getName());
+                    order.getId(), order.getPerson().getName(), order.getPeoples(), order.getStatus().getName());
             if (order.getOrderedMenuItems().isEmpty() == false) {
                 System.out.printf("      %42s%19s%22s%18s%n",
                         MenuStrings.TABLE_MENU_ITEM_NAME,
                         MenuStrings.TABLE_MENU_ITEM_TYPE,
                         OrderStrings.TABLE_QUANTITY,
                         MenuStrings.TABLE_MENU_ITEM_PRICE);
-                for (OrderedMenuItem orderedMenuItem: order.getOrderedMenuItems()) {
+                for (OrderedMenuItem orderedMenuItem : order.getOrderedMenuItems()) {
                     System.out.printf("      %30s%10s%7d%10s%n",
                             orderedMenuItem.getMenuItem().getName(),
                             orderedMenuItem.getMenuItem().getType().toString(),
@@ -105,18 +100,8 @@ public class OrderUIController extends AbstractUIController {
     }
 
     public Order selectOrderId() {
-        /*Optional<Order> returnOrder;
-        while (true) {
-            System.out.println(OrderStrings.SELECT_ORDER);
-            returnOrder = orderController.findById(scanner.nextInt());
-            if(returnOrder.isEmpty()){
-                System.out.println(OrderStrings.SELECT_ORDER_WRONG_ID);
-            } else {
-                break;
-            }
-        }
-        return returnOrder.get();*/
-        Function<Integer, Optional<Order>> function = T -> orderController.findById(T);
+        showWaiterOrdersList();
+        Function<Integer, Optional<Order>> function = T -> databaseController.findById(Order.class, T);
         return selectObjectById(OrderStrings.SELECT_ORDER, OrderStrings.SELECT_ORDER_WRONG_ID, function);
     }
 
@@ -156,18 +141,18 @@ public class OrderUIController extends AbstractUIController {
         endOfUIInteraction();
         orderToUpdate.setPaymentType(
                 ApplicationContext.getPaymentTypeType().getByType(
-                        selectEnum(OrderStrings.SELECT_PAYMENT_TYPE,OrderStrings.SELECT_PAYMENT_TYPE_WRONG,PaymentTypeEnum.class))
+                        selectEnum(OrderStrings.SELECT_PAYMENT_TYPE, OrderStrings.SELECT_PAYMENT_TYPE_WRONG, PaymentTypeEnum.class))
         );
         orderToUpdate.setTotalSum(selectPaymentAmount(orderToUpdate));
         orderToUpdate.setStatus(orderStatus.getPaid());
-        orderController.save(orderToUpdate);
+        databaseController.save(orderToUpdate);
 
         WaiterTip waiterTip = new WaiterTip(
                 person,
-                selectBigDecimal(OrderStrings.SELECT_AMOUNT_OF_TIP,OrderStrings.SELECT_AMOUNT_OF_TIP_CANT_BE_NEGATIVE),
+                selectBigDecimal(OrderStrings.SELECT_AMOUNT_OF_TIP, OrderStrings.SELECT_AMOUNT_OF_TIP_CANT_BE_NEGATIVE),
                 orderToUpdate);
         if (waiterTip.getTip().compareTo(BigDecimal.ZERO) > 0) {
-            PersonController.of().saveWaiterTip(waiterTip);
+            databaseController.save(waiterTip);
         }
         System.out.println(OrderStrings.PAYMENT_TOTAL + orderToUpdate.getTotalSum().toPlainString());
         System.out.println(OrderStrings.PAYMENT_TOTAL_CHANGE + (orderToUpdate.getTotalSum().subtract(orderTotalAmount(orderToUpdate)).toPlainString()));
@@ -178,14 +163,14 @@ public class OrderUIController extends AbstractUIController {
         while (true) {
             System.out.println(OrderStrings.SELECT_SET_AMOUNT + "(" + orderTotalAmount(orderToUpdate).toPlainString() + ")");
             String scannerAmount = scanner.nextLine().toUpperCase();
-            if(scannerAmount.equals("") || scannerAmount.equals("Y")) {
+            if (scannerAmount.equals("") || scannerAmount.equals("Y")) {
                 return orderTotalAmount(orderToUpdate);
             }
-            try{
+            try {
                 BigDecimal returnBigDecimal = new BigDecimal(scannerAmount);
-                if(returnBigDecimal.compareTo(orderTotalAmount(orderToUpdate)) >= 0) {
+                if (returnBigDecimal.compareTo(orderTotalAmount(orderToUpdate)) >= 0) {
                     return returnBigDecimal;
-                }else {
+                } else {
                     System.out.println(OrderStrings.SELECT_PAYMENT_AMOUNT_NOT_ENOUGH);
                 }
             } catch (NumberFormatException e) {
@@ -196,7 +181,7 @@ public class OrderUIController extends AbstractUIController {
 
     private BigDecimal orderTotalAmount(Order orderToUpdate) {
         BigDecimal orderTotalAmount = BigDecimal.ZERO;
-        for(OrderedMenuItem orderedMenuItem: orderToUpdate.getOrderedMenuItems()) {
+        for (OrderedMenuItem orderedMenuItem : orderToUpdate.getOrderedMenuItems()) {
             orderTotalAmount = orderTotalAmount.add(orderedMenuItem.getSum());
         }
         return orderTotalAmount;
