@@ -1,6 +1,5 @@
 package ee.sda.mckirill.controllers.ui;
 
-import ee.sda.mckirill.controllers.DatabaseController;
 import ee.sda.mckirill.entities.Person;
 import ee.sda.mckirill.entities.Table;
 import ee.sda.mckirill.strings.BaseString;
@@ -29,6 +28,6 @@ public class TableUIController extends AbstractUIController {
     private void editTable(Table table) {
         System.out.println(TableStrings.TABLE_ADD_NEW);
         table.setSize(selectUnsignedInteger(TableStrings.TABLE_SELECT_SIZE, TableStrings.TABLE_WRONG_SIZE, 15));
-        DatabaseController.of().save(table);
+        save(table);
     }
 }
