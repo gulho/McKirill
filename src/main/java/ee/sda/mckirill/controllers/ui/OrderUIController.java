@@ -1,8 +1,7 @@
 package ee.sda.mckirill.controllers.ui;
 
 import ee.sda.mckirill.controllers.ApplicationContext;
-import ee.sda.mckirill.controllers.models.OrderController;
-import ee.sda.mckirill.controllers.models.PersonController;
+import ee.sda.mckirill.controllers.DatabaseController;
 import ee.sda.mckirill.entities.*;
 import ee.sda.mckirill.enums.PaymentTypeEnum;
 import ee.sda.mckirill.strings.BaseString;
@@ -18,7 +17,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class OrderUIController extends AbstractUIController {
-    private OrderController orderController = OrderController.of();
+    private DatabaseController databaseController = DatabaseController.of();
 
     public OrderUIController(Person person) {
         super(person);
@@ -30,7 +29,7 @@ public class OrderUIController extends AbstractUIController {
             case MANAGER:
                 while (true) {
                     Map<Integer, Consumer> orderManagerActions = new HashMap<>();
-                    orderManagerActions.put(1, T -> showOrdersList(orderController.getList()));
+                    orderManagerActions.put(1, T -> showOrdersList(databaseController.getOrdersList()));
                     orderManagerActions.put(2, T -> System.out.println(BaseString.TODO)); //TODO
                     orderManagerActions.put(3, T -> System.out.println(BaseString.TODO)); //TODO
 
@@ -67,13 +66,13 @@ public class OrderUIController extends AbstractUIController {
                 order.setPeoples(selectUnsignedInteger(OrderStrings.CLIENT_ORDER_PEOPLES_COUNT_SELECT, OrderStrings.CLIENT_ORDER_PEOPLES_COUNT_INVALID, 15));
                 //TODO:Add pre-order food selection
                 order.setCreateDate(LocalDateTime.now());
-                orderController.save(order);
+                databaseController.save(order);
                 System.out.println(OrderStrings.CLIENT_ORDER_CONFIRM);
         }
     }
 
     public void showWaiterOrdersList() {
-        showOrdersList(orderController.getList());
+        showOrdersList(databaseController.getOrdersList());
     }
 
     private void showOrdersList(List<Order> orderList) {
@@ -102,7 +101,7 @@ public class OrderUIController extends AbstractUIController {
 
     public Order selectOrderId() {
         showWaiterOrdersList();
-        Function<Integer, Optional<Order>> function = T -> orderController.findById(T);
+        Function<Integer, Optional<Order>> function = T -> databaseController.findById(Order.class, T);
         return selectObjectById(OrderStrings.SELECT_ORDER, OrderStrings.SELECT_ORDER_WRONG_ID, function);
     }
 
@@ -146,14 +145,14 @@ public class OrderUIController extends AbstractUIController {
         );
         orderToUpdate.setTotalSum(selectPaymentAmount(orderToUpdate));
         orderToUpdate.setStatus(orderStatus.getPaid());
-        orderController.save(orderToUpdate);
+        databaseController.save(orderToUpdate);
 
         WaiterTip waiterTip = new WaiterTip(
                 person,
                 selectBigDecimal(OrderStrings.SELECT_AMOUNT_OF_TIP, OrderStrings.SELECT_AMOUNT_OF_TIP_CANT_BE_NEGATIVE),
                 orderToUpdate);
         if (waiterTip.getTip().compareTo(BigDecimal.ZERO) > 0) {
-            PersonController.of().saveWaiterTip(waiterTip);
+            databaseController.save(waiterTip);
         }
         System.out.println(OrderStrings.PAYMENT_TOTAL + orderToUpdate.getTotalSum().toPlainString());
         System.out.println(OrderStrings.PAYMENT_TOTAL_CHANGE + (orderToUpdate.getTotalSum().subtract(orderTotalAmount(orderToUpdate)).toPlainString()));

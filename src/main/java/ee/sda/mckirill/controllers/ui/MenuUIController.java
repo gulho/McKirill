@@ -1,7 +1,6 @@
 package ee.sda.mckirill.controllers.ui;
 
-import ee.sda.mckirill.controllers.models.MenuController;
-import ee.sda.mckirill.controllers.models.OrderController;
+import ee.sda.mckirill.controllers.DatabaseController;
 import ee.sda.mckirill.entities.MenuItem;
 import ee.sda.mckirill.entities.Order;
 import ee.sda.mckirill.entities.OrderedMenuItem;
@@ -19,8 +18,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class MenuUIController extends AbstractUIController {
-    private MenuController menuController = MenuController.of();
-    private OrderController orderController = OrderController.of();
+    private DatabaseController databaseController = DatabaseController.of();
 
     public MenuUIController(Person person) {
         super(person);
@@ -40,12 +38,12 @@ public class MenuUIController extends AbstractUIController {
         menuItem.setName(selectString(MenuStrings.MENU_SET_NAME, MenuStrings.MENU_EMPTY_NAME, 50));
         menuItem.setType(selectEnum(MenuStrings.MENU_SET_TYPE, MenuStrings.MENU_WRONG_TYPE, MenuItemsTypeEnum.class));
         menuItem.setPrice(selectBigDecimal(MenuStrings.MENU_SET_PRICE, MenuStrings.MENU_PRICE_0_LOW));
-        menuController.saveMenuItem(menuItem);
+        databaseController.save(menuItem);
         System.out.println(BaseString.SAVE_IN_DB);
     }
 
     private void showAllMenuItems() {
-        List<MenuItem> menuItems = menuController.getListOfMenuItems();
+        List<MenuItem> menuItems = databaseController.getListOfMenuItems();
         System.out.printf("%10s%45s%20s%20s%n",
                 MenuStrings.TABLE_ID, MenuStrings.TABLE_MENU_ITEM_NAME, MenuStrings.TABLE_MENU_ITEM_PRICE, MenuStrings.TABLE_MENU_ITEM_TYPE);
         for (MenuItem menuItem : menuItems) {
@@ -56,7 +54,7 @@ public class MenuUIController extends AbstractUIController {
 
     public void addAdditionalFood(Order order) {
         showAllMenuItems();
-        Function<Integer, Optional<MenuItem>> getMenuItemFunction = T -> menuController.findById(T);
+        Function<Integer, Optional<MenuItem>> getMenuItemFunction = T -> databaseController.findById(MenuItem.class, T);
         MenuItem menuItem = selectObjectById(MenuStrings.MENU_ITEM_SELECT, MenuStrings.MENU_ITEM_SELECT_WRONG, getMenuItemFunction);
         Integer count = selectUnsignedInteger(MenuStrings.MENU_ITEM_SELECT_COUNT, MenuStrings.MENU_ITEM_SELECT_COUNT_WRONG, 100);
         OrderedMenuItem orderedMenuItem = new OrderedMenuItem(
@@ -67,8 +65,8 @@ public class MenuUIController extends AbstractUIController {
         );
         order.getOrderedMenuItems().add(orderedMenuItem);
         order.setStatus(orderStatus.getServing());
-        menuController.saveOrderedMenuItem(orderedMenuItem);
-        orderController.save(order);
+        databaseController.save(orderedMenuItem);
+        databaseController.save(order);
     }
 
 }

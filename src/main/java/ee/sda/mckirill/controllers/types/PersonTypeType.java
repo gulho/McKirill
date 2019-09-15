@@ -1,12 +1,12 @@
 package ee.sda.mckirill.controllers.types;
 
-import ee.sda.mckirill.controllers.models.AbstractEntityController;
+import ee.sda.mckirill.controllers.DatabaseController;
 import ee.sda.mckirill.entities.PersonType;
 import ee.sda.mckirill.enums.PersonTypeEnum;
 
 import java.util.Optional;
 
-public class PersonTypeType extends AbstractEntityController {
+public class PersonTypeType extends DatabaseController {
     private static PersonTypeType personTypeType;
 
     private PersonType manager;
@@ -45,17 +45,11 @@ public class PersonTypeType extends AbstractEntityController {
     }
 
     private PersonType getByType(PersonTypeEnum personTypeEnum) {
-        Optional<PersonType> personType = session.byNaturalId(PersonType.class).using("type", personTypeEnum).loadOptional();
+        Optional<PersonType> personType = findByNaturalId(PersonType.class, "type", personTypeEnum);
         if (personType.isEmpty()) {
             save(new PersonType(personTypeEnum));
             personType = Optional.of(getByType(personTypeEnum));
         }
         return personType.get();
-    }
-
-    private void save(PersonType personType) {
-        session.beginTransaction();
-        session.saveOrUpdate(personType);
-        session.getTransaction().commit();
     }
 }

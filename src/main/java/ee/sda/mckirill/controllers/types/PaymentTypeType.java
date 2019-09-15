@@ -1,12 +1,12 @@
 package ee.sda.mckirill.controllers.types;
 
-import ee.sda.mckirill.controllers.models.AbstractEntityController;
+import ee.sda.mckirill.controllers.DatabaseController;
 import ee.sda.mckirill.entities.PaymentType;
 import ee.sda.mckirill.enums.PaymentTypeEnum;
 
 import java.util.Optional;
 
-public class PaymentTypeType extends AbstractEntityController {
+public class PaymentTypeType extends DatabaseController {
 
     private static PaymentTypeType paymentTypeType;
     private PaymentType cashType;
@@ -37,17 +37,11 @@ public class PaymentTypeType extends AbstractEntityController {
     }
 
     public PaymentType getByType(PaymentTypeEnum paymentTypeEnum) {
-        Optional<PaymentType> paymentType = session.byNaturalId(PaymentType.class).using("paymentName", paymentTypeEnum).loadOptional();
+        Optional<PaymentType> paymentType = findByNaturalId(PaymentType.class, "paymentName", paymentTypeEnum);
         if (paymentType.isEmpty()) {
             save(new PaymentType(paymentTypeEnum));
             paymentType = Optional.of(getByType(paymentTypeEnum));
         }
         return paymentType.get();
-    }
-
-    private void save(PaymentType paymentType) {
-        session.beginTransaction();
-        session.saveOrUpdate(paymentType);
-        session.getTransaction().commit();
     }
 }

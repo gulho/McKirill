@@ -1,12 +1,12 @@
 package ee.sda.mckirill.controllers.types;
 
-import ee.sda.mckirill.controllers.models.AbstractEntityController;
+import ee.sda.mckirill.controllers.DatabaseController;
 import ee.sda.mckirill.entities.OrderStatus;
 import ee.sda.mckirill.enums.OrderStatusEnum;
 
 import java.util.Optional;
 
-public class OrderStatusType extends AbstractEntityController {
+public class OrderStatusType extends DatabaseController {
     private static OrderStatusType orderStatusType;
 
     private OrderStatus openStatus;
@@ -14,6 +14,8 @@ public class OrderStatusType extends AbstractEntityController {
     private OrderStatus paidStatus;
     private OrderStatus closedStatus;
     private OrderStatus rejectedStatus;
+
+    private DatabaseController databaseController = DatabaseController.of();
 
     private OrderStatusType() {
     }
@@ -60,16 +62,10 @@ public class OrderStatusType extends AbstractEntityController {
         return rejectedStatus;
     }
 
-    private void saveOrderStatus(OrderStatus orderStatus) {
-        session.beginTransaction();
-        session.saveOrUpdate(orderStatus);
-        session.getTransaction().commit();
-    }
-
     private OrderStatus getByEnum(OrderStatusEnum statusType) {
-        Optional<OrderStatus> orderStatus = session.byNaturalId(OrderStatus.class).using("name", statusType).loadOptional();
+        Optional<OrderStatus> orderStatus = findByNaturalId(OrderStatus.class, "name", statusType);
         if (orderStatus.isEmpty()) {
-            saveOrderStatus(new OrderStatus(statusType));
+            save(new OrderStatus(statusType));
             orderStatus = Optional.of(getByEnum(statusType));
         }
         return orderStatus.get();

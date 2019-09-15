@@ -1,6 +1,5 @@
 package ee.sda.mckirill.controllers;
 
-import ee.sda.mckirill.controllers.models.PersonController;
 import ee.sda.mckirill.controllers.types.OrderStatusType;
 import ee.sda.mckirill.controllers.types.PaymentTypeType;
 import ee.sda.mckirill.controllers.types.PersonTypeType;
@@ -58,7 +57,7 @@ public class ApplicationContext {
                     .setParameter("type", PersonTypeEnum.MANAGER).getSingleResult();
         } catch (NoResultException nr) {
             PersonType managerPerson = session.byNaturalId(PersonType.class).using("type", PersonTypeEnum.MANAGER).load();
-            PersonController.of().savePerson(new Person(
+            DatabaseController.of().save(new Person(
                     DefaultManager.DEFAULT_MANAGER_NAME,
                     DefaultManager.DEFAULT_MANAGER_EMAIL,
                     DefaultManager.DEFAULT_MANAGER_PASSWORD,
@@ -73,7 +72,7 @@ public class ApplicationContext {
                     .createQuery("select p from Person p, PersonType pt where p.personType = pt.id AND pt.type = :type ", Person.class)
                     .setParameter("type", PersonTypeEnum.WAITER).getSingleResult();
         } catch (NoResultException nr) {
-            PersonController.of().savePerson(new Person(
+            DatabaseController.of().save(new Person(
                     DefaultWaiter.DEFAULT_WAITER_NAME,
                     DefaultWaiter.DEFAULT_WAITER_EMAIL,
                     DefaultWaiter.DEFAULT_WAITER_PASSWORD,
