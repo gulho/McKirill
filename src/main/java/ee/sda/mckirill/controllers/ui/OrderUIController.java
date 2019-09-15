@@ -67,7 +67,7 @@ public class OrderUIController extends AbstractUIController {
                 order.setPerson(person);
                 order.setStatus(orderStatus.getOpen());
                 order.setTimeToOrder(LocalDateTime.of(orderDate.get(), orderTime.get()));
-                order.setPeoples(getUnsignedInteger(OrderStrings.CLIENT_ORDER_PEOPLES_COUNT_SELECT, OrderStrings.CLIENT_ORDER_PEOPLES_COUNT_INVALID, 15));
+                order.setPeoples(selectUnsignedInteger(OrderStrings.CLIENT_ORDER_PEOPLES_COUNT_SELECT, OrderStrings.CLIENT_ORDER_PEOPLES_COUNT_INVALID, 15));
                 //TODO:Add pre-order food selection
                 order.setCreateDate(LocalDateTime.now());
                 orderController.save(order);
@@ -161,7 +161,7 @@ public class OrderUIController extends AbstractUIController {
 
         WaiterTip waiterTip = new WaiterTip(
                 person,
-                getBigDecimal(OrderStrings.SELECT_AMOUNT_OF_TIP,OrderStrings.SELECT_AMOUNT_OF_TIP_CANT_BE_NEGATIVE),
+                selectBigDecimal(OrderStrings.SELECT_AMOUNT_OF_TIP,OrderStrings.SELECT_AMOUNT_OF_TIP_CANT_BE_NEGATIVE),
                 orderToUpdate);
         if (waiterTip.getTip().compareTo(BigDecimal.ZERO) > 0) {
             PersonController.of().saveWaiterTip(waiterTip);

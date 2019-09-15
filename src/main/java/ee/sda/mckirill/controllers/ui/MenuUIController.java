@@ -44,9 +44,9 @@ public class MenuUIController extends AbstractUIController {
     }
 
     private void editMenu(MenuItem menuItem) {
-        menuItem.setName(getString(MenuStrings.MENU_SET_NAME,MenuStrings.MENU_EMPTY_NAME,50));
+        menuItem.setName(selectString(MenuStrings.MENU_SET_NAME,MenuStrings.MENU_EMPTY_NAME,50));
         menuItem.setType(selectEnum(MenuStrings.MENU_SET_TYPE, MenuStrings.MENU_WRONG_TYPE, MenuItemsTypeEnum.class));
-        menuItem.setPrice(getBigDecimal(MenuStrings.MENU_SET_PRICE, MenuStrings.MENU_PRICE_0_LOW));
+        menuItem.setPrice(selectBigDecimal(MenuStrings.MENU_SET_PRICE, MenuStrings.MENU_PRICE_0_LOW));
         menuController.saveMenuItem(menuItem);
         System.out.println(BaseString.SAVE_IN_DB);
     }
@@ -88,7 +88,7 @@ public class MenuUIController extends AbstractUIController {
     public void addAdditionalFood(Order order) {
         showAllMenuItems();
         MenuItem menuItem = selectMenuItem();
-        Integer count = getUnsignedInteger(MenuStrings.MENU_ITEM_SELECT_COUNT, MenuStrings.MENU_ITEM_SELECT_COUNT_WRONG, 100);
+        Integer count = selectUnsignedInteger(MenuStrings.MENU_ITEM_SELECT_COUNT, MenuStrings.MENU_ITEM_SELECT_COUNT_WRONG, 100);
         OrderedMenuItem orderedMenuItem = new OrderedMenuItem(
                 menuItem,
                 count,

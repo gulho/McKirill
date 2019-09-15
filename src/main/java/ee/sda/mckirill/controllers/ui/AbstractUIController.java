@@ -28,7 +28,7 @@ public abstract class AbstractUIController<U> {
             scanner.nextLine();
     }
 
-    public static BigDecimal getBigDecimal(String headerString, String belowZeroError) {
+    public static BigDecimal selectBigDecimal(String headerString, String belowZeroError) {
         BigDecimal returnBigDecimal;
         while (true) {
             System.out.println(headerString);
@@ -42,7 +42,7 @@ public abstract class AbstractUIController<U> {
         return returnBigDecimal;
     }
 
-    public static String getString(String headerString, String emptyError, int lengthStr) {
+    public static String selectString(String headerString, String emptyError, int lengthStr) {
         String returnString;
         while (true) {
             System.out.println(headerString);
@@ -58,7 +58,7 @@ public abstract class AbstractUIController<U> {
         return returnString;
     }
 
-    public static int getUnsignedInteger(String headerString, String errorString, int maximumValue) {
+    public static int selectUnsignedInteger(String headerString, String errorString, int maximumValue) {
         int returnInt;
         while (true) {
             System.out.println(headerString);
