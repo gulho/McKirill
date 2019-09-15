@@ -67,16 +67,7 @@ public class OrderUIController extends AbstractUIController {
                 order.setPerson(person);
                 order.setStatus(orderStatus.getOpen());
                 order.setTimeToOrder(LocalDateTime.of(orderDate.get(), orderTime.get()));
-
-                while (true) {
-                    System.out.println(OrderStrings.CLIENT_ORDER_PEOPLES_COUNT_SELECT);
-                    order.setPeoples(scanner.nextInt());
-                    if (order.getPeoples() > 0 && order.getPeoples() <= 15) {
-                        break;
-                    } else {
-                        System.out.println(OrderStrings.CLIENT_ORDER_PEOPLES_COUNT_INVALID);
-                    }
-                }
+                order.setPeoples(getUnsignedInteger(OrderStrings.CLIENT_ORDER_PEOPLES_COUNT_SELECT, OrderStrings.CLIENT_ORDER_PEOPLES_COUNT_INVALID, 15));
                 //TODO:Add pre-order food selection
                 order.setCreateDate(LocalDateTime.now());
                 orderController.save(order);
@@ -160,7 +151,10 @@ public class OrderUIController extends AbstractUIController {
     public void payment(Order orderToUpdate) {
         System.out.println(OrderStrings.WAITER_PAYMENT);
         endOfUIInteraction();
-        orderToUpdate.setPaymentType(selectPaymentType());
+        orderToUpdate.setPaymentType(
+                ApplicationContext.getPaymentTypeType().getByType(
+                        selectEnum(OrderStrings.SELECT_PAYMENT_TYPE,OrderStrings.SELECT_PAYMENT_TYPE_WRONG,PaymentTypeEnum.class))
+        );
         orderToUpdate.setTotalSum(selectPaymentAmount(orderToUpdate));
         orderToUpdate.setStatus(orderStatus.getPaid());
         orderController.save(orderToUpdate);
@@ -175,22 +169,6 @@ public class OrderUIController extends AbstractUIController {
         System.out.println(OrderStrings.PAYMENT_TOTAL + orderToUpdate.getTotalSum().toPlainString());
         System.out.println(OrderStrings.PAYMENT_TOTAL_CHANGE + (orderToUpdate.getTotalSum().subtract(orderTotalAmount(orderToUpdate)).toPlainString()));
         System.out.println(OrderStrings.PAYMENT_TOTAL_TIP + waiterTip.getTip().toPlainString());
-    }
-
-    private PaymentType selectPaymentType() {
-        while (true) {
-            PaymentTypeEnum paymentTypeEnumSelected;
-            System.out.println(OrderStrings.SELECT_PAYMENT_TYPE);
-            for (PaymentTypeEnum paymentTypeEnum : PaymentTypeEnum.values()) {
-                System.out.println(paymentTypeEnum.toString());
-            }
-            try{
-                paymentTypeEnumSelected = PaymentTypeEnum.valueOf(scanner.nextLine().toUpperCase());
-                return ApplicationContext.getPaymentTypeType().getByType(paymentTypeEnumSelected);
-            } catch (IllegalArgumentException e) {
-                System.out.println(OrderStrings.SELECT_PAYMENT_TYPE_WRONG);
-            }
-        }
     }
 
     private BigDecimal selectPaymentAmount(Order orderToUpdate) {

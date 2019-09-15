@@ -18,7 +18,7 @@ public class MenuItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, length = 50)
     private String name;
     @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)

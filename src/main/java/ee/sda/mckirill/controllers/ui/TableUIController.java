@@ -32,17 +32,7 @@ public class TableUIController extends AbstractUIController {
     }
 
     private void editTable(Table table) {
-        int tableSize = 0;
-        while (true) {
-            System.out.println(TableStrings.TABLE_SELECT_SIZE);
-            tableSize = scanner.nextInt();
-            if(tableSize > 0 && tableSize <= 15) {
-                break;
-            } else {
-                System.out.println(TableStrings.TABLE_WRONG_SIZE);
-            }
-        }
-        table.setSize(tableSize);
+        table.setSize(getUnsignedInteger(TableStrings.TABLE_SELECT_SIZE, TableStrings.TABLE_WRONG_SIZE, 15));
         TableController.saveTable(table);
     }
 }
