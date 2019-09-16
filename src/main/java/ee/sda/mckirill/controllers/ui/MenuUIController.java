@@ -7,6 +7,7 @@ import ee.sda.mckirill.entities.Person;
 import ee.sda.mckirill.enums.MenuItemsTypeEnum;
 import ee.sda.mckirill.strings.BaseString;
 import ee.sda.mckirill.strings.MenuStrings;
+import ee.sda.mckirill.util.ConsoleTablePrint;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -24,10 +25,11 @@ public class MenuUIController extends AbstractUIController {
     @Override
     public void start() {
         Map<Integer, Consumer> menuActions = new HashMap<>();
-        menuActions.put(1, T -> System.out.println(BaseString.TODO)); //TODO
+        menuActions.put(1, T -> showAllMenuItems());
         menuActions.put(2, T -> editMenu(new MenuItem()));
         menuActions.put(3, T -> System.out.println(BaseString.TODO)); //TODO
         menuActions.put(4, T -> System.out.println(BaseString.TODO)); //TODO
+        selectMenuAction(MenuStrings.MANAGER_MENU_MAIN_ACTION, menuActions);
     }
 
     private void editMenu(MenuItem menuItem) {
@@ -41,12 +43,14 @@ public class MenuUIController extends AbstractUIController {
 
     private void showAllMenuItems() {
         List<MenuItem> menuItems = getListOfMenuItems();
-        System.out.printf("%10s%45s%20s%20s%n",
+        ConsoleTablePrint menuTable = new ConsoleTablePrint();
+        menuTable.setShowVerticalLines(true);
+        menuTable.setHeaders(
                 MenuStrings.TABLE_ID, MenuStrings.TABLE_MENU_ITEM_NAME, MenuStrings.TABLE_MENU_ITEM_PRICE, MenuStrings.TABLE_MENU_ITEM_TYPE);
         for (MenuItem menuItem : menuItems) {
-            System.out.printf("%4d%30s%10s%10s%n",
-                    menuItem.getId(), menuItem.getName(), menuItem.getPrice().toString(), menuItem.getType());
+            menuTable.addRow(menuItem.getId() + "", menuItem.getName(), menuItem.getPrice().toString() + MenuStrings.EURO, menuItem.getType().toString());
         }
+        menuTable.print();
     }
 
     public void addAdditionalFood(Order order) {

@@ -23,7 +23,7 @@ public class DatabaseController {
 
     public <T> void save(T objectToSave) {
         session.beginTransaction();
-        session.save(objectToSave);
+        session.saveOrUpdate(objectToSave);
         session.getTransaction().commit();
     }
 

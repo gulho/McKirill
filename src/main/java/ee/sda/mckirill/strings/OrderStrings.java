@@ -7,9 +7,10 @@ public class OrderStrings extends BaseString {
             + "3. Delete Order" + BR
             + O_RETURN_BACK;
 
-    public static String TABLE_PEOPLES_COUNT = GREEN + "Peoples" + RESET;
-    public static String TABLE_STATUS = GREEN + "Status" + RESET;
-    public static String TABLE_QUANTITY = GREEN + "Quantity" + RESET;
+    public static String TABLE_PEOPLES_COUNT = "Peoples";
+    public static String TABLE_STATUS =  "Status";
+    public static String TABLE_QUANTITY = "Quantity";
+    public static String TABLE_MENU_TEMS_ORDERED = "Menu items";
 
     public static final String SELECT_ORDER = GREEN + "Select order ID" + RESET;
     public static final String SELECT_ORDER_WRONG_ID = RED + "Order ID is wrong" + RESET;

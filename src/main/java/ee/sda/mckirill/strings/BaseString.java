@@ -16,8 +16,8 @@ public class BaseString extends ConsoleColors {
 
     public static final String NOT_LOGIN = RED + "Yo do not log in" + RESET;
 
-    public static final String TABLE_ID = PURPLE + "ID" + RESET;
-    public static final String TABLE_PERSON = GREEN + " Person name" + RESET;
+    public static final String TABLE_ID = "ID";
+    public static final String TABLE_PERSON = "Person name";
 
     public static final String SELECT_ID_NOT_INTEGER = RED + "Typed value not integer" + RESET;
     public static final String SELECT_STRING_TO_LONG = RED + "Typed string to long. Maximum length: " + RESET;
