@@ -2,7 +2,6 @@ package ee.sda.mckirill;
 
 import ee.sda.mckirill.controllers.ApplicationContext;
 import ee.sda.mckirill.controllers.Factory;
-import ee.sda.mckirill.controllers.models.PersonController;
 import ee.sda.mckirill.controllers.ui.AbstractUIController;
 import ee.sda.mckirill.entities.Person;
 import ee.sda.mckirill.enums.ControllersEnum;

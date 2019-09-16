@@ -10,7 +10,7 @@ public class ReviewUIController extends AbstractUIController {
     }
 
     @Override
-    public void start() throws Exception {
+    public void start() {
         switch (person.getPersonType().getType()) {
             case CLIENT:
             while (true) {
