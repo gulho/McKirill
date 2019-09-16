@@ -2,6 +2,7 @@ package ee.sda.mckirill.controllers;
 
 import ee.sda.mckirill.entities.MenuItem;
 import ee.sda.mckirill.entities.Order;
+import ee.sda.mckirill.entities.Table;
 import org.hibernate.Session;
 
 import java.util.List;
@@ -37,6 +38,10 @@ public class DatabaseController {
 
     public List<MenuItem> getListOfMenuItems() {
         return session.createNamedQuery("get_all_menuItems", MenuItem.class).getResultList();
+    }
+
+    public List<Table> getListOfTables() {
+        return session.createNamedQuery("get_all_tables", Table.class).getResultList();
     }
 
     public List<Order> getOrdersList() {

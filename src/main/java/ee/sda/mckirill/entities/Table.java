@@ -4,6 +4,13 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedQueries({
+        @NamedQuery(
+                name = "get_all_tables",
+                query = "from Table"
+        )
+})
+
 @Entity
 @javax.persistence.Table(name = "restaurant_table")
 public class Table {
@@ -11,16 +18,16 @@ public class Table {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int size;
-    private boolean is_avalible;
+    private boolean is_available;
     @OneToMany(mappedBy = "table")
     private List<Order> orders = new ArrayList<>();
 
     public Table() {
     }
 
-    public Table(int size, boolean is_avalible) {
+    public Table(int size, boolean is_available) {
         this.size = size;
-        this.is_avalible = is_avalible;
+        this.is_available = is_available;
     }
 
     public int getId() {
@@ -39,12 +46,12 @@ public class Table {
         this.size = size;
     }
 
-    public boolean isIs_avalible() {
-        return is_avalible;
+    public boolean isIs_available() {
+        return is_available;
     }
 
-    public void setIs_avalible(boolean is_avalible) {
-        this.is_avalible = is_avalible;
+    public void setIs_available(boolean is_available) {
+        this.is_available = is_available;
     }
 
     public List<Order> getOrders() {

@@ -12,4 +12,6 @@ public class TableStrings extends BaseString {
     public static final String TABLE_SELECT_SIZE = "Print Table size (1 - 15): ";
     public static final String TABLE_WRONG_SIZE = RED + "Table size is wrong! It should be between 1 and 15." + RESET;
 
+    public static final String TABLE_SIZE = "Size";
+    public static final String TABLE_IS_AVAILABLE = "Is Available";
 }
