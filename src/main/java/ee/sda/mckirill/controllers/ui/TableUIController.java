@@ -19,7 +19,7 @@ public class TableUIController extends AbstractUIController {
     @Override
     public void start() {
         Map<Integer, Consumer> tableActions = new HashMap<>();
-        tableActions.put(1, T -> showAllTables()); //TODO
+        tableActions.put(1, T -> showAllTables());
         tableActions.put(2, T -> editTable(new Table())); //TODO
         tableActions.put(3, T -> System.out.println(BaseString.TODO)); //TODO
         tableActions.put(4, T -> System.out.println(BaseString.TODO)); //TODO
