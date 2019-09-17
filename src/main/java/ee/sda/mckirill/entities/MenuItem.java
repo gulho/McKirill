@@ -23,8 +23,6 @@ public class MenuItem {
     @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)
     private MenuItemsTypeEnum type;
-    @OneToOne(mappedBy = "menuItem")
-    private OrderedMenuItem orderedMenuItem;
     private BigDecimal price;
 
     public MenuItem(){}
@@ -57,14 +55,6 @@ public class MenuItem {
 
     public void setType(MenuItemsTypeEnum type) {
         this.type = type;
-    }
-
-    public OrderedMenuItem getOrderedMenuItem() {
-        return orderedMenuItem;
-    }
-
-    public void setOrderedMenuItem(OrderedMenuItem orderedMenuItem) {
-        this.orderedMenuItem = orderedMenuItem;
     }
 
     public BigDecimal getPrice() {
