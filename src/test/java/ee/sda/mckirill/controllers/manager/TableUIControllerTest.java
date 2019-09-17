@@ -4,7 +4,7 @@ import ee.sda.mckirill.controllers.ui.TableUIController;
 import ee.sda.mckirill.entities.Person;
 import ee.sda.mckirill.entities.PersonType;
 import ee.sda.mckirill.enums.PersonTypeEnum;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 

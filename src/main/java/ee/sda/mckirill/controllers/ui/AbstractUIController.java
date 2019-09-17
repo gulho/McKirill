@@ -23,7 +23,7 @@ public abstract class AbstractUIController extends DatabaseController {
 
     public abstract void start();
 
-    //Creater for fic Error with scanner
+    //Created for fix Error with scanner
     public static void endOfUIInteraction() {
         if (scanner.hasNextLine())
             scanner.nextLine();
@@ -60,17 +60,19 @@ public abstract class AbstractUIController extends DatabaseController {
     }
 
     public static int selectUnsignedInteger(String headerString, String errorString, int maximumValue) {
-        int returnInt;
         while (true) {
             System.out.println(headerString);
-            returnInt = scanner.nextInt();
-            if (returnInt > 0 && returnInt <= maximumValue) {
-                break;
-            } else {
-                System.out.println(errorString);
+            try {
+                int returnInt = Integer.valueOf(scanner.nextLine());
+                if (returnInt > 0 && returnInt <= maximumValue) {
+                    return returnInt;
+                } else {
+                    System.out.println(errorString);
+                }
+            } catch (NumberFormatException e) {
+                System.out.println(BaseString.SELECT_ID_NOT_INTEGER);
             }
         }
-        return returnInt;
     }
 
     public static <E extends Enum<E>> E selectEnum(String headerString, String errorString, Class<E> enumType) {
@@ -124,8 +126,6 @@ public abstract class AbstractUIController extends DatabaseController {
                 System.out.println(BaseString.SELECT_ID_NOT_INTEGER);
             } catch (NullPointerException e) {
                 System.out.println(BaseString.WRONG_COMMAND);
-            } finally {
-                endOfUIInteraction();
             }
         }
     }
