@@ -77,17 +77,21 @@ public abstract class AbstractUIController extends DatabaseController {
 
     public static <E extends Enum<E>> E selectEnum(String headerString, String errorString, Class<E> enumType) {
         while (true) {
-            System.out.println(headerString);
-            for (Enum<E> paymentTypeEnum : enumType.getEnumConstants()) {
-                System.out.println(paymentTypeEnum.toString());
-            }
-            String typedEnumItem = scanner.nextLine().toUpperCase();
-            Optional returnEnum = Arrays.stream(enumType.getEnumConstants())
-                    .filter(e -> e.name().equals(typedEnumItem))
-                    .findFirst();
-            if (returnEnum.isPresent()) {
-                return (E) returnEnum.get();
-            } else {
+            try {
+                System.out.println(headerString);
+                for (Enum<E> paymentTypeEnum : enumType.getEnumConstants()) {
+                    System.out.println(paymentTypeEnum.toString());
+                }
+                String typedEnumItem = scanner.nextLine().toUpperCase();
+                Optional returnEnum = Arrays.stream(enumType.getEnumConstants())
+                        .filter(e -> e.name().equals(typedEnumItem))
+                        .findFirst();
+                if (returnEnum.isPresent()) {
+                    return (E) returnEnum.get();
+                } else {
+                    throw new NoSuchElementException("Not Enum");
+                }
+            } catch (NoSuchElementException e) {
                 System.out.println(errorString);
             }
         }
