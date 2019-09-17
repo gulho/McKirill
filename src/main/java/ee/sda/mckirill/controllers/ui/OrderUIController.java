@@ -75,53 +75,36 @@ public class OrderUIController extends AbstractUIController {
     }
 
     private void showOrdersList(List<Order> orderList) {
-        System.out.println("+----+------------------------------+----------+----------+");
-        System.out.printf("|%4s|%30s|%10s|%10s|%n",
-                OrderStrings.TABLE_ID, OrderStrings.TABLE_PERSON, OrderStrings.TABLE_PEOPLES_COUNT, OrderStrings.TABLE_STATUS);
-        System.out.println("+----+------------------------------+----------+----------+");
+        System.out.println("+----+------------------------------+----------+----------+----------+");
+        System.out.printf("|%4s|%30s|%10s|%10s|%10s|%n",
+                OrderStrings.TABLE_ID, OrderStrings.TABLE_PERSON, OrderStrings.TABLE_PEOPLES_COUNT, OrderStrings.TABLE_STATUS, OrderStrings.TABLE_TABLE_ID);
+        System.out.println("+----+------------------------------+----------+----------+----------+");
         for (Order order : orderList) {
-            System.out.printf("|%4d|%30s|%10d|%10s|%n",
-                    order.getId(), order.getPerson().getName(), order.getPeoples(), order.getStatus().getName());
+            String tableIdString = "None";
+            if(order.getTable() != null) {
+                tableIdString = order.getTable().getId() + "";
+            }
+            System.out.printf("|%4d|%30s|%10d|%10s|%10s|%n",
+                    order.getId(), order.getPerson().getName(), order.getPeoples(), order.getStatus().getName(), tableIdString);
             if (order.getOrderedMenuItems().isEmpty() == false) {
-                System.out.printf("      %30s%10s%7s%10s%n",
+                System.out.println("+----+------------------------------+----------+----------+----------+");
+                System.out.printf("|     %30s|%10s|%10s|%10s|%n",
                         MenuStrings.TABLE_MENU_ITEM_NAME,
                         MenuStrings.TABLE_MENU_ITEM_TYPE,
                         OrderStrings.TABLE_QUANTITY,
                         MenuStrings.TABLE_MENU_ITEM_PRICE);
+                System.out.println("+-----------------------------------+----------+----------+----------+");
                 for (OrderedMenuItem orderedMenuItem : order.getOrderedMenuItems()) {
-                    System.out.printf("      %30s%10s%7d%10s%n",
+                    System.out.printf("|     %30s|%10s|%10d|%10s|%n",
                             orderedMenuItem.getMenuItem().getName(),
                             orderedMenuItem.getMenuItem().getType().toString(),
                             orderedMenuItem.getQuantity(),
                             orderedMenuItem.getSum().toString() + OrderStrings.EURO);
                 }
+                System.out.println("+-----------------------------------+----------+----------+----------+");
             }
         }
-        System.out.println("+----+------------------------------+----------+----------+");
-/*        ConsoleTablePrint consoleTablePrint = new ConsoleTablePrint();
-        consoleTablePrint.setShowVerticalLines(true);
-        consoleTablePrint.setHeaders(
-                OrderStrings.TABLE_ID,
-                OrderStrings.TABLE_PERSON,
-                OrderStrings.TABLE_PEOPLES_COUNT,
-                OrderStrings.TABLE_STATUS,
-                OrderStrings.TABLE_MENU_TEMS_ORDERED);
-        for(Order order: orderList) {
-            //consoleTablePrint.addRow(order.getId()+ "", order.getPerson().getName(), order.getPeoples()+ "", order.getStatus().getName().toString());
-            StringBuilder sb = new StringBuilder();
-            for (OrderedMenuItem orderedMenuItem : order.getOrderedMenuItems()) {
-                sb.append(String.format("%20s%10s%10s%10s%n",
-                        orderedMenuItem.getMenuItem().getName(),
-                        orderedMenuItem.getMenuItem().getType().toString(),
-                        orderedMenuItem.getQuantity() + "",
-                        orderedMenuItem.getSum().toString() + OrderStrings.EURO
-                ));
-            }
-
-            consoleTablePrint.addRow(order.getId()+ "", order.getPerson().getName(), order.getPeoples()+ "", order.getStatus().getName().toString(), sb.toString());
-        }
-        consoleTablePrint.print();*/
-
+        System.out.println("+----+------------------------------+----------+----------+----------+");
     }
 
     public Order selectOrderId() {
