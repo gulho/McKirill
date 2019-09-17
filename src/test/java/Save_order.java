@@ -5,14 +5,14 @@ import ee.sda.mckirill.enums.PaymentTypeEnum;
 import ee.sda.mckirill.enums.PersonTypeEnum;
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
-import org.junit.jupiter.api.Disabled;
+import org.junit.Ignore;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-@Disabled
+@Ignore
 public class Save_order {
     public static void main(String[] args) {
         Order order = new Order();

@@ -3,9 +3,9 @@ import ee.sda.mckirill.entities.PersonType;
 import ee.sda.mckirill.enums.PersonTypeEnum;
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
+import org.junit.Ignore;
 
-import org.junit.jupiter.api.*;
-@Disabled
+@Ignore
 public class db_test {
     public static void main(String[] args) {
         PersonType personType = new PersonType(PersonTypeEnum.CLIENT);
