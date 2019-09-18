@@ -25,4 +25,7 @@ public class MenuStrings extends BaseString {
 
     public static final String MENU_ITEM_SELECT_COUNT = GREEN + "Select count of menu items" + RESET;
     public static final String MENU_ITEM_SELECT_COUNT_WRONG = RED + "Menu item count is wrong" + RESET;
+
+    public static final String SELECT_MENU_ITEM = GREEN + "Select Menu item ID" + RESET;
+    public static final String SELECT_MENU_ITEM_WRONG_ID = RED + "Menu item ID is wrong" + RESET;
 }
