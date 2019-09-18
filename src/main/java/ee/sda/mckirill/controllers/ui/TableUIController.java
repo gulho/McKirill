@@ -40,7 +40,7 @@ public class TableUIController extends AbstractUIController {
     }
 
     private void showAllTables() {
-        List<Table> tables = getListOfTables();
+        List<Table> tables = getListFromNamedQuery("get_all_tables", Table.class);
         ConsoleTablePrint tableTable = new ConsoleTablePrint();
         tableTable.setShowVerticalLines(true);
         tableTable.setHeaders(TableStrings.TABLE_ID, TableStrings.TABLE_SIZE, TableStrings.TABLE_IS_AVAILABLE);

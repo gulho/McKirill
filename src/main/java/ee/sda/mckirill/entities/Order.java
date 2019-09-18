@@ -15,6 +15,10 @@ import java.util.List;
         @NamedQuery(
                 name = "get_all_order_by_status",
                 query = "from Order where status.name = :name"
+        ),
+        @NamedQuery(
+                name = "get_all_orders_open_serving",
+                query = "from Order where status.name = ee.sda.mckirill.enums.OrderStatusEnum.OPEN AND status.name = ee.sda.mckirill.enums.OrderStatusEnum.SERVING"
         )
 })
 @Entity

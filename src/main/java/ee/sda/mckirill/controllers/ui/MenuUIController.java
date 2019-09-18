@@ -42,7 +42,7 @@ public class MenuUIController extends AbstractUIController {
     }
 
     private void showAllMenuItems() {
-        List<MenuItem> menuItems = getListOfMenuItems();
+        List<MenuItem> menuItems = getListFromNamedQuery("get_all_menuItems", MenuItem.class);
         ConsoleTablePrint menuTable = new ConsoleTablePrint();
         menuTable.setShowVerticalLines(true);
         menuTable.setHeaders(

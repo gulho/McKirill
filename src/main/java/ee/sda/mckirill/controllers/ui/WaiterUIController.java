@@ -4,6 +4,8 @@ import ee.sda.mckirill.controllers.Factory;
 import ee.sda.mckirill.entities.Order;
 import ee.sda.mckirill.entities.Person;
 import ee.sda.mckirill.enums.ControllersEnum;
+import ee.sda.mckirill.enums.OrderStatusEnum;
+import ee.sda.mckirill.enums.WaiterAction;
 import ee.sda.mckirill.strings.WaiterUIStrings;
 
 import java.util.HashMap;
@@ -21,8 +23,8 @@ public class WaiterUIController extends AbstractUIController {
         OrderUIController orderUI = (OrderUIController) Factory.getController(person, ControllersEnum.ORDER);
         MenuUIController menuUI = (MenuUIController) Factory.getController(person, ControllersEnum.MENU);
         Map<Integer, Consumer> waiterActions = new HashMap<>();
-        waiterActions.put(1, T -> menuUI.addAdditionalFood(orderUI.selectOrderId()));
-        waiterActions.put(2, T -> orderUI.payment(orderUI.selectOrderId()));
+        waiterActions.put(1, T -> menuUI.addAdditionalFood(orderUI.selectOrderId(WaiterAction.ADD_NEW_MENU_ITEM)));
+        waiterActions.put(2, T -> orderUI.payment(orderUI.selectOrderId(WaiterAction.PAYMENT)));
 
         selectMenuAction(WaiterUIStrings.WAITER_MAIN_ACTION, waiterActions);
     }

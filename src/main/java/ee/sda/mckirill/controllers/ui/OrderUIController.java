@@ -1,8 +1,11 @@
 package ee.sda.mckirill.controllers.ui;
 
+import com.google.protobuf.MapEntry;
 import ee.sda.mckirill.controllers.ApplicationContext;
 import ee.sda.mckirill.entities.*;
+import ee.sda.mckirill.enums.OrderStatusEnum;
 import ee.sda.mckirill.enums.PaymentTypeEnum;
+import ee.sda.mckirill.enums.WaiterAction;
 import ee.sda.mckirill.strings.BaseString;
 import ee.sda.mckirill.strings.MenuStrings;
 import ee.sda.mckirill.strings.OrderStrings;
@@ -27,7 +30,7 @@ public class OrderUIController extends AbstractUIController {
             case MANAGER:
                 while (true) {
                     Map<Integer, Consumer> orderManagerActions = new HashMap<>();
-                    orderManagerActions.put(1, T -> showOrdersList(getOrdersList()));
+                    orderManagerActions.put(1, T -> showOrdersList(getListFromNamedQuery("get_all_orders", Order.class)));
                     orderManagerActions.put(2, T -> System.out.println(BaseString.TODO)); //TODO
                     orderManagerActions.put(3, T -> System.out.println(BaseString.TODO)); //TODO
 
@@ -69,10 +72,6 @@ public class OrderUIController extends AbstractUIController {
         }
     }
 
-    public void showWaiterOrdersList() {
-        showOrdersList(getOrdersList());
-    }
-
     private void showOrdersList(List<Order> orderList) {
         System.out.println("+----+------------------------------+----------+----------+----------+");
         System.out.printf("|%4s|%30s|%10s|%10s|%10s|%n",
@@ -106,8 +105,17 @@ public class OrderUIController extends AbstractUIController {
         System.out.println("+----+------------------------------+----------+----------+----------+");
     }
 
-    public Order selectOrderId() {
-        showWaiterOrdersList();
+    public Order selectOrderId(WaiterAction waiterAction) {
+        List<Order> selectOrders;
+        if(waiterAction == WaiterAction.ADD_NEW_MENU_ITEM) {
+            selectOrders= getListFromNamedQuery("get_all_orders_open_serving", Order.class);
+        }
+        else {
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("name", OrderStatusEnum.SERVING);
+            selectOrders = getListFromNamedQueryWithParameters("get_all_order_by_status", Order.class, parameters);
+        }
+        showOrdersList(selectOrders);
         Function<Integer, Optional<Order>> function = T -> findById(Order.class, T);
         return selectObjectById(OrderStrings.SELECT_ORDER, OrderStrings.SELECT_ORDER_WRONG_ID, function);
     }
