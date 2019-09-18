@@ -19,7 +19,7 @@ public class BaseString extends ConsoleColors {
     public static final String TABLE_ID = "ID";
     public static final String TABLE_PERSON = "Person name";
 
-    public static final String SELECT_ID_NOT_INTEGER = RED + "Typed value not integer" + RESET;
+    public static final String SELECT_ID_NOT_INTEGER = RED + "Typed value not integer or less than 1" + RESET;
     public static final String SELECT_STRING_TO_LONG = RED + "Typed string to long. Maximum length: " + RESET;
 
     public static final String NUMBER_FORMAT_EXCEPTION = RED + "Number format is incorrect" +RESET;
