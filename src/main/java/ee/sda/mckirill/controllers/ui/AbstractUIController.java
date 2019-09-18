@@ -81,11 +81,12 @@ public abstract class AbstractUIController extends DatabaseController {
 
     public static <E extends Enum<E>> E selectEnum(String headerString, String errorString, Class<E> enumType) {
         while (true) {
-            try {
                 System.out.println(headerString);
+
                 for (Enum<E> paymentTypeEnum : enumType.getEnumConstants()) {
                     System.out.println(paymentTypeEnum.toString());
                 }
+            try {
                 String typedEnumItem = scanner.nextLine().toUpperCase();
                 Optional returnEnum = Arrays.stream(enumType.getEnumConstants())
                         .filter(e -> e.name().equals(typedEnumItem))
@@ -102,23 +103,25 @@ public abstract class AbstractUIController extends DatabaseController {
     }
 
     public static <R> R selectObjectById(String headerString, String errorString, Function function) {
+        endOfUIInteraction();
         Optional<R> returnObject;
         while (true) {
+            System.out.println(headerString);
             try {
-                System.out.println(headerString);
-                returnObject = (Optional<R>) function.apply(Integer.valueOf(scanner.nextInt()));
+                Integer selectedInt = Integer.valueOf(scanner.nextLine());
+                if(selectedInt <= 0) {
+                    throw new NumberFormatException();
+                }
+                returnObject = (Optional<R>) function.apply(selectedInt);
                 if (returnObject.isEmpty()) {
                     System.out.println(errorString);
                 } else {
-                    break;
+                    return returnObject.get();
                 }
-            } catch (InputMismatchException e) {
+            } catch (NumberFormatException e) {
                 System.out.println(BaseString.SELECT_ID_NOT_INTEGER);
-            }/* finally {
-                endOfUIInteraction();
-            }*/
+            }
         }
-        return returnObject.get();
     }
 
     public static void selectMenuAction(String headerString, Map<Integer, Consumer> actionMap) {
