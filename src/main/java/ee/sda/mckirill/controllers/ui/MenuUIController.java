@@ -27,18 +27,24 @@ public class MenuUIController extends AbstractUIController {
         Map<Integer, Consumer> menuActions = new HashMap<>();
         menuActions.put(1, T -> showAllMenuItems());
         menuActions.put(2, T -> editMenu(new MenuItem()));
-        menuActions.put(3, T -> System.out.println(BaseString.TODO)); //TODO
-        menuActions.put(4, T -> System.out.println(BaseString.TODO)); //TODO
+        menuActions.put(3, T -> editMenu(selectMenuItem()));
+        menuActions.put(4, T -> removeMenuItem(selectMenuItem()));
         selectMenuAction(MenuStrings.MANAGER_MENU_MAIN_ACTION, menuActions);
     }
 
     private void editMenu(MenuItem menuItem) {
-        System.out.println(MenuStrings.MENU_ADD_NEW);
+        //System.out.println(MenuStrings.MENU_ADD_NEW);
         menuItem.setName(selectString(MenuStrings.MENU_SET_NAME, MenuStrings.MENU_EMPTY_NAME, 50));
         menuItem.setType(selectEnum(MenuStrings.MENU_SET_TYPE, MenuStrings.MENU_WRONG_TYPE, MenuItemsTypeEnum.class));
         menuItem.setPrice(selectBigDecimal(MenuStrings.MENU_SET_PRICE, MenuStrings.MENU_PRICE_0_LOW));
         saveInDatabase(menuItem);
         System.out.println(BaseString.SAVE_IN_DB);
+    }
+
+    private MenuItem selectMenuItem() {
+        showAllMenuItems();
+        Function<Integer,Optional<MenuItem>> menuItemFunction = R -> findById(MenuItem.class, R);
+        return selectObjectById(MenuStrings.SELECT_MENU_ITEM, MenuStrings.SELECT_MENU_ITEM_WRONG_ID, menuItemFunction);
     }
 
     private void showAllMenuItems() {
@@ -68,6 +74,10 @@ public class MenuUIController extends AbstractUIController {
         order.setStatus(orderStatus.getServing());
         saveInDatabase(orderedMenuItem);
         saveInDatabase(order);
+    }
+
+    private void removeMenuItem(MenuItem menuItem) {
+        deleteFromDatabase(menuItem);
     }
 
 }
