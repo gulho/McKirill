@@ -19,7 +19,6 @@ public class WaiterUIController extends AbstractUIController {
 
     @Override
     public void start() {
-        Order orderToUpdate;
         OrderUIController orderUI = (OrderUIController) Factory.getController(person, ControllersEnum.ORDER);
         MenuUIController menuUI = (MenuUIController) Factory.getController(person, ControllersEnum.MENU);
         Map<Integer, Consumer> waiterActions = new HashMap<>();

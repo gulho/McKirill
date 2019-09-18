@@ -32,7 +32,7 @@ public class OrderUIController extends AbstractUIController {
                     Map<Integer, Consumer> orderManagerActions = new HashMap<>();
                     orderManagerActions.put(1, T -> showOrdersList(getListFromNamedQuery("get_all_orders", Order.class)));
                     orderManagerActions.put(2, T -> System.out.println(BaseString.TODO)); //TODO
-                    orderManagerActions.put(3, T -> System.out.println(BaseString.TODO)); //TODO
+                    orderManagerActions.put(3, T -> removeOrder());
 
                     selectMenuAction(OrderStrings.MANAGER_ORDERS_MAIN_ACTION, orderManagerActions);
                 }
@@ -107,7 +107,9 @@ public class OrderUIController extends AbstractUIController {
 
     public Order selectOrderId(WaiterAction waiterAction) {
         List<Order> selectOrders;
-        if(waiterAction == WaiterAction.ADD_NEW_MENU_ITEM) {
+        if (waiterAction == null) {
+            selectOrders = getListFromNamedQuery("get_all_orders", Order.class);
+        } else if(waiterAction == WaiterAction.ADD_NEW_MENU_ITEM) {
             selectOrders= getListFromNamedQuery("get_all_orders_open_serving", Order.class);
         }
         else {
@@ -200,5 +202,10 @@ public class OrderUIController extends AbstractUIController {
             orderTotalAmount = orderTotalAmount.add(orderedMenuItem.getSum());
         }
         return orderTotalAmount;
+    }
+
+    private void removeOrder() {
+        Order orderToRemove = selectOrderId(null);
+        deleteFromDatabase(orderToRemove);
     }
 }
