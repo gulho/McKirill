@@ -33,11 +33,15 @@ public abstract class AbstractUIController extends DatabaseController {
         BigDecimal returnBigDecimal;
         while (true) {
             System.out.println(headerString);
-            returnBigDecimal = scanner.nextBigDecimal();
-            if (returnBigDecimal.signum() >= 0) {
-                break;
-            } else {
-                System.out.println(belowZeroError);
+            try {
+                returnBigDecimal = BigDecimal.valueOf(Double.valueOf(scanner.nextLine()));
+                if (returnBigDecimal.signum() >= 0) {
+                    break;
+                } else {
+                    System.out.println(belowZeroError);
+                }
+            } catch (NumberFormatException e) {
+                System.out.println(BaseString.NUMBER_FORMAT_EXCEPTION);
             }
         }
         return returnBigDecimal;
@@ -106,9 +110,9 @@ public abstract class AbstractUIController extends DatabaseController {
                 }
             } catch (InputMismatchException e) {
                 System.out.println(BaseString.SELECT_ID_NOT_INTEGER);
-            } finally {
+            }/* finally {
                 endOfUIInteraction();
-            }
+            }*/
         }
         return returnObject.get();
     }

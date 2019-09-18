@@ -4,13 +4,9 @@ import ee.sda.mckirill.controllers.ui.AbstractUIController;
 import ee.sda.mckirill.controllers.ui.AbstractUITestClass;
 import ee.sda.mckirill.strings.BaseString;
 import org.junit.Assert;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.contrib.java.lang.system.SystemOutRule;
-import org.junit.contrib.java.lang.system.TextFromStandardInputStream;
 
 import static org.junit.Assert.*;
-import static org.junit.contrib.java.lang.system.TextFromStandardInputStream.emptyStandardInputStream;
 
 public class AbstractUIControllerStringInputTest extends AbstractUITestClass {
 
