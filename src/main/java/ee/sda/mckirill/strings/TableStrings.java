@@ -14,4 +14,7 @@ public class TableStrings extends BaseString {
 
     public static final String TABLE_SIZE = "Size";
     public static final String TABLE_IS_AVAILABLE = "Is Available";
+
+    public static final String SELECT_TABLE = GREEN + "Select table ID" + RESET;
+    public static final String SELECT_TABLE_WRONG_ID = RED + "Table ID is wrong" + RESET;
 }

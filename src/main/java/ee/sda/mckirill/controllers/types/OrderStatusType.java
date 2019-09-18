@@ -65,7 +65,7 @@ public class OrderStatusType extends DatabaseController {
     private OrderStatus getByEnum(OrderStatusEnum statusType) {
         Optional<OrderStatus> orderStatus = findByNaturalId(OrderStatus.class, "name", statusType);
         if (orderStatus.isEmpty()) {
-            save(new OrderStatus(statusType));
+            saveInDatabase(new OrderStatus(statusType));
             orderStatus = Optional.of(getByEnum(statusType));
         }
         return orderStatus.get();

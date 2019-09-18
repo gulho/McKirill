@@ -22,9 +22,15 @@ public class DatabaseController {
         return databaseController;
     }
 
-    public <T> void save(T objectToSave) {
+    public <T> void saveInDatabase(T objectToSave) {
         session.beginTransaction();
         session.saveOrUpdate(objectToSave);
+        session.getTransaction().commit();
+    }
+
+    public <T> void deleteFromDatabase(T objectToDelete) {
+        session.beginTransaction();
+        session.delete(objectToDelete);
         session.getTransaction().commit();
     }
 

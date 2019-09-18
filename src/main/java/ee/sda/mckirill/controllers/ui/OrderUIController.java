@@ -6,7 +6,6 @@ import ee.sda.mckirill.enums.PaymentTypeEnum;
 import ee.sda.mckirill.strings.BaseString;
 import ee.sda.mckirill.strings.MenuStrings;
 import ee.sda.mckirill.strings.OrderStrings;
-import ee.sda.mckirill.util.ConsoleTablePrint;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -65,7 +64,7 @@ public class OrderUIController extends AbstractUIController {
                 order.setPeoples(selectUnsignedInteger(OrderStrings.CLIENT_ORDER_PEOPLES_COUNT_SELECT, OrderStrings.CLIENT_ORDER_PEOPLES_COUNT_INVALID, 15));
                 //TODO:Add pre-order food selection
                 order.setCreateDate(LocalDateTime.now());
-                save(order);
+                saveInDatabase(order);
                 System.out.println(OrderStrings.CLIENT_ORDER_CONFIRM);
         }
     }
@@ -153,14 +152,14 @@ public class OrderUIController extends AbstractUIController {
         );
         orderToUpdate.setTotalSum(selectPaymentAmount(orderToUpdate));
         orderToUpdate.setStatus(orderStatus.getPaid());
-        save(orderToUpdate);
+        saveInDatabase(orderToUpdate);
 
         WaiterTip waiterTip = new WaiterTip(
                 person,
                 selectBigDecimal(OrderStrings.SELECT_AMOUNT_OF_TIP, OrderStrings.SELECT_AMOUNT_OF_TIP_CANT_BE_NEGATIVE),
                 orderToUpdate);
         if (waiterTip.getTip().compareTo(BigDecimal.ZERO) > 0) {
-            save(waiterTip);
+            saveInDatabase(waiterTip);
         }
         System.out.println(OrderStrings.PAYMENT_TOTAL + orderToUpdate.getTotalSum().toPlainString());
         System.out.println(OrderStrings.PAYMENT_TOTAL_CHANGE + (orderToUpdate.getTotalSum().subtract(orderTotalAmount(orderToUpdate)).toPlainString()));
