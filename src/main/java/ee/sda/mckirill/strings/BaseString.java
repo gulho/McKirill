@@ -7,7 +7,7 @@ public class BaseString extends ConsoleColors {
     public static final String TODO = YELLOW + "TODO" + RESET;
 
     public static final String PLEASE_SELECT_ACTION = "Please select action." + BR;
-    public static final String EXIT_FROM_APP = "exit: To quit from app";
+    public static final String EXIT_FROM_APP = "0: To quit from app";
     public static final String EXIT = "Exit. Goodbye!";
     public static final String WELCOME = "Welcome to McKirill restaurant management system";
     public static final String WRONG_COMMAND = RED + "Command is wrong. Please print correct command." + RESET;
