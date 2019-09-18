@@ -47,7 +47,7 @@ public class PersonTypeType extends DatabaseController {
     private PersonType getByType(PersonTypeEnum personTypeEnum) {
         Optional<PersonType> personType = findByNaturalId(PersonType.class, "type", personTypeEnum);
         if (personType.isEmpty()) {
-            save(new PersonType(personTypeEnum));
+            saveInDatabase(new PersonType(personTypeEnum));
             personType = Optional.of(getByType(personTypeEnum));
         }
         return personType.get();

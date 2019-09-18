@@ -57,7 +57,7 @@ public class ApplicationContext {
                     .setParameter("type", PersonTypeEnum.MANAGER).getSingleResult();
         } catch (NoResultException nr) {
             PersonType managerPerson = session.byNaturalId(PersonType.class).using("type", PersonTypeEnum.MANAGER).load();
-            DatabaseController.of().save(new Person(
+            DatabaseController.of().saveInDatabase(new Person(
                     DefaultManager.DEFAULT_MANAGER_NAME,
                     DefaultManager.DEFAULT_MANAGER_EMAIL,
                     DefaultManager.DEFAULT_MANAGER_PASSWORD,
@@ -72,7 +72,7 @@ public class ApplicationContext {
                     .createQuery("select p from Person p, PersonType pt where p.personType = pt.id AND pt.type = :type ", Person.class)
                     .setParameter("type", PersonTypeEnum.WAITER).getSingleResult();
         } catch (NoResultException nr) {
-            DatabaseController.of().save(new Person(
+            DatabaseController.of().saveInDatabase(new Person(
                     DefaultWaiter.DEFAULT_WAITER_NAME,
                     DefaultWaiter.DEFAULT_WAITER_EMAIL,
                     DefaultWaiter.DEFAULT_WAITER_PASSWORD,

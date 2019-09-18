@@ -39,7 +39,7 @@ public class PaymentTypeType extends DatabaseController {
     public PaymentType getByType(PaymentTypeEnum paymentTypeEnum) {
         Optional<PaymentType> paymentType = findByNaturalId(PaymentType.class, "paymentName", paymentTypeEnum);
         if (paymentType.isEmpty()) {
-            save(new PaymentType(paymentTypeEnum));
+            saveInDatabase(new PaymentType(paymentTypeEnum));
             paymentType = Optional.of(getByType(paymentTypeEnum));
         }
         return paymentType.get();

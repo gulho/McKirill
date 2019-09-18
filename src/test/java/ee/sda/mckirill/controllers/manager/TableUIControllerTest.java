@@ -11,7 +11,7 @@ import java.io.ByteArrayInputStream;
 class TableUIControllerTest {
 
     @Test
-    void start() {
+    public void start() {
         var person = new Person("name", "email", "password","324532", new PersonType(PersonTypeEnum.CLIENT));
         var tableManagerController = new TableUIController(person);
         tableManagerController.start();

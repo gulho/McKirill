@@ -1,11 +1,15 @@
 package ee.sda.mckirill.controllers;
 
+import com.google.protobuf.MapEntry;
 import ee.sda.mckirill.entities.MenuItem;
 import ee.sda.mckirill.entities.Order;
 import ee.sda.mckirill.entities.Table;
+import ee.sda.mckirill.enums.OrderStatusEnum;
 import org.hibernate.Session;
 
+import javax.persistence.Query;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class DatabaseController {
@@ -22,9 +26,15 @@ public class DatabaseController {
         return databaseController;
     }
 
-    public <T> void save(T objectToSave) {
+    public <T> void saveInDatabase(T objectToSave) {
         session.beginTransaction();
         session.saveOrUpdate(objectToSave);
+        session.getTransaction().commit();
+    }
+
+    public <T> void deleteFromDatabase(T objectToDelete) {
+        session.beginTransaction();
+        session.delete(objectToDelete);
         session.getTransaction().commit();
     }
 
@@ -36,16 +46,12 @@ public class DatabaseController {
         return session.byNaturalId(objectClass).using(naturalIdType, naturalId).loadOptional();
     }
 
-    public List<MenuItem> getListOfMenuItems() {
-        return session.createNamedQuery("get_all_menuItems", MenuItem.class).getResultList();
+    public <T> List<T> getListFromNamedQuery(String queryName, Class<T> objectClass) {
+        return session.createNamedQuery(queryName, objectClass).getResultList();
     }
-
-    public List<Table> getListOfTables() {
-        return session.createNamedQuery("get_all_tables", Table.class).getResultList();
+    public <T> List<T> getListFromNamedQueryWithParameters(String queryName, Class<T> objectClass, Map<String, Object> parameters) {
+        Query query = session.createNamedQuery(queryName, objectClass);
+        parameters.forEach((S,O) -> query.setParameter(S, O));
+        return query.getResultList();
     }
-
-    public List<Order> getOrdersList() {
-        return session.createNamedQuery("get_all_orders").getResultList();
-    }
-
 }

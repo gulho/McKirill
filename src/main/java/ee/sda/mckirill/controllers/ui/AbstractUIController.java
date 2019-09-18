@@ -25,8 +25,11 @@ public abstract class AbstractUIController extends DatabaseController {
 
     //Created for fix Error with scanner
     public static void endOfUIInteraction() {
-        if (scanner.hasNextLine())
-            scanner.nextLine();
+        /*if (scanner.hasNextLine())
+            scanner.nextLine();*/
+        while (scanner.hasNext("\n")) {
+            scanner.next();
+        }
     }
 
     public static BigDecimal selectBigDecimal(String headerString, String belowZeroError) {
@@ -66,6 +69,7 @@ public abstract class AbstractUIController extends DatabaseController {
     public static int selectUnsignedInteger(String headerString, String errorString, int maximumValue) {
         while (true) {
             System.out.println(headerString);
+            endOfUIInteraction();
             try {
                 int returnInt = Integer.valueOf(scanner.nextLine());
                 if (returnInt > 0 && returnInt <= maximumValue) {
@@ -103,10 +107,11 @@ public abstract class AbstractUIController extends DatabaseController {
     }
 
     public static <R> R selectObjectById(String headerString, String errorString, Function function) {
-        endOfUIInteraction();
+
         Optional<R> returnObject;
         while (true) {
             System.out.println(headerString);
+            endOfUIInteraction();
             try {
                 Integer selectedInt = Integer.valueOf(scanner.nextLine());
                 if(selectedInt <= 0) {
@@ -128,7 +133,7 @@ public abstract class AbstractUIController extends DatabaseController {
         while (true) {
             System.out.println(headerString);
             try {
-                Integer action = scanner.nextInt();
+                Integer action = Integer.valueOf(scanner.nextLine());
                 if (action == 0) {
                     return;
                 }

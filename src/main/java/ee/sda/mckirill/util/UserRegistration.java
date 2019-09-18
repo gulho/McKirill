@@ -23,7 +23,7 @@ public class UserRegistration {
 
     public Person commitRegistration(){
 
-        databaseController.save(person);
+        databaseController.saveInDatabase(person);
         return person;
 
         /*try(Session session = new Configuration().configure().buildSessionFactory().openSession()) {

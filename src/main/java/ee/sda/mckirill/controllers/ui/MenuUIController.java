@@ -37,12 +37,12 @@ public class MenuUIController extends AbstractUIController {
         menuItem.setName(selectString(MenuStrings.MENU_SET_NAME, MenuStrings.MENU_EMPTY_NAME, 50));
         menuItem.setType(selectEnum(MenuStrings.MENU_SET_TYPE, MenuStrings.MENU_WRONG_TYPE, MenuItemsTypeEnum.class));
         menuItem.setPrice(selectBigDecimal(MenuStrings.MENU_SET_PRICE, MenuStrings.MENU_PRICE_0_LOW));
-        save(menuItem);
+        saveInDatabase(menuItem);
         System.out.println(BaseString.SAVE_IN_DB);
     }
 
     private void showAllMenuItems() {
-        List<MenuItem> menuItems = getListOfMenuItems();
+        List<MenuItem> menuItems = getListFromNamedQuery("get_all_menuItems", MenuItem.class);
         ConsoleTablePrint menuTable = new ConsoleTablePrint();
         menuTable.setShowVerticalLines(true);
         menuTable.setHeaders(
@@ -66,8 +66,8 @@ public class MenuUIController extends AbstractUIController {
         );
         order.getOrderedMenuItems().add(orderedMenuItem);
         order.setStatus(orderStatus.getServing());
-        save(orderedMenuItem);
-        save(order);
+        saveInDatabase(orderedMenuItem);
+        saveInDatabase(order);
     }
 
 }

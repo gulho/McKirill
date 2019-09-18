@@ -23,6 +23,7 @@ public class Table {
     private List<Order> orders = new ArrayList<>();
 
     public Table() {
+        this.is_available = true;
     }
 
     public Table(int size, boolean is_available) {
