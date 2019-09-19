@@ -1,9 +1,6 @@
 package ee.sda.mckirill.controllers.ui;
 
-import ee.sda.mckirill.entities.MenuItem;
-import ee.sda.mckirill.entities.Order;
-import ee.sda.mckirill.entities.OrderedMenuItem;
-import ee.sda.mckirill.entities.Person;
+import ee.sda.mckirill.entities.*;
 import ee.sda.mckirill.enums.MenuItemsTypeEnum;
 import ee.sda.mckirill.strings.BaseString;
 import ee.sda.mckirill.strings.MenuStrings;
@@ -72,6 +69,17 @@ public class MenuUIController extends AbstractUIController {
         );
         order.getOrderedMenuItems().add(orderedMenuItem);
         order.setStatus(orderStatus.getServing());
+
+        Map<String, Object> tableSize = new HashMap<>();
+        tableSize.put("size", order.getPeoples());
+        List<Table> tablesList = getListFromNamedQueryWithParameters("get_suitable_table", Table.class, tableSize);
+        if(!tablesList.isEmpty()) {
+            Table ordersTable = tablesList.get(0);
+            order.setTable(ordersTable);
+            ordersTable.setIs_available(false);
+            saveInDatabase(ordersTable);
+        }
+
         saveInDatabase(orderedMenuItem);
         saveInDatabase(order);
     }
