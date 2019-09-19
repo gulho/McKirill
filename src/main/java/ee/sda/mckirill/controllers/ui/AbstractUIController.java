@@ -107,7 +107,6 @@ public abstract class AbstractUIController extends DatabaseController {
     }
 
     public static <R> R selectObjectById(String headerString, String errorString, Function function) {
-
         Optional<R> returnObject;
         while (true) {
             System.out.println(headerString);

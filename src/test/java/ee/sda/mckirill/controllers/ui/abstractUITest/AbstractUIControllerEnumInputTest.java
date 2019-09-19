@@ -2,6 +2,7 @@ package ee.sda.mckirill.controllers.ui.abstractUITest;
 
 import ee.sda.mckirill.controllers.ui.AbstractUIController;
 import ee.sda.mckirill.controllers.ui.AbstractUITestClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
