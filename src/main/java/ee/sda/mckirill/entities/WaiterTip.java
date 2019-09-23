@@ -4,6 +4,12 @@ import javax.persistence.*;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 
+@NamedQueries({
+        @NamedQuery(
+                name = "get_waiter_tip",
+                query = "from WaiterTip where person = :person"
+        )
+})
 @Entity
 @Table(name = "waiter_tip")
 public class WaiterTip {
