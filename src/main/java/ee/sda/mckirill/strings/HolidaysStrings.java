@@ -8,10 +8,12 @@ public class HolidaysStrings extends BaseString {
             + "4. Remove Holiday" + BR
             + O_RETURN_BACK;
 
-    public static final String TABLE_DATE = "Date:";
     public static final String TABLE_FROM_TIME = "From:";
     public static final String TABLE_TO_TIME = "To:";
 
     public static final String HOLIDAY_DATE_FROM_HEADER = GREEN + "Date of start holiday" + RESET;
     public static final String HOLIDAY_DATE_TO_HEADER = GREEN + "Date end of holiday" + RESET;
+
+    public static final String SELECT_HOLIDAY_ID = GREEN + "Select holiday ID" + RESET;
+    public static final String SELECT_HOLIDAY_WRONG_ID = RED + "Holiday ID is wrong" + RESET;
 }

@@ -9,7 +9,9 @@ import ee.sda.mckirill.util.ConsoleTablePrint;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class HolidaysUIController extends AbstractUIController {
     public HolidaysUIController(Person person) {
@@ -21,8 +23,8 @@ public class HolidaysUIController extends AbstractUIController {
         Map<Integer, Consumer> holidaysActionMenu = new HashMap<>();
         holidaysActionMenu.put(1, T -> showAllHolidays());
         holidaysActionMenu.put(2, T -> editHoliday(new Holiday()));
-        holidaysActionMenu.put(3, T -> System.out.println(BaseString.TODO));
-        holidaysActionMenu.put(4, T -> System.out.println(BaseString.TODO));
+        holidaysActionMenu.put(3, T -> editHoliday(selectHoliday()));
+        holidaysActionMenu.put(4, T -> removeHoliday(selectHoliday()));
 
         selectMenuAction(HolidaysStrings.HOLIDAYS_MENU_MAIN_ACTION, holidaysActionMenu);
     }
@@ -42,5 +44,15 @@ public class HolidaysUIController extends AbstractUIController {
         holiday.setFromDate(selectDate(HolidaysStrings.HOLIDAY_DATE_FROM_HEADER));
         holiday.setToDate(selectDate(HolidaysStrings.HOLIDAY_DATE_TO_HEADER));
         saveInDatabase(holiday);
+    }
+
+    private Holiday selectHoliday() {
+        showAllHolidays();
+        Function<Integer, Optional<Holiday>> holidayFunction = I -> findById(Holiday.class, I);
+        return selectObjectById(HolidaysStrings.SELECT_HOLIDAY_ID, HolidaysStrings.SELECT_HOLIDAY_WRONG_ID, holidayFunction);
+    }
+
+    private void removeHoliday(Holiday holiday) {
+        deleteFromDatabase(holiday);
     }
 }
