@@ -6,4 +6,5 @@ public enum ControllersEnum {
     TABLE,
     ORDER,
     REVIEW,
+    HOLIDAYS
 }

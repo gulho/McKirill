@@ -9,30 +9,27 @@ import ee.sda.mckirill.enums.PersonTypeEnum;
 public class Factory {
 
     public static AbstractUIController getController(Person person, ControllersEnum controller) {
-        AbstractUIController returnController = null;
         switch (controller) {
             case MAIN:
                 if (person.getPersonType().getType() == PersonTypeEnum.MANAGER) {
-                    returnController = new ManagerUIController(person);
+                    return new ManagerUIController(person);
                 } else if (person.getPersonType().getType() == PersonTypeEnum.WAITER) {
-                    returnController = new WaiterUIController(person);
+                    return new WaiterUIController(person);
                 } else {
-                    returnController = new ClientUIController(person);
+                    return new ClientUIController(person);
                 }
-                break;
             case MENU:
-                returnController = new MenuUIController(person);
-                break;
+                return new MenuUIController(person);
             case TABLE:
-                returnController = new TableUIController(person);
-                break;
+                return new TableUIController(person);
             case ORDER:
-                returnController = new OrderUIController(person);
-                break;
+                return new OrderUIController(person);
             case REVIEW:
-                returnController = new ReviewUIController(person);
-                break;
+                return new ReviewUIController(person);
+            case HOLIDAYS:
+                return new HolidaysUIController(person);
+            default:
+                return null;
         }
-        return returnController;
     }
 }
