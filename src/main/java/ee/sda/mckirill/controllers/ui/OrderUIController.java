@@ -37,7 +37,7 @@ public class OrderUIController extends AbstractUIController {
                     selectMenuAction(OrderStrings.MANAGER_ORDERS_MAIN_ACTION, orderManagerActions);
                 }
             case CLIENT:
-                Optional<LocalDate> orderDate;
+              /*  Optional<LocalDate> orderDate;
                 while (true) {
                     System.out.println(OrderStrings.CLIENT_ORDER_BOOKING_DATE_SELECT);
                     orderDate = validateDate(scanner.nextLine());
@@ -57,13 +57,13 @@ public class OrderUIController extends AbstractUIController {
                     } else {
                         System.out.println(OrderStrings.CLIENT_ORDER_TIME_IN_INVALID);
                     }
-                }
+                }*/
 
                 //TODO: Add check is time is valid
                 Order order = new Order();
                 order.setPerson(person);
                 order.setStatus(orderStatus.getOpen());
-                order.setTimeToOrder(LocalDateTime.of(orderDate.get(), orderTime.get()));
+                //order.setTimeToOrder(LocalDateTime.of(orderDate.get(), orderTime.get()));
                 order.setPeoples(selectUnsignedInteger(OrderStrings.CLIENT_ORDER_PEOPLES_COUNT_SELECT, OrderStrings.CLIENT_ORDER_PEOPLES_COUNT_INVALID, 15));
                 //TODO:Add pre-order food selection
                 order.setCreateDate(LocalDateTime.now());
@@ -122,7 +122,7 @@ public class OrderUIController extends AbstractUIController {
         return selectObjectById(OrderStrings.SELECT_ORDER, OrderStrings.SELECT_ORDER_WRONG_ID, function);
     }
 
-    private Optional<LocalDate> validateDate(String dateStr) {
+/*    private Optional<LocalDate> validateDate(String dateStr) {
         LocalDate orderDate = null;
         try {
             String[] dateStrings = dateStr.split("\\.");
@@ -151,7 +151,7 @@ public class OrderUIController extends AbstractUIController {
             System.out.println(e.getMessage());
         }
         return Optional.ofNullable(orderTime);
-    }
+    }*/
 
     public void payment(Order orderToUpdate) {
         System.out.println(OrderStrings.WAITER_PAYMENT);

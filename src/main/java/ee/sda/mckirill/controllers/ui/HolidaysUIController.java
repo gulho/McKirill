@@ -20,7 +20,7 @@ public class HolidaysUIController extends AbstractUIController {
     public void start() {
         Map<Integer, Consumer> holidaysActionMenu = new HashMap<>();
         holidaysActionMenu.put(1, T -> showAllHolidays());
-        holidaysActionMenu.put(2, T -> System.out.println(BaseString.TODO));
+        holidaysActionMenu.put(2, T -> editHoliday(new Holiday()));
         holidaysActionMenu.put(3, T -> System.out.println(BaseString.TODO));
         holidaysActionMenu.put(4, T -> System.out.println(BaseString.TODO));
 
@@ -36,5 +36,10 @@ public class HolidaysUIController extends AbstractUIController {
             holidayTable.addRow(holiday.getId() + "", holiday.getDate().toString(), holiday.getFromTime().toString(), holiday.getToTime().toString());
         }
         holidayTable.print();
+    }
+
+    private void editHoliday(Holiday holiday) {
+        holiday.setDate(selectDate());
+        
     }
 }

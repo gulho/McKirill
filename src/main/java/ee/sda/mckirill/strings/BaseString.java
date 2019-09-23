@@ -24,4 +24,10 @@ public class BaseString extends ConsoleColors {
 
     public static final String NUMBER_FORMAT_EXCEPTION = RED + "Number format is incorrect" +RESET;
 
+    public static final String SELECT_DATE = "Please type date(d.m.yyyy):";
+    public static final String SELECT_DATE_INVALID = RED + "Date is invalid." + RESET;
+
+    public static final String SELECT_TIME = "Please type time (H.m):";
+    public static final String SELECT_TIME_INVALID = RED + "Time is invalid." + RESET;
+
 }

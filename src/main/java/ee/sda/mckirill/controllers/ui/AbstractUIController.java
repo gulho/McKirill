@@ -7,6 +7,9 @@ import ee.sda.mckirill.entities.Person;
 import ee.sda.mckirill.strings.BaseString;
 
 import java.math.BigDecimal;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -145,5 +148,38 @@ public abstract class AbstractUIController extends DatabaseController {
                 System.out.println(BaseString.WRONG_COMMAND);
             }
         }
+    }
+
+    public static LocalDate selectDate() {
+        while(true) {
+            try {
+                String[] dateStrings = selectString(BaseString.SELECT_DATE, BaseString.SELECT_DATE_INVALID, 10).split("\\.");
+                if (dateStrings.length == 3) {
+                    return LocalDate.of(
+                            Integer.valueOf(dateStrings[2]),
+                            Integer.valueOf(dateStrings[1]),
+                            Integer.valueOf(dateStrings[0]));
+                } else {
+                    throw new DateTimeException("Date is wrong");
+                }
+            } catch (DateTimeException e) {
+                System.out.println(BaseString.SELECT_DATE_INVALID);
+            }
+        }
+    }
+
+    private Optional<LocalTime> validateTime(String timeStr) {
+        LocalTime orderTime = null;
+        try {
+            String[] timeStrings = timeStr.split("\\.");
+            if (timeStrings.length == 2) {
+                orderTime = LocalTime.of(
+                        Integer.valueOf(timeStrings[0]),
+                        Integer.valueOf(timeStrings[1]));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return Optional.ofNullable(orderTime);
     }
 }
