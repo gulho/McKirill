@@ -162,6 +162,11 @@ public class OrderUIController extends AbstractUIController {
         );
         orderToUpdate.setTotalSum(selectPaymentAmount(orderToUpdate));
         orderToUpdate.setStatus(orderStatus.getPaid());
+        if(orderToUpdate.getTable() != null) {
+            Table ordersTable = orderToUpdate.getTable();
+            ordersTable.setIs_available(true);
+            saveInDatabase(ordersTable);
+        }
         saveInDatabase(orderToUpdate);
 
         WaiterTip waiterTip = new WaiterTip(

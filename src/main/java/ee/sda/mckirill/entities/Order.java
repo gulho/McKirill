@@ -18,7 +18,7 @@ import java.util.List;
         ),
         @NamedQuery(
                 name = "get_all_orders_open_serving",
-                query = "from Order where status.name = ee.sda.mckirill.enums.OrderStatusEnum.OPEN AND status.name = ee.sda.mckirill.enums.OrderStatusEnum.SERVING"
+                query = "from Order where status.name = ee.sda.mckirill.enums.OrderStatusEnum.OPEN or status.name = ee.sda.mckirill.enums.OrderStatusEnum.SERVING"
         )
 })
 @Entity

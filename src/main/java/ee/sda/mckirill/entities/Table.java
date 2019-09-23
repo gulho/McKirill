@@ -4,10 +4,14 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@NamedQueries({
+@NamedQueries(value = {
         @NamedQuery(
                 name = "get_all_tables",
                 query = "from Table"
+        ),
+        @NamedQuery(
+                name = "get_suitable_table",
+                query = "from Table where size >= :size AND is_available = true"
         )
 })
 

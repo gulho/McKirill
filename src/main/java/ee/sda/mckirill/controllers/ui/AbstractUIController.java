@@ -35,6 +35,7 @@ public abstract class AbstractUIController extends DatabaseController {
     public static BigDecimal selectBigDecimal(String headerString, String belowZeroError) {
         BigDecimal returnBigDecimal;
         while (true) {
+            endOfUIInteraction();
             System.out.println(headerString);
             try {
                 returnBigDecimal = BigDecimal.valueOf(Double.valueOf(scanner.nextLine()));
@@ -86,11 +87,11 @@ public abstract class AbstractUIController extends DatabaseController {
     public static <E extends Enum<E>> E selectEnum(String headerString, String errorString, Class<E> enumType) {
         while (true) {
                 System.out.println(headerString);
-
                 for (Enum<E> paymentTypeEnum : enumType.getEnumConstants()) {
                     System.out.println(paymentTypeEnum.toString());
                 }
             try {
+                endOfUIInteraction();
                 String typedEnumItem = scanner.nextLine().toUpperCase();
                 Optional returnEnum = Arrays.stream(enumType.getEnumConstants())
                         .filter(e -> e.name().equals(typedEnumItem))
@@ -107,7 +108,6 @@ public abstract class AbstractUIController extends DatabaseController {
     }
 
     public static <R> R selectObjectById(String headerString, String errorString, Function function) {
-
         Optional<R> returnObject;
         while (true) {
             System.out.println(headerString);
