@@ -132,13 +132,14 @@ public abstract class AbstractUIController extends DatabaseController {
     public static void selectMenuAction(String headerString, Map<Integer, Consumer> actionMap) {
         while (true) {
             System.out.println(headerString);
+            endOfUIInteraction();
             try {
                 Integer action = Integer.valueOf(scanner.nextLine());
                 if (action == 0) {
                     return;
                 }
                 actionMap.get(action).accept(null);
-            } catch (InputMismatchException e) {
+            } catch (InputMismatchException | NumberFormatException e) {
                 System.out.println(BaseString.SELECT_ID_NOT_INTEGER);
             } catch (NullPointerException e) {
                 System.out.println(BaseString.WRONG_COMMAND);

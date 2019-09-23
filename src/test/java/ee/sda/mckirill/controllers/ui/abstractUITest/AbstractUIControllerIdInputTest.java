@@ -15,25 +15,25 @@ public class AbstractUIControllerIdInputTest extends AbstractUITestClass {
 
     @Test
     public void selectIDTest() {
-        systemInMock.provideLines("","1");
+        systemInMock.provideLines("1");
         assertEquals("qwer", AbstractUIController.selectObjectById(headerString, errorString, function));
         assertEquals(headerString, systemOutRule.getLog().trim());
 
         systemOutRule.clearLog();
 
-        systemInMock.provideLines("", "", "1");
+        /*systemInMock.provideLines("", "1");
+        AbstractUIController.selectObjectById(headerString, errorString, function);
+        assertEquals(headerString + BR + BaseString.SELECT_ID_NOT_INTEGER + BR + headerString, systemOutRule.getLog().trim());
+
+        systemOutRule.clearLog();*/
+
+        systemInMock.provideLines("qwer", "1");
         AbstractUIController.selectObjectById(headerString, errorString, function);
         assertEquals(headerString + BR + BaseString.SELECT_ID_NOT_INTEGER + BR + headerString, systemOutRule.getLog().trim());
 
         systemOutRule.clearLog();
 
-        systemInMock.provideLines("","qwer", "1");
-        AbstractUIController.selectObjectById(headerString, errorString, function);
-        assertEquals(headerString + BR + BaseString.SELECT_ID_NOT_INTEGER + BR + headerString, systemOutRule.getLog().trim());
-
-        systemOutRule.clearLog();
-
-        systemInMock.provideLines("", "2", "1");
+        systemInMock.provideLines("2", "1");
         AbstractUIController.selectObjectById(headerString, errorString, function);
         assertEquals(headerString + BR + errorString + BR + headerString,systemOutRule.getLog().trim());
     }
