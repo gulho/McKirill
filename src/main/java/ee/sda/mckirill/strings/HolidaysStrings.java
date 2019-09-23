@@ -7,4 +7,8 @@ public class HolidaysStrings extends BaseString {
             + "3. Edit Holiday" + BR
             + "4. Remove Holiday" + BR
             + O_RETURN_BACK;
+
+    public static final String TABLE_DATE = "Date:";
+    public static final String TABLE_FROM_TIME = "From:";
+    public static final String TABLE_TO_TIME = "To:";
 }

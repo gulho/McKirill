@@ -5,6 +5,12 @@ import javax.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@NamedQueries({
+        @NamedQuery(
+                name = "get_all_holidays",
+                query = "from Holiday order by date"
+        )
+})
 @Entity
 @Table(name = "holiday")
 public class Holiday {
