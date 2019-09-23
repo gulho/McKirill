@@ -28,14 +28,15 @@ public class OrderUIController extends AbstractUIController {
     public void start() {
         switch (person.getPersonType().getType()) {
             case MANAGER:
-                while (true) {
+                //while (true) {
                     Map<Integer, Consumer> orderManagerActions = new HashMap<>();
                     orderManagerActions.put(1, T -> showOrdersList(getListFromNamedQuery("get_all_orders", Order.class)));
                     orderManagerActions.put(2, T -> System.out.println(BaseString.TODO)); //TODO
                     orderManagerActions.put(3, T -> removeOrder());
 
                     selectMenuAction(OrderStrings.MANAGER_ORDERS_MAIN_ACTION, orderManagerActions);
-                }
+                //}
+                break;
             case CLIENT:
               /*  Optional<LocalDate> orderDate;
                 while (true) {

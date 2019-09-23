@@ -1,8 +1,8 @@
 package ee.sda.mckirill.strings;
 
-public class ManagerUIStrings extends BaseString {
+public class ManagerStrings extends BaseString {
     public static final String MANAGER_MAIN_ACTION = PLEASE_SELECT_ACTION
-            + "1. Manage orders." + BR
+            + "1. Manage Orders." + BR
             + "2. Manage Menu items" + BR
             + "3. Manage Clients." + BR
             + "4. Manage Tables. " + BR

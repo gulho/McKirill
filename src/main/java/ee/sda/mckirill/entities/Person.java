@@ -4,6 +4,16 @@ package ee.sda.mckirill.entities;
 import javax.persistence.*;
 import javax.persistence.Table;
 
+@NamedQueries({
+        @NamedQuery(
+                name = "get_all_clients",
+                query = "from Person where personType.type = ee.sda.mckirill.enums.PersonTypeEnum.CLIENT"
+        ),
+        @NamedQuery(
+                name = "get_all_waiters",
+                query = "from Person where personType.type = ee.sda.mckirill.enums.PersonTypeEnum.WAITER"
+        )
+})
 @Entity
 @Table(name = "person")
 public class Person {
