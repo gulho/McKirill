@@ -59,13 +59,13 @@ public class OrderUIController extends AbstractUIController {
                     }
                 }*/
 
-                //TODO: Add check is time is valid
+
                 Order order = new Order();
                 order.setPerson(person);
                 order.setStatus(orderStatus.getOpen());
-                //order.setTimeToOrder(LocalDateTime.of(orderDate.get(), orderTime.get()));
+                order.setTimeToOrder(LocalDateTime.of(selectDate(OrderStrings.CLIENT_ORDER_SELECT_DATE), selectTime(OrderStrings.CLIENT_ORDER_SELECT_TIME)));
+                //TODO: Add check is time is valid
                 order.setPeoples(selectUnsignedInteger(OrderStrings.CLIENT_ORDER_PEOPLES_COUNT_SELECT, OrderStrings.CLIENT_ORDER_PEOPLES_COUNT_INVALID, 15));
-                //TODO:Add pre-order food selection
                 order.setCreateDate(LocalDateTime.now());
                 saveInDatabase(order);
                 System.out.println(OrderStrings.CLIENT_ORDER_CONFIRM);

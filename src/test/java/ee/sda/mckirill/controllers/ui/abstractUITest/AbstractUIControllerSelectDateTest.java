@@ -16,19 +16,19 @@ public class AbstractUIControllerSelectDateTest extends AbstractUITestClass {
     @Test
     public void selectDateTest() {
         systemInMock.provideLines(date);
-        assertEquals(dateForCheck, selectDate());
+        assertEquals(dateForCheck, selectDate(headerString));
         assertEquals(BaseString.SELECT_DATE,systemOutRule.getLog().trim());
 
         systemOutRule.clearLog();
 
         systemInMock.provideLines("qwer", date);
-        selectDate();
+        selectDate(headerString);
         assertEquals(BaseString.SELECT_DATE + BR + BaseString.SELECT_DATE_INVALID + BR + BaseString.SELECT_DATE, systemOutRule.getLog().trim());
 
         systemOutRule.clearLog();
 
         systemInMock.provideLines("32.09.2019", date);
-        selectDate();
+        selectDate(headerString);
         assertEquals(BaseString.SELECT_DATE + BR + BaseString.SELECT_DATE_INVALID + BR + BaseString.SELECT_DATE, systemOutRule.getLog().trim());
     }
 }

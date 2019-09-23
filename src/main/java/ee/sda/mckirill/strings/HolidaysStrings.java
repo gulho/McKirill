@@ -11,4 +11,7 @@ public class HolidaysStrings extends BaseString {
     public static final String TABLE_DATE = "Date:";
     public static final String TABLE_FROM_TIME = "From:";
     public static final String TABLE_TO_TIME = "To:";
+
+    public static final String HOLIDAY_DATE_FROM_HEADER = GREEN + "Date of start holiday" + RESET;
+    public static final String HOLIDAY_DATE_TO_HEADER = GREEN + "Date end of holiday" + RESET;
 }

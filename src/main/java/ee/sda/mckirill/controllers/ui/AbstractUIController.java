@@ -150,9 +150,10 @@ public abstract class AbstractUIController extends DatabaseController {
         }
     }
 
-    public static LocalDate selectDate() {
+    public static LocalDate selectDate(String selectDateString) {
         while(true) {
             try {
+                System.out.println(selectDateString);
                 String[] dateStrings = selectString(BaseString.SELECT_DATE, BaseString.SELECT_DATE_INVALID, 10).split("\\.");
                 if (dateStrings.length == 3) {
                     return LocalDate.of(
@@ -168,18 +169,21 @@ public abstract class AbstractUIController extends DatabaseController {
         }
     }
 
-    private Optional<LocalTime> validateTime(String timeStr) {
-        LocalTime orderTime = null;
-        try {
-            String[] timeStrings = timeStr.split("\\.");
-            if (timeStrings.length == 2) {
-                orderTime = LocalTime.of(
-                        Integer.valueOf(timeStrings[0]),
-                        Integer.valueOf(timeStrings[1]));
+    public static LocalTime selectTime(String selectTimeString) {
+        while (true) {
+            try {
+                System.out.println(selectTimeString);
+                String[] timeStrings = selectString(BaseString.SELECT_TIME, BaseString.SELECT_TIME_INVALID, 5).split("\\.");
+                if (timeStrings.length == 2) {
+                    return LocalTime.of(
+                            Integer.valueOf(timeStrings[0]),
+                            Integer.valueOf(timeStrings[1]));
+                } else {
+                    throw new DateTimeException("Time is incorrect");
+                }
+            } catch (DateTimeException e) {
+                System.out.println(BaseString.SELECT_TIME_INVALID);
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
-        return Optional.ofNullable(orderTime);
     }
 }

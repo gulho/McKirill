@@ -31,15 +31,16 @@ public class HolidaysUIController extends AbstractUIController {
         List<Holiday> holidays = getListFromNamedQuery("get_all_holidays", Holiday.class);
         ConsoleTablePrint holidayTable = new ConsoleTablePrint();
         holidayTable.setShowVerticalLines(true);
-        holidayTable.setHeaders(HolidaysStrings.TABLE_ID, HolidaysStrings.TABLE_DATE, HolidaysStrings.TABLE_FROM_TIME, HolidaysStrings.TABLE_TO_TIME);
+        holidayTable.setHeaders(HolidaysStrings.TABLE_ID, HolidaysStrings.TABLE_FROM_TIME, HolidaysStrings.TABLE_TO_TIME);
         for(Holiday holiday: holidays) {
-            holidayTable.addRow(holiday.getId() + "", holiday.getDate().toString(), holiday.getFromTime().toString(), holiday.getToTime().toString());
+            holidayTable.addRow(holiday.getId() + "", holiday.getFromDate().toString(), holiday.getToDate().toString());
         }
         holidayTable.print();
     }
 
     private void editHoliday(Holiday holiday) {
-        holiday.setDate(selectDate());
-        
+        holiday.setFromDate(selectDate(HolidaysStrings.HOLIDAY_DATE_FROM_HEADER));
+        holiday.setToDate(selectDate(HolidaysStrings.HOLIDAY_DATE_TO_HEADER));
+        saveInDatabase(holiday);
     }
 }

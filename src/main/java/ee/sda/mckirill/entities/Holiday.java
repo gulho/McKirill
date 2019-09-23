@@ -8,7 +8,7 @@ import java.time.LocalTime;
 @NamedQueries({
         @NamedQuery(
                 name = "get_all_holidays",
-                query = "from Holiday order by date"
+                query = "from Holiday order by fromDate"
         )
 })
 @Entity
@@ -17,19 +17,12 @@ public class Holiday {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private LocalDate date;
-    @Column(name = "from_time")
-    private LocalTime fromTime;
-    @Column(name = "to_time")
-    private LocalTime toTime;
+    @Column(name = "from_date")
+    private LocalDate fromDate;
+    @Column(name = "to_date")
+    private LocalDate toDate;
 
     public Holiday() {
-    }
-
-    public Holiday(LocalDate date, LocalTime fromTime, LocalTime toTime) {
-        this.date = date;
-        this.fromTime = fromTime;
-        this.toTime = toTime;
     }
 
     public int getId() {
@@ -40,27 +33,19 @@ public class Holiday {
         this.id = id;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getFromDate() {
+        return fromDate;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setFromDate(LocalDate fromDate) {
+        this.fromDate = fromDate;
     }
 
-    public LocalTime getFromTime() {
-        return fromTime;
+    public LocalDate getToDate() {
+        return toDate;
     }
 
-    public void setFromTime(LocalTime fromTime) {
-        this.fromTime = fromTime;
-    }
-
-    public LocalTime getToTime() {
-        return toTime;
-    }
-
-    public void setToTime(LocalTime toTime) {
-        this.toTime = toTime;
+    public void setToDate(LocalDate toDate) {
+        this.toDate = toDate;
     }
 }

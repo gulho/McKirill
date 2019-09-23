@@ -15,6 +15,8 @@ public class OrderStrings extends BaseString {
     public static final String SELECT_ORDER = GREEN + "Select order ID" + RESET;
     public static final String SELECT_ORDER_WRONG_ID = RED + "Order ID is wrong" + RESET;
 
+    public static final String CLIENT_ORDER_SELECT_DATE = GREEN + "Desired date" + RESET;
+    public static final String CLIENT_ORDER_SELECT_TIME = GREEN + "Desired time" + RESET;
     public static final String CLIENT_ORDER_PEOPLES_COUNT_SELECT = "Please type numbers of people(1-15):";
     public static final String CLIENT_ORDER_PEOPLES_COUNT_INVALID = RED + "Peoples count is invalid" + RESET;
 
