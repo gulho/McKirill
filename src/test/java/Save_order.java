@@ -39,7 +39,7 @@ public class Save_order {
         //Create waiter tip (in this example tip go to client this is wrong)
         WaiterTip waiterTip = new WaiterTip(client, new BigDecimal(100), order);
         //Create holliday
-        Holiday holiday = new Holiday(LocalDate.now(), LocalTime.now().minusHours(1), LocalTime.now().plusHours(2));
+        //Holiday holiday = new Holiday(LocalDate.now(), LocalTime.now().minusHours(1), LocalTime.now().plusHours(2));
 
         //Set orders person
         order.setPerson(client);
@@ -75,7 +75,7 @@ public class Save_order {
             session.saveOrUpdate(beer_Menu_item);
             session.saveOrUpdate(review);
             session.saveOrUpdate(waiterTip);
-            session.saveOrUpdate(holiday);
+            //session.saveOrUpdate(holiday);
 
             session.getTransaction().commit();
         }
