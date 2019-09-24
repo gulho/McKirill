@@ -4,13 +4,19 @@ import javax.persistence.*;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 
+@NamedQueries({
+        @NamedQuery(
+                name = "get_waiter_tip",
+                query = "from WaiterTip where person = :person"
+        )
+})
 @Entity
 @Table(name = "waiter_tip")
 public class WaiterTip {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "person_id")
     private Person person;
     private BigDecimal tip = BigDecimal.ZERO;

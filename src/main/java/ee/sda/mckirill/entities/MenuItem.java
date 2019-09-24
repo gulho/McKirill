@@ -5,6 +5,8 @@ import ee.sda.mckirill.enums.MenuItemsTypeEnum;
 import javax.persistence.*;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @NamedQueries({
         @NamedQuery(
@@ -24,6 +26,8 @@ public class MenuItem {
     @Column(name = "type", nullable = false)
     private MenuItemsTypeEnum type;
     private BigDecimal price;
+    @OneToMany(mappedBy = "menuItem")
+    private List<OrderedMenuItem> orderedMenuItems = new ArrayList<>();
 
     public MenuItem(){}
 
@@ -63,5 +67,18 @@ public class MenuItem {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public List<OrderedMenuItem> getOrderedMenuItems() {
+        return orderedMenuItems;
+    }
+
+    public void setOrderedMenuItems(List<OrderedMenuItem> orderedMenuItem) {
+        this.orderedMenuItems = orderedMenuItem;
+    }
+
+    @PreRemove
+    private void preRemove() {
+        getOrderedMenuItems().forEach(orderedMenuItem -> orderedMenuItem.setMenuItem(null));
     }
 }

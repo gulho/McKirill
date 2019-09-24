@@ -24,7 +24,7 @@ public class Save_order {
 
         //Create table
         Table table = new Table(5, false);
-        table.getOrders().add(order);
+        //table.getOrders().add(order);
 
         //Create payment type
         PaymentType cash = new PaymentType(PaymentTypeEnum.CASH);

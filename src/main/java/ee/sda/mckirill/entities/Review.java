@@ -12,7 +12,7 @@ public class Review {
     private int id;
     @OneToOne
     @JoinColumn(name = "person_id")
-    private Person preson;
+    private Person person;
     private int score;
     @Column(name = "review_text",length = 5000)
     private String reviewText;
@@ -21,8 +21,8 @@ public class Review {
     public Review() {
     }
 
-    public Review(Person preson, int score, String reviewText, LocalDateTime date) {
-        this.preson = preson;
+    public Review(Person person, int score, String reviewText, LocalDateTime date) {
+        this.person = person;
         this.score = score;
         this.reviewText = reviewText;
         this.date = date;
@@ -36,12 +36,12 @@ public class Review {
         this.id = id;
     }
 
-    public Person getPreson() {
-        return preson;
+    public Person getPerson() {
+        return person;
     }
 
-    public void setPreson(Person preson) {
-        this.preson = preson;
+    public void setPerson(Person preson) {
+        this.person = preson;
     }
 
     public int getScore() {

@@ -1,8 +1,6 @@
 package ee.sda.mckirill.entities;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @NamedQueries(value = {
         @NamedQuery(
@@ -11,7 +9,7 @@ import java.util.List;
         ),
         @NamedQuery(
                 name = "get_suitable_table",
-                query = "from Table where size >= :size AND is_available = true"
+                query = "from Table where tableSize >= :size AND is_available = true"
         )
 })
 
@@ -21,17 +19,16 @@ public class Table {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int size;
+    @Column(name = "size")
+    private int tableSize;
     private boolean is_available;
-    @OneToMany(mappedBy = "table")
-    private List<Order> orders = new ArrayList<>();
 
     public Table() {
         this.is_available = true;
     }
 
-    public Table(int size, boolean is_available) {
-        this.size = size;
+    public Table(int tableSize, boolean is_available) {
+        this.tableSize = tableSize;
         this.is_available = is_available;
     }
 
@@ -43,12 +40,12 @@ public class Table {
         this.id = id;
     }
 
-    public int getSize() {
-        return size;
+    public int getTableSize() {
+        return tableSize;
     }
 
-    public void setSize(int size) {
-        this.size = size;
+    public void setTableSize(int size) {
+        this.tableSize = size;
     }
 
     public boolean isIs_available() {
@@ -59,11 +56,4 @@ public class Table {
         this.is_available = is_available;
     }
 
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
 }

@@ -28,6 +28,10 @@ public class Factory {
                 return new ReviewUIController(person);
             case HOLIDAYS:
                 return new HolidaysUIController(person);
+            case CLIENT:
+                return new ClientUIController(person);
+            case WAITER:
+                return new WaiterUIController(person);
             default:
                 return null;
         }
