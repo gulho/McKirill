@@ -79,9 +79,8 @@ public class MenuUIController extends AbstractUIController {
             ordersTable.setIs_available(false);
             saveInDatabase(ordersTable);
         }
-
-        saveInDatabase(orderedMenuItem);
-        saveInDatabase(order);
+        
+        saveInDatabase(order, orderedMenuItem);
     }
 
     private void removeMenuItem(MenuItem menuItem) {
