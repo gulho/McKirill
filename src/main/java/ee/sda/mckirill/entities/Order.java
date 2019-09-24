@@ -46,6 +46,8 @@ public class Order {
     private OrderStatus status;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
+    @OneToOne(mappedBy = "order")
+    private WaiterTip waiterTip;
 
     public Order() {
     }
@@ -136,5 +138,14 @@ public class Order {
 
     public void setUpdateDate(LocalDateTime updateDate) {
         this.updateDate = updateDate;
+    }
+
+    @PreRemove
+    private void preRemove() {
+        if (waiterTip != null) {
+            waiterTip.setOrder(null);
+        }
+        getOrderedMenuItems().forEach(orderedMenuItem -> orderedMenuItem.setOrder(null));
+
     }
 }

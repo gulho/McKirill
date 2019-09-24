@@ -35,7 +35,7 @@ public class TableUIController extends AbstractUIController {
     }
 
     private void editTable(Table table) {
-        table.setSize(selectUnsignedInteger(TableStrings.TABLE_SELECT_SIZE, TableStrings.TABLE_WRONG_SIZE, 15));
+        table.setTableSize(selectUnsignedInteger(TableStrings.TABLE_SELECT_SIZE, TableStrings.TABLE_WRONG_SIZE, 15));
         saveInDatabase(table);
     }
 
@@ -45,7 +45,7 @@ public class TableUIController extends AbstractUIController {
         tableTable.setShowVerticalLines(true);
         tableTable.setHeaders(TableStrings.TABLE_ID, TableStrings.TABLE_SIZE, TableStrings.TABLE_IS_AVAILABLE);
         for(Table table : tables) {
-            tableTable.addRow(table.getId() + "", table.getSize() + "", Boolean.valueOf(table.isIs_available()).toString());
+            tableTable.addRow(table.getId() + "", table.getTableSize() + "", Boolean.valueOf(table.isIs_available()).toString());
         }
         tableTable.print();
     }

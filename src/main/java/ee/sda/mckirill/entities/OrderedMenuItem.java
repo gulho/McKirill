@@ -13,7 +13,7 @@ public class OrderedMenuItem {
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "menu_item_id")
     private MenuItem menuItem;
     @Column(name = "quantity", nullable = false)
