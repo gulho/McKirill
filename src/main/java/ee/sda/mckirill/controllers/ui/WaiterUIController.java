@@ -53,7 +53,7 @@ public class WaiterUIController extends AbstractUIController {
                 WaiterStrings.TABLE_WAITER_TIPS);
         for (Person person : getListFromNamedQuery("get_all_waiters", Person.class)) {
             BigDecimal waiterTIP = BigDecimal.ZERO;
-            for(WaiterTip waiterTip: getListFromNamedQueryWithParameters("get_waiter_tip", WaiterTip.class, Map.of("person", person))) {
+            for(WaiterTip waiterTip: person.getWaiterTipList()) {
                 waiterTIP = waiterTIP.add(waiterTip.getTip());
             }
             clientTable.addRow(person.getId() + "", person.getName(), person.getEmail(), person.getPhoneNumber(), waiterTIP.toPlainString());

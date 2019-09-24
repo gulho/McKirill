@@ -3,6 +3,8 @@ package ee.sda.mckirill.entities;
 
 import javax.persistence.*;
 import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 @NamedQueries({
         @NamedQuery(
@@ -31,6 +33,9 @@ public class Person {
     @ManyToOne
     @JoinColumn(name = "person_type_id")
     private PersonType personType;
+
+    @OneToMany(mappedBy = "person")
+    private List<WaiterTip> waiterTipList = new ArrayList<>();
 
     public Person() {
     }
@@ -89,6 +94,14 @@ public class Person {
 
     public void setPersonType(PersonType personType) {
         this.personType = personType;
+    }
+
+    public List<WaiterTip> getWaiterTipList() {
+        return waiterTipList;
+    }
+
+    public void setWaiterTipList(List<WaiterTip> waiterTipList) {
+        this.waiterTipList = waiterTipList;
     }
 
     @Override

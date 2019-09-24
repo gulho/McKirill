@@ -16,7 +16,7 @@ public class WaiterTip {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "person_id")
     private Person person;
     private BigDecimal tip = BigDecimal.ZERO;
