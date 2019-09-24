@@ -1,7 +1,12 @@
 package ee.sda.mckirill.controllers.ui;
 
 import ee.sda.mckirill.entities.Person;
+import ee.sda.mckirill.entities.Review;
 import ee.sda.mckirill.strings.BaseString;
+import ee.sda.mckirill.strings.ReviewStrings;
+import ee.sda.mckirill.util.ConsoleTablePrint;
+
+import java.time.LocalDateTime;
 
 public class ReviewUIController extends AbstractUIController {
 
@@ -13,40 +18,21 @@ public class ReviewUIController extends AbstractUIController {
     public void start() {
         switch (person.getPersonType().getType()) {
             case CLIENT:
-            while (true) {
-                switch (scanner.nextLine()) {
-                    case "0":
-                        return;
-                    default:
-                        System.out.println(BaseString.WRONG_COMMAND);
-                }
-            }
+                Review review = new Review();
+                review.setScore(selectUnsignedInteger(ReviewStrings.PRINT_SCORE, ReviewStrings.PRINT_SCORE_WRONG, 5));
+                review.setReviewText(selectString(ReviewStrings.PRINT_REVIEW, ReviewStrings.PRINT_REVIEW_WRONG, 5000));
+                review.setPerson(person);
+                review.setDate(LocalDateTime.now());
+                saveInDatabase(review);
+                break;
+            case MANAGER:
+                ConsoleTablePrint reviewConsole = new ConsoleTablePrint();
+                reviewConsole.setShowVerticalLines(true);
+                reviewConsole.setHeaders(ReviewStrings.TABLE_PERSON, ReviewStrings.TABLE_REVIEW_DATE, ReviewStrings.TABLE_REVIEW_SCORE, ReviewStrings.TABLE_REVIEW_TEXT);
+                getListFromNamedQuery("get_all_reviews", Review.class).forEach(reviewT -> reviewConsole.addRow(
+                        reviewT.getPerson().getName(), reviewT.getDate().toString(), reviewT.getScore() + "", reviewT.getReviewText()));
+                reviewConsole.print();
+                break;
         }
     }
-
-    /*public void processReview() {
-        review.setScore(0);
-        do {
-            System.out.println("Please print your score (1-5):");
-            int score = scanner.nextInt();
-            if (score > 1 && score <6 ) {
-               review.setScore(score);
-            } else {
-                System.out.println("Score is incorrect. Please print number from 1 - 5");
-            }
-        } while (review.getScore() != 0);
-        System.out.println("Please enter our review:");
-        review.setReviewText(scanner.nextLine());
-        saveReview();
-    }
-
-    public void removeReview() {
-        System.out.println("Do yo want ");
-    }
-
-    private void saveReview() {
-        session.beginTransaction();
-        session.saveOrUpdate(review);
-        session.getTransaction().commit();
-    }*/
 }

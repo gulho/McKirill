@@ -4,6 +4,12 @@ import javax.persistence.*;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 
+@NamedQueries({
+        @NamedQuery(
+                name = "get_all_reviews",
+                query = "from Review order by date desc"
+        )
+})
 @Entity
 @Table(name = "review")
 public class Review {

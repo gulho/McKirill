@@ -9,6 +9,7 @@ public class ManagerStrings extends BaseString {
             + "5. Manage Waiters" + BR
             + "6. Manage holidays" + BR
             + "7. Statistics" + BR
+            + "8. Show Reviews" + BR
             + EXIT_FROM_APP;
 
 }

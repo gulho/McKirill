@@ -26,9 +26,11 @@ public class DatabaseController {
         return databaseController;
     }
 
-    public <T> void saveInDatabase(T objectToSave) {
+    public <T> void saveInDatabase(T... objectToSaves) {
         session.beginTransaction();
-        session.saveOrUpdate(objectToSave);
+        for (Object objectToSave : objectToSaves){
+            session.saveOrUpdate(objectToSave);
+        }
         session.getTransaction().commit();
     }
 
