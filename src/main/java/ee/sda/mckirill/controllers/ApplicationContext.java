@@ -12,6 +12,9 @@ import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
 
 import javax.persistence.NoResultException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 import java.util.Scanner;
 
 public class ApplicationContext {
@@ -20,10 +23,19 @@ public class ApplicationContext {
     private static OrderStatusType orderStatusType = OrderStatusType.of();
     private static PersonTypeType personTypeType = PersonTypeType.of();
     private static PaymentTypeType paymentTypeType = PaymentTypeType.of();
+    private static int startWorking;
 
     public ApplicationContext() {
         checkManagerExist();
         checkWaiterExist();
+
+        try {
+            Properties properties = new Properties();
+            properties.load(getClass().getClassLoader().getResourceAsStream("mckirill.settings.properties"));
+            startWorking = Integer.valueOf(properties.getProperty("workingTimeStart"));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private static Session connectToDb() {
