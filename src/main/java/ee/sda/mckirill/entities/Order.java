@@ -19,6 +19,14 @@ import java.util.List;
         @NamedQuery(
                 name = "get_all_orders_open_serving",
                 query = "from Order where status.name = ee.sda.mckirill.enums.OrderStatusEnum.OPEN or status.name = ee.sda.mckirill.enums.OrderStatusEnum.SERVING"
+        ),
+        @NamedQuery(
+                name = "orders_count_older_than_date",
+                query = "select count(id) from Order where timeToOrder > :timeToOrder"
+        ),
+        @NamedQuery(
+                name = "orders_count_by_day",
+                query = "select count(id) from Order where timeToOrder = :timeToOrder"
         )
 })
 @Entity

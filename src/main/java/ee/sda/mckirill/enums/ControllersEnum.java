@@ -8,5 +8,6 @@ public enum ControllersEnum {
     REVIEW,
     HOLIDAYS,
     WAITER,
-    CLIENT
+    CLIENT,
+    STATISTICS
 }
