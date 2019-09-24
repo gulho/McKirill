@@ -51,12 +51,7 @@ public class ApplicationContext {
     }
 
     private void checkManagerExist() {
-        try {
-            Person manager = session
-                    .createQuery("select p from Person p, PersonType pt where p.personType = pt.id AND pt.type = :type ", Person.class)
-                    .setParameter("type", PersonTypeEnum.MANAGER).getSingleResult();
-        } catch (NoResultException nr) {
-            PersonType managerPerson = session.byNaturalId(PersonType.class).using("type", PersonTypeEnum.MANAGER).load();
+        if (!DatabaseController.of().getListFromNamedQuery("get_all_mangers", Person.class).isEmpty()) {
             DatabaseController.of().saveInDatabase(new Person(
                     DefaultManager.DEFAULT_MANAGER_NAME,
                     DefaultManager.DEFAULT_MANAGER_EMAIL,
@@ -67,11 +62,7 @@ public class ApplicationContext {
     }
 
     private void checkWaiterExist() {
-        try {
-            Person waiter = session
-                    .createQuery("select p from Person p, PersonType pt where p.personType = pt.id AND pt.type = :type ", Person.class)
-                    .setParameter("type", PersonTypeEnum.WAITER).getSingleResult();
-        } catch (NoResultException nr) {
+        if (!DatabaseController.of().getListFromNamedQuery("get_all_waiters", Person.class).isEmpty()) {
             DatabaseController.of().saveInDatabase(new Person(
                     DefaultWaiter.DEFAULT_WAITER_NAME,
                     DefaultWaiter.DEFAULT_WAITER_EMAIL,

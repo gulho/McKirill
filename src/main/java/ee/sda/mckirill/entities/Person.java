@@ -16,6 +16,10 @@ import java.util.List;
                 query = "from Person where personType.type = ee.sda.mckirill.enums.PersonTypeEnum.WAITER"
         ),
         @NamedQuery(
+                name = "get_all_mangers",
+                query = "from Person where personType.type = ee.sda.mckirill.enums.PersonTypeEnum.MANAGER"
+        ),
+        @NamedQuery(
                 name = "clients_count",
                 query = "select count(id) from Person where personType.type = ee.sda.mckirill.enums.PersonTypeEnum.CLIENT"
 
