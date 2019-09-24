@@ -1,6 +1,5 @@
 package ee.sda.mckirill.controllers.ui;
 
-import ee.sda.mckirill.entities.Order;
 import ee.sda.mckirill.entities.Person;
 import ee.sda.mckirill.strings.StatisticsString;
 
@@ -14,19 +13,15 @@ public class StatisticsUIController extends AbstractUIController {
 
     @Override
     public void start() {
-/*        Map<Integer, Consumer> clientActions = new HashMap<>();
-        clientActions.put(1, T -> System.out.println(StatisticsString.TODO));
-        clientActions.put(2, T -> System.out.println(StatisticsString.TODO));
-        clientActions.put(3, T -> System.out.println(StatisticsString.TODO));
-
-        selectMenuAction(StatisticsString.STATISTICS_MAIN_ACTION, clientActions);*/
 
         System.out.println(StatisticsString.ORDERS_COUNT_IN_ALL_TIME
-                + getListFromNamedQueryWithParameters("orders_count_by_date",
+                + getListFromNamedQueryWithParameters("orders_count_older_than_date",
                 Object.class, Map.of("timeToOrder", LocalDateTime.MIN)).get(0));
-    }
 
-    private void ordersStatistics() {
+        System.out.println(StatisticsString.ORDER_FOR_TODAY
+                + getListFromNamedQueryWithParameters("orders_count_by_day", Object.class, Map.of("timeToOrder", LocalDateTime.now())).get(0));
 
+        System.out.println(StatisticsString.CLIENTS_COUNT
+                + getListFromNamedQuery("clients_count", Object.class).get(0));
     }
 }
