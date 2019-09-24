@@ -32,6 +32,8 @@ public class Factory {
                 return new ClientUIController(person);
             case WAITER:
                 return new WaiterUIController(person);
+            case STATISTICS:
+                return new StatisticsUIController(person);
             default:
                 return null;
         }

@@ -25,7 +25,7 @@ public class ManagerUIController extends AbstractUIController {
         managerActions.put(4, T -> Factory.getController(person, ControllersEnum.TABLE).start());
         managerActions.put(5, T -> Factory.getController(person, ControllersEnum.WAITER).start());
         managerActions.put(6, T -> Factory.getController(person, ControllersEnum.HOLIDAYS).start());
-        managerActions.put(7, T -> System.out.println(BaseString.TODO)); //TODO
+        managerActions.put(7, T -> Factory.getController(person, ControllersEnum.STATISTICS).start());
 
         selectMenuAction(ManagerStrings.MANAGER_MAIN_ACTION, managerActions);
     }
