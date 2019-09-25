@@ -4,16 +4,12 @@ import ee.sda.mckirill.controllers.types.OrderStatusType;
 import ee.sda.mckirill.controllers.types.PaymentTypeType;
 import ee.sda.mckirill.controllers.types.PersonTypeType;
 import ee.sda.mckirill.entities.Person;
-import ee.sda.mckirill.entities.PersonType;
-import ee.sda.mckirill.enums.PersonTypeEnum;
 import ee.sda.mckirill.strings.DefaultManager;
 import ee.sda.mckirill.strings.DefaultWaiter;
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
 
-import javax.persistence.NoResultException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -23,7 +19,7 @@ public class ApplicationContext {
     private static OrderStatusType orderStatusType = OrderStatusType.of();
     private static PersonTypeType personTypeType = PersonTypeType.of();
     private static PaymentTypeType paymentTypeType = PaymentTypeType.of();
-    private static int startWorking;
+    private static int[] workingTime = new  int[2];
 
     public ApplicationContext() {
         checkManagerExist();
@@ -32,7 +28,8 @@ public class ApplicationContext {
         try {
             Properties properties = new Properties();
             properties.load(getClass().getClassLoader().getResourceAsStream("mckirill.settings.properties"));
-            startWorking = Integer.valueOf(properties.getProperty("workingTimeStart"));
+            workingTime[0] = Integer.valueOf(properties.getProperty("workingTimeStart"));
+            workingTime[1] = Integer.valueOf(properties.getProperty("workingTimeEnd"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -60,6 +57,10 @@ public class ApplicationContext {
 
     public static PaymentTypeType getPaymentTypeType() {
         return paymentTypeType;
+    }
+
+    public static int[] getWorkingTime() {
+        return workingTime;
     }
 
     private void checkManagerExist() {

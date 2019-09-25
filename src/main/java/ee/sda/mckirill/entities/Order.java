@@ -60,6 +60,15 @@ public class Order {
     public Order() {
     }
 
+    @PreRemove
+    private void preRemove() {
+        if (waiterTip != null) {
+            waiterTip.setOrder(null);
+        }
+        getOrderedMenuItems().forEach(orderedMenuItem -> orderedMenuItem.setOrder(null));
+
+    }
+
     public int getId() {
         return id;
     }
@@ -148,12 +157,4 @@ public class Order {
         this.updateDate = updateDate;
     }
 
-    @PreRemove
-    private void preRemove() {
-        if (waiterTip != null) {
-            waiterTip.setOrder(null);
-        }
-        getOrderedMenuItems().forEach(orderedMenuItem -> orderedMenuItem.setOrder(null));
-
-    }
 }
