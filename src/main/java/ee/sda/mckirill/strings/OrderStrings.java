@@ -8,7 +8,7 @@ public class OrderStrings extends BaseString {
             + O_RETURN_BACK;
 
     public static final String TABLE_PEOPLES_COUNT = "Peoples";
-    public static final String TABLE_STATUS =  "Status";
+    public static final String TABLE_STATUS = "Status";
     public static final String TABLE_QUANTITY = "Quantity";
     public static final String TABLE_TABLE_ID = "Table";
 
@@ -33,4 +33,5 @@ public class OrderStrings extends BaseString {
     public static final String PAYMENT_TOTAL = GREEN + "Payment total:" + RESET;
     public static final String PAYMENT_TOTAL_CHANGE = GREEN + "Total change:" + RESET;
     public static final String PAYMENT_TOTAL_TIP = GREEN + "Total tip:" + RESET;
+    public static final String TIME_TO_ORDER_INVALID = RED + "Date to Order is invalid. Please select another day." + RESET;
 }
