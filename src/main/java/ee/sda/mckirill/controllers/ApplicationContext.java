@@ -4,14 +4,13 @@ import ee.sda.mckirill.controllers.types.OrderStatusType;
 import ee.sda.mckirill.controllers.types.PaymentTypeType;
 import ee.sda.mckirill.controllers.types.PersonTypeType;
 import ee.sda.mckirill.entities.Person;
-import ee.sda.mckirill.entities.PersonType;
-import ee.sda.mckirill.enums.PersonTypeEnum;
 import ee.sda.mckirill.strings.DefaultManager;
 import ee.sda.mckirill.strings.DefaultWaiter;
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
 
-import javax.persistence.NoResultException;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.Scanner;
 
 public class ApplicationContext {
@@ -20,10 +19,20 @@ public class ApplicationContext {
     private static OrderStatusType orderStatusType = OrderStatusType.of();
     private static PersonTypeType personTypeType = PersonTypeType.of();
     private static PaymentTypeType paymentTypeType = PaymentTypeType.of();
+    private static int[] workingTime = new  int[2];
 
     public ApplicationContext() {
         checkManagerExist();
         checkWaiterExist();
+
+        try {
+            Properties properties = new Properties();
+            properties.load(getClass().getClassLoader().getResourceAsStream("mckirill.settings.properties"));
+            workingTime[0] = Integer.valueOf(properties.getProperty("workingTimeStart"));
+            workingTime[1] = Integer.valueOf(properties.getProperty("workingTimeEnd"));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private static Session connectToDb() {
@@ -50,13 +59,12 @@ public class ApplicationContext {
         return paymentTypeType;
     }
 
+    public static int[] getWorkingTime() {
+        return workingTime;
+    }
+
     private void checkManagerExist() {
-        try {
-            Person manager = session
-                    .createQuery("select p from Person p, PersonType pt where p.personType = pt.id AND pt.type = :type ", Person.class)
-                    .setParameter("type", PersonTypeEnum.MANAGER).getSingleResult();
-        } catch (NoResultException nr) {
-            PersonType managerPerson = session.byNaturalId(PersonType.class).using("type", PersonTypeEnum.MANAGER).load();
+        if (!DatabaseController.of().getListFromNamedQuery("get_all_mangers", Person.class).isEmpty()) {
             DatabaseController.of().saveInDatabase(new Person(
                     DefaultManager.DEFAULT_MANAGER_NAME,
                     DefaultManager.DEFAULT_MANAGER_EMAIL,
@@ -67,11 +75,7 @@ public class ApplicationContext {
     }
 
     private void checkWaiterExist() {
-        try {
-            Person waiter = session
-                    .createQuery("select p from Person p, PersonType pt where p.personType = pt.id AND pt.type = :type ", Person.class)
-                    .setParameter("type", PersonTypeEnum.WAITER).getSingleResult();
-        } catch (NoResultException nr) {
+        if (!DatabaseController.of().getListFromNamedQuery("get_all_waiters", Person.class).isEmpty()) {
             DatabaseController.of().saveInDatabase(new Person(
                     DefaultWaiter.DEFAULT_WAITER_NAME,
                     DefaultWaiter.DEFAULT_WAITER_EMAIL,

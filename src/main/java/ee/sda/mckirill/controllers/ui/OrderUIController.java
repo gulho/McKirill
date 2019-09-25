@@ -28,49 +28,42 @@ public class OrderUIController extends AbstractUIController {
     public void start() {
         switch (person.getPersonType().getType()) {
             case MANAGER:
-                //while (true) {
-                    Map<Integer, Consumer> orderManagerActions = new HashMap<>();
-                    orderManagerActions.put(1, T -> showOrdersList(getListFromNamedQuery("get_all_orders", Order.class)));
-                    orderManagerActions.put(2, T -> System.out.println(BaseString.TODO)); //TODO
-                    orderManagerActions.put(3, T -> removeOrder());
+                Map<Integer, Consumer> orderManagerActions = new HashMap<>();
+                orderManagerActions.put(1, T -> showOrdersList(getListFromNamedQuery("get_all_orders", Order.class)));
+                orderManagerActions.put(2, T -> System.out.println(BaseString.TODO)); //TODO
+                orderManagerActions.put(3, T -> removeOrder());
 
-                    selectMenuAction(OrderStrings.MANAGER_ORDERS_MAIN_ACTION, orderManagerActions);
-                //}
+                selectMenuAction(OrderStrings.MANAGER_ORDERS_MAIN_ACTION, orderManagerActions);
                 break;
             case CLIENT:
-              /*  Optional<LocalDate> orderDate;
-                while (true) {
-                    System.out.println(OrderStrings.CLIENT_ORDER_BOOKING_DATE_SELECT);
-                    orderDate = validateDate(scanner.nextLine());
-                    if (orderDate.isPresent()) {
-                        break;
-                    } else {
-                        System.out.println(OrderStrings.CLIENT_ORDER_DATE_IN_INVALID);
-                    }
-                }
-
-                Optional<LocalTime> orderTime;
-                while (true) {
-                    System.out.println(OrderStrings.CLIENT_ORDER_TIME_SELECT);
-                    orderTime = validateTime(scanner.nextLine());
-                    if (orderTime.isPresent()) {
-                        break;
-                    } else {
-                        System.out.println(OrderStrings.CLIENT_ORDER_TIME_IN_INVALID);
-                    }
-                }*/
-
-
                 Order order = new Order();
                 order.setPerson(person);
                 order.setStatus(orderStatus.getOpen());
-                order.setTimeToOrder(LocalDateTime.of(selectDate(OrderStrings.CLIENT_ORDER_SELECT_DATE), selectTime(OrderStrings.CLIENT_ORDER_SELECT_TIME)));
-                //TODO: Add check is time is valid
+                while (true) {
+                    order.setTimeToOrder(LocalDateTime.of(selectDate(OrderStrings.CLIENT_ORDER_SELECT_DATE), selectTime(OrderStrings.CLIENT_ORDER_SELECT_TIME)));
+                    if (checkWorkingTime(order.getTimeToOrder())) {
+                        break;
+                    } else {
+                        System.out.println(OrderStrings.TIME_TO_ORDER_INVALID);
+                    }
+                }
                 order.setPeoples(selectUnsignedInteger(OrderStrings.CLIENT_ORDER_PEOPLES_COUNT_SELECT, OrderStrings.CLIENT_ORDER_PEOPLES_COUNT_INVALID, 15));
                 order.setCreateDate(LocalDateTime.now());
                 saveInDatabase(order);
                 System.out.println(OrderStrings.CLIENT_ORDER_CONFIRM);
         }
+    }
+
+    private boolean checkWorkingTime(LocalDateTime timeToOrder) {
+        boolean isRestaurantWorking = false;
+        if (timeToOrder.isAfter(LocalDateTime.now())) {
+            if (timeToOrder.getHour() >= ApplicationContext.getWorkingTime()[0] && timeToOrder.getHour() < ApplicationContext.getWorkingTime()[1]) {
+                if ((Long) getListFromNamedQueryWithParameters("check_date_is_holiday", Object.class, Map.of("date", timeToOrder.toLocalDate())).get(0) == 0) {
+                    isRestaurantWorking = true;
+                }
+            }
+        }
+        return isRestaurantWorking;
     }
 
     private void showOrdersList(List<Order> orderList) {
@@ -80,7 +73,7 @@ public class OrderUIController extends AbstractUIController {
         System.out.println("+----+------------------------------+----------+----------+----------+");
         for (Order order : orderList) {
             String tableIdString = "None";
-            if(order.getTable() != null) {
+            if (order.getTable() != null) {
                 tableIdString = order.getTable().getId() + "";
             }
             System.out.printf("|%4d|%30s|%10d|%10s|%10s|%n",
@@ -110,10 +103,9 @@ public class OrderUIController extends AbstractUIController {
         List<Order> selectOrders;
         if (waiterAction == null) {
             selectOrders = getListFromNamedQuery("get_all_orders", Order.class);
-        } else if(waiterAction == WaiterAction.ADD_NEW_MENU_ITEM) {
-            selectOrders= getListFromNamedQuery("get_all_orders_open_serving", Order.class);
-        }
-        else {
+        } else if (waiterAction == WaiterAction.ADD_NEW_MENU_ITEM) {
+            selectOrders = getListFromNamedQuery("get_all_orders_open_serving", Order.class);
+        } else {
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("name", OrderStatusEnum.SERVING);
             selectOrders = getListFromNamedQueryWithParameters("get_all_order_by_status", Order.class, parameters);
@@ -122,37 +114,6 @@ public class OrderUIController extends AbstractUIController {
         Function<Integer, Optional<Order>> function = T -> findById(Order.class, T);
         return selectObjectById(OrderStrings.SELECT_ORDER, OrderStrings.SELECT_ORDER_WRONG_ID, function);
     }
-
-/*    private Optional<LocalDate> validateDate(String dateStr) {
-        LocalDate orderDate = null;
-        try {
-            String[] dateStrings = dateStr.split("\\.");
-            if (dateStrings.length == 3) {
-                orderDate = LocalDate.of(
-                        Integer.valueOf(dateStrings[2]),
-                        Integer.valueOf(dateStrings[1]),
-                        Integer.valueOf(dateStrings[0]));
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return Optional.ofNullable(orderDate);
-    }
-
-    private Optional<LocalTime> validateTime(String timeStr) {
-        LocalTime orderTime = null;
-        try {
-            String[] timeStrings = timeStr.split("\\.");
-            if (timeStrings.length == 2) {
-                orderTime = LocalTime.of(
-                        Integer.valueOf(timeStrings[0]),
-                        Integer.valueOf(timeStrings[1]));
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return Optional.ofNullable(orderTime);
-    }*/
 
     public void payment(Order orderToUpdate) {
         System.out.println(OrderStrings.WAITER_PAYMENT);
@@ -163,7 +124,7 @@ public class OrderUIController extends AbstractUIController {
         );
         orderToUpdate.setTotalSum(selectPaymentAmount(orderToUpdate));
         orderToUpdate.setStatus(orderStatus.getPaid());
-        if(orderToUpdate.getTable() != null) {
+        if (orderToUpdate.getTable() != null) {
             Table ordersTable = orderToUpdate.getTable();
             ordersTable.setIs_available(true);
             saveInDatabase(ordersTable);

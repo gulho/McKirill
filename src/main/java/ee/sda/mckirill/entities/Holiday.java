@@ -9,6 +9,10 @@ import java.time.LocalTime;
         @NamedQuery(
                 name = "get_all_holidays",
                 query = "from Holiday order by fromDate"
+        ),
+        @NamedQuery(
+                name = "check_date_is_holiday",
+                query = "select count (id) from Holiday where fromDate >= :date AND toDate >= :date"
         )
 })
 @Entity
