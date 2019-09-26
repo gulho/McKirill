@@ -7,8 +7,8 @@ import ee.sda.mckirill.enums.ControllersEnum;
 import ee.sda.mckirill.strings.BaseString;
 import ee.sda.mckirill.util.Validation;
 
+import java.util.Arrays;
 import java.util.Optional;
-import java.util.Scanner;
 
 /**
  * McKirill app starting point
@@ -43,7 +43,7 @@ public class App {
         } catch (Exception ex) {
             System.out.println("Application catch exception");
             System.out.println(ex.getMessage());
-            System.out.println(ex.getStackTrace().toString());
+            System.out.println(Arrays.toString(ex.getStackTrace()));
         } finally {
             if (applicationContext.getSession() != null) {
                 applicationContext.getSession().close();

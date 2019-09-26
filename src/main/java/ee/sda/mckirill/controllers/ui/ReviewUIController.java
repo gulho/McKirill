@@ -2,7 +2,6 @@ package ee.sda.mckirill.controllers.ui;
 
 import ee.sda.mckirill.entities.Person;
 import ee.sda.mckirill.entities.Review;
-import ee.sda.mckirill.strings.BaseString;
 import ee.sda.mckirill.strings.ReviewStrings;
 import ee.sda.mckirill.util.ConsoleTablePrint;
 

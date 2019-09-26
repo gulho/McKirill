@@ -15,19 +15,19 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 public abstract class AbstractUIController extends DatabaseController {
-    protected static Person person;
-    protected static Scanner scanner = ApplicationContext.getScanner();
-    protected static OrderStatusType orderStatus = ApplicationContext.getOrderStatusType();
+    static Person person;
+    static Scanner scanner = ApplicationContext.getScanner();
+    static OrderStatusType orderStatus = ApplicationContext.getOrderStatusType();
     //protected static Session session = ApplicationContext.getSession();
 
-    public AbstractUIController(Person person) {
-        this.person = person;
+    AbstractUIController(Person person) {
+        AbstractUIController.person = person;
     }
 
     public abstract void start();
 
     //Created for fix Error with scanner
-    public static void endOfUIInteraction() {
+    static void endOfUIInteraction() {
         /*if (scanner.hasNextLine())
             scanner.nextLine();*/
         while (scanner.hasNext("\n")) {
@@ -41,7 +41,7 @@ public abstract class AbstractUIController extends DatabaseController {
             endOfUIInteraction();
             System.out.println(headerString);
             try {
-                returnBigDecimal = BigDecimal.valueOf(Double.valueOf(scanner.nextLine()));
+                returnBigDecimal = BigDecimal.valueOf(Double.parseDouble(scanner.nextLine()));
                 if (returnBigDecimal.signum() >= 0) {
                     break;
                 } else {
@@ -75,7 +75,7 @@ public abstract class AbstractUIController extends DatabaseController {
             System.out.println(headerString);
             endOfUIInteraction();
             try {
-                int returnInt = Integer.valueOf(scanner.nextLine());
+                int returnInt = Integer.parseInt(scanner.nextLine());
                 if (returnInt > 0 && returnInt <= maximumValue) {
                     return returnInt;
                 } else {
@@ -157,9 +157,9 @@ public abstract class AbstractUIController extends DatabaseController {
                 String[] dateStrings = selectString(BaseString.SELECT_DATE, BaseString.SELECT_DATE_INVALID, 10).split("\\.");
                 if (dateStrings.length == 3) {
                     return LocalDate.of(
-                            Integer.valueOf(dateStrings[2]),
-                            Integer.valueOf(dateStrings[1]),
-                            Integer.valueOf(dateStrings[0]));
+                            Integer.parseInt(dateStrings[2]),
+                            Integer.parseInt(dateStrings[1]),
+                            Integer.parseInt(dateStrings[0]));
                 } else {
                     throw new DateTimeException("Date is wrong");
                 }
@@ -176,8 +176,8 @@ public abstract class AbstractUIController extends DatabaseController {
                 String[] timeStrings = selectString(BaseString.SELECT_TIME, BaseString.SELECT_TIME_INVALID, 5).split("\\.");
                 if (timeStrings.length == 2) {
                     return LocalTime.of(
-                            Integer.valueOf(timeStrings[0]),
-                            Integer.valueOf(timeStrings[1]));
+                            Integer.parseInt(timeStrings[0]),
+                            Integer.parseInt(timeStrings[1]));
                 } else {
                     throw new DateTimeException("Time is incorrect");
                 }

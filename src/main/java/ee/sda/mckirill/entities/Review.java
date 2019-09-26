@@ -46,8 +46,8 @@ public class Review {
         return person;
     }
 
-    public void setPerson(Person preson) {
-        this.person = preson;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
     public int getScore() {

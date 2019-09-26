@@ -7,7 +7,6 @@ import ee.sda.mckirill.strings.ClientStrings;
 import ee.sda.mckirill.util.ConsoleTablePrint;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;

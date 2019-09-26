@@ -28,8 +28,8 @@ public class ApplicationContext {
         try {
             Properties properties = new Properties();
             properties.load(getClass().getClassLoader().getResourceAsStream("mckirill.settings.properties"));
-            workingTime[0] = Integer.valueOf(properties.getProperty("workingTimeStart"));
-            workingTime[1] = Integer.valueOf(properties.getProperty("workingTimeEnd"));
+            workingTime[0] = Integer.parseInt(properties.getProperty("workingTimeStart"));
+            workingTime[1] = Integer.parseInt(properties.getProperty("workingTimeEnd"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -64,7 +64,7 @@ public class ApplicationContext {
     }
 
     private void checkManagerExist() {
-        if (!DatabaseController.of().getListFromNamedQuery("get_all_mangers", Person.class).isEmpty()) {
+        if (DatabaseController.of().getListFromNamedQuery("get_all_mangers", Person.class).isEmpty()) {
             DatabaseController.of().saveInDatabase(new Person(
                     DefaultManager.DEFAULT_MANAGER_NAME,
                     DefaultManager.DEFAULT_MANAGER_EMAIL,
@@ -75,7 +75,7 @@ public class ApplicationContext {
     }
 
     private void checkWaiterExist() {
-        if (!DatabaseController.of().getListFromNamedQuery("get_all_waiters", Person.class).isEmpty()) {
+        if (DatabaseController.of().getListFromNamedQuery("get_all_waiters", Person.class).isEmpty()) {
             DatabaseController.of().saveInDatabase(new Person(
                     DefaultWaiter.DEFAULT_WAITER_NAME,
                     DefaultWaiter.DEFAULT_WAITER_EMAIL,

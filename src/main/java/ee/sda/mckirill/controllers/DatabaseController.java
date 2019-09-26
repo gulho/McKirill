@@ -1,10 +1,5 @@
 package ee.sda.mckirill.controllers;
 
-import com.google.protobuf.MapEntry;
-import ee.sda.mckirill.entities.MenuItem;
-import ee.sda.mckirill.entities.Order;
-import ee.sda.mckirill.entities.Table;
-import ee.sda.mckirill.enums.OrderStatusEnum;
 import org.hibernate.Session;
 
 import javax.persistence.Query;
@@ -26,7 +21,8 @@ public class DatabaseController {
         return databaseController;
     }
 
-    public <T> void saveInDatabase(T... objectToSaves) {
+    @SafeVarargs
+    public final <T> void saveInDatabase(T... objectToSaves) {
         session.beginTransaction();
         for (Object objectToSave : objectToSaves) {
             session.saveOrUpdate(objectToSave);
@@ -54,7 +50,7 @@ public class DatabaseController {
 
     public <T> List<T> getListFromNamedQueryWithParameters(String queryName, Class<T> objectClass, Map<String, Object> parameters) {
         Query query = session.createNamedQuery(queryName, objectClass);
-        parameters.forEach((S, O) -> query.setParameter(S, O));
+        parameters.forEach(query::setParameter);
         return query.getResultList();
     }
 }

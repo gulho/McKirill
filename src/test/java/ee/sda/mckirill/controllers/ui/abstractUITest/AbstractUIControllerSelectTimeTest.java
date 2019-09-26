@@ -10,10 +10,10 @@ import java.time.LocalTime;
 import static junit.framework.TestCase.assertEquals;
 
 public class AbstractUIControllerSelectTimeTest extends AbstractUITestClass {
-    private final String time = "12.00";
     private final LocalTime timeForCheck = LocalTime.of(12,0);
     @Test
     public void selectTimeTest() {
+        String time = "12.00";
         systemInMock.provideLines(time);
         assertEquals(timeForCheck, AbstractUIController.selectTime(headerString));
         assertEquals(BaseString.SELECT_TIME,systemOutRule.getLog().trim());
