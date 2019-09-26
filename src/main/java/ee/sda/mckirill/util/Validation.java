@@ -53,7 +53,7 @@ public class Validation {
                         returnPerson = session
                                 .createQuery("from Person where email = :email ", Person.class)
                                 .setParameter("email", email).getSingleResult();
-                        System.out.println(returnPerson);
+                        //System.out.println(returnPerson);
                     } else {
                         int numberOfAttempts = 1;
                         boolean isPasswordInvalid = true;
@@ -95,17 +95,17 @@ public class Validation {
 
     public boolean isPasswordValid(String email, String password) {
         //try (Session session = new Configuration().configure().buildSessionFactory().openSession()) {
-            String[] emailParts = email.split("@");
+        String[] emailParts = email.split("@");
 
-            String hql = "SELECT password FROM Person WHERE email LIKE '" + emailParts[0] + "_" + emailParts[1] + "'";
-            Query query = session.createQuery(hql);
-            List<String> passwords = query.list();
+        String hql = "SELECT password FROM Person WHERE email LIKE '" + emailParts[0] + "_" + emailParts[1] + "'";
+        Query query = session.createQuery(hql);
+        List<String> passwords = query.list();
 
-            for (String passwordRecord : passwords) {
-                if (password.equalsIgnoreCase(passwordRecord)) {
-                    return true;
-                }
+        for (String passwordRecord : passwords) {
+            if (password.equalsIgnoreCase(passwordRecord)) {
+                return true;
             }
+        }
         /*} catch (HibernateException e) {
             e.printStackTrace();
         }*/
@@ -115,13 +115,13 @@ public class Validation {
 
     public boolean doesUserExist(String email) {
         //try (Session session = new Configuration().configure().buildSessionFactory().openSession()) {
-            Query query = session.createQuery("SELECT email FROM Person");
-            List<String> emailList = query.list();
-            for (String emailRecord : emailList) {
-                if (email.equalsIgnoreCase(emailRecord)) {
-                    return true;
-                }
+        Query query = session.createQuery("SELECT email FROM Person");
+        List<String> emailList = query.list();
+        for (String emailRecord : emailList) {
+            if (email.equalsIgnoreCase(emailRecord)) {
+                return true;
             }
+        }
         /*} catch (Exception e) {
             e.printStackTrace();
         }*/

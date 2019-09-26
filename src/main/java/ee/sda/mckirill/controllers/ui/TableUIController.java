@@ -21,7 +21,10 @@ public class TableUIController extends AbstractUIController {
     public void start() {
         Map<Integer, Consumer> tableActions = new HashMap<>();
         tableActions.put(1, T -> showAllTables());
-        tableActions.put(2, T -> {System.out.println(TableStrings.TABLE_ADD_NEW);editTable(new Table());});
+        tableActions.put(2, T -> {
+            System.out.println(TableStrings.TABLE_ADD_NEW);
+            editTable(new Table());
+        });
         tableActions.put(3, T -> editTable(selectTable()));
         tableActions.put(4, T -> deleteTable(selectTable()));
 
@@ -44,7 +47,7 @@ public class TableUIController extends AbstractUIController {
         ConsoleTablePrint tableTable = new ConsoleTablePrint();
         tableTable.setShowVerticalLines(true);
         tableTable.setHeaders(TableStrings.TABLE_ID, TableStrings.TABLE_SIZE, TableStrings.TABLE_IS_AVAILABLE);
-        for(Table table : tables) {
+        for (Table table : tables) {
             tableTable.addRow(table.getId() + "", table.getTableSize() + "", Boolean.valueOf(table.isIs_available()).toString());
         }
         tableTable.print();

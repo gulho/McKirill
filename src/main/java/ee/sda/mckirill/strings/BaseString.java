@@ -2,7 +2,7 @@ package ee.sda.mckirill.strings;
 
 public class BaseString extends ConsoleColors {
     public static final String BR = System.lineSeparator();
-    public static final char EURO =  0x20AC;
+    public static final char EURO = 0x20AC;
 
     public static final String TODO = YELLOW + "TODO" + RESET;
 
@@ -24,7 +24,7 @@ public class BaseString extends ConsoleColors {
     public static final String SELECT_ID_NOT_INTEGER = RED + "Typed value not integer or less than 1" + RESET;
     public static final String SELECT_STRING_TO_LONG = RED + "Typed string to long. Maximum length: " + RESET;
 
-    public static final String NUMBER_FORMAT_EXCEPTION = RED + "Number format is incorrect" +RESET;
+    public static final String NUMBER_FORMAT_EXCEPTION = RED + "Number format is incorrect" + RESET;
 
     public static final String SELECT_DATE = "Please type date(d.m.yyyy):";
     public static final String SELECT_DATE_INVALID = RED + "Date is invalid." + RESET;

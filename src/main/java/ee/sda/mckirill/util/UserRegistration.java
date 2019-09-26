@@ -13,15 +13,16 @@ public class UserRegistration {
     private Session session = ApplicationContext.getSession();
     private DatabaseController databaseController = DatabaseController.of();
 
-    UserRegistration(){}
+    UserRegistration() {
+    }
 
-    public UserRegistration(String name, String email, String password, String phoneNumber, PersonTypeEnum userType){
+    public UserRegistration(String name, String email, String password, String phoneNumber, PersonTypeEnum userType) {
         /*this.personType = new PersonType();
         personType.setType(userType);*/
         this.person = new Person(name, email, password, phoneNumber, ApplicationContext.getPersonTypeType().getClient());
     }
 
-    public Person commitRegistration(){
+    public Person commitRegistration() {
 
         databaseController.saveInDatabase(person);
         return person;

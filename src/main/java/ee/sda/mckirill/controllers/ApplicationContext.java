@@ -19,7 +19,7 @@ public class ApplicationContext {
     private static OrderStatusType orderStatusType = OrderStatusType.of();
     private static PersonTypeType personTypeType = PersonTypeType.of();
     private static PaymentTypeType paymentTypeType = PaymentTypeType.of();
-    private static int[] workingTime = new  int[2];
+    private static int[] workingTime = new int[2];
 
     public ApplicationContext() {
         checkManagerExist();
