@@ -2,7 +2,6 @@ package ee.sda.mckirill.controllers.ui;
 
 import ee.sda.mckirill.entities.Holiday;
 import ee.sda.mckirill.entities.Person;
-import ee.sda.mckirill.strings.BaseString;
 import ee.sda.mckirill.strings.HolidaysStrings;
 import ee.sda.mckirill.util.ConsoleTablePrint;
 

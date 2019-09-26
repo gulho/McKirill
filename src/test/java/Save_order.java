@@ -8,9 +8,7 @@ import org.hibernate.cfg.Configuration;
 import org.junit.Ignore;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Ignore
 public class Save_order {

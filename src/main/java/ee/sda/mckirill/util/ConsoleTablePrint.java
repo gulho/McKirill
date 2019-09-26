@@ -1,7 +1,5 @@
 package ee.sda.mckirill.util;
 
-import ee.sda.mckirill.strings.BaseString;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;

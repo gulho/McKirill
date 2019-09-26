@@ -3,7 +3,6 @@ package ee.sda.mckirill.controllers.ui;
 import ee.sda.mckirill.controllers.Factory;
 import ee.sda.mckirill.entities.Person;
 import ee.sda.mckirill.enums.ControllersEnum;
-import ee.sda.mckirill.strings.BaseString;
 import ee.sda.mckirill.strings.ManagerStrings;
 
 import java.util.HashMap;

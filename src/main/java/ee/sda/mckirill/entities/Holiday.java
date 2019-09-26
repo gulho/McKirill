@@ -3,7 +3,6 @@ package ee.sda.mckirill.entities;
 import javax.persistence.*;
 import javax.persistence.Table;
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 @NamedQueries({
         @NamedQuery(

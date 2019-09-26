@@ -90,7 +90,7 @@ public class OrderUIController extends AbstractUIController {
             }
             System.out.printf("|%4d|%30s|%10d|%10s|%10s|%n",
                     order.getId(), order.getPerson().getName(), order.getPeoples(), order.getStatus().getName(), tableIdString);
-            if (order.getOrderedMenuItems().isEmpty() == false) {
+            if (!order.getOrderedMenuItems().isEmpty()) {
                 System.out.println("+----+------------------------------+----------+----------+----------+");
                 System.out.printf("|     %30s|%10s|%10s|%10s|%n",
                         MenuStrings.TABLE_MENU_ITEM_NAME,
