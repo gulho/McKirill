@@ -40,7 +40,7 @@ public class MenuUIController extends AbstractUIController {
 
     private MenuItem selectMenuItem() {
         showAllMenuItems();
-        Function<Integer,Optional<MenuItem>> menuItemFunction = R -> findById(MenuItem.class, R);
+        Function<Integer, Optional<MenuItem>> menuItemFunction = R -> findById(MenuItem.class, R);
         return selectObjectById(MenuStrings.SELECT_MENU_ITEM, MenuStrings.SELECT_MENU_ITEM_WRONG_ID, menuItemFunction);
     }
 
@@ -73,13 +73,13 @@ public class MenuUIController extends AbstractUIController {
         Map<String, Object> tableSize = new HashMap<>();
         tableSize.put("size", order.getPeoples());
         List<Table> tablesList = getListFromNamedQueryWithParameters("get_suitable_table", Table.class, tableSize);
-        if(!tablesList.isEmpty()) {
+        if (!tablesList.isEmpty()) {
             Table ordersTable = tablesList.get(0);
             order.setTable(ordersTable);
             ordersTable.setIs_available(false);
             saveInDatabase(ordersTable);
         }
-        
+
         saveInDatabase(order, orderedMenuItem);
     }
 

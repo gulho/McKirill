@@ -1,19 +1,15 @@
 package ee.sda.mckirill.controllers.ui;
 
-import com.google.protobuf.MapEntry;
 import ee.sda.mckirill.controllers.ApplicationContext;
 import ee.sda.mckirill.entities.*;
 import ee.sda.mckirill.enums.OrderStatusEnum;
 import ee.sda.mckirill.enums.PaymentTypeEnum;
 import ee.sda.mckirill.enums.WaiterAction;
-import ee.sda.mckirill.strings.BaseString;
 import ee.sda.mckirill.strings.MenuStrings;
 import ee.sda.mckirill.strings.OrderStrings;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -30,7 +26,7 @@ public class OrderUIController extends AbstractUIController {
             case MANAGER:
                 Map<Integer, Consumer> orderManagerActions = new HashMap<>();
                 orderManagerActions.put(1, T -> showOrdersList(getListFromNamedQuery("get_all_orders", Order.class)));
-                orderManagerActions.put(2, T -> System.out.println(BaseString.TODO)); //TODO
+                orderManagerActions.put(2, T -> editOrderByManager(selectOrderId(null)));
                 orderManagerActions.put(3, T -> removeOrder());
 
                 selectMenuAction(OrderStrings.MANAGER_ORDERS_MAIN_ACTION, orderManagerActions);
@@ -52,6 +48,22 @@ public class OrderUIController extends AbstractUIController {
                 saveInDatabase(order);
                 System.out.println(OrderStrings.CLIENT_ORDER_CONFIRM);
         }
+    }
+
+    private void editOrderByManager(Order selectOrderId) {
+        while (true) {
+            selectOrderId.setTimeToOrder(LocalDateTime.of(selectDate(OrderStrings.CLIENT_ORDER_SELECT_DATE), selectTime(OrderStrings.CLIENT_ORDER_SELECT_TIME)));
+            if (checkWorkingTime(selectOrderId.getTimeToOrder())) {
+                break;
+            } else {
+                System.out.println(OrderStrings.TIME_TO_ORDER_INVALID);
+            }
+        }
+        selectOrderId.setPeoples(selectUnsignedInteger(OrderStrings.CLIENT_ORDER_PEOPLES_COUNT_SELECT, OrderStrings.CLIENT_ORDER_PEOPLES_COUNT_INVALID, 15));
+        selectOrderId.setCreateDate(LocalDateTime.now());
+        selectOrderId.setStatus(ApplicationContext.getOrderStatusType().getByType(
+                selectEnum(OrderStrings.SELECT_ORDER_STATUS, OrderStrings.SELECT_ORDER_STATUS_WRONG, OrderStatusEnum.class)));
+        saveInDatabase(selectOrderId);
     }
 
     private boolean checkWorkingTime(LocalDateTime timeToOrder) {

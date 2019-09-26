@@ -53,7 +53,7 @@ public class WaiterUIController extends AbstractUIController {
                 WaiterStrings.TABLE_WAITER_TIPS);
         for (Person person : getListFromNamedQuery("get_all_waiters", Person.class)) {
             BigDecimal waiterTIP = BigDecimal.ZERO;
-            for(WaiterTip waiterTip: person.getWaiterTipList()) {
+            for (WaiterTip waiterTip : person.getWaiterTipList()) {
                 waiterTIP = waiterTIP.add(waiterTip.getTip());
             }
             clientTable.addRow(person.getId() + "", person.getName(), person.getEmail(), person.getPhoneNumber(), waiterTIP.toPlainString());
@@ -68,7 +68,7 @@ public class WaiterUIController extends AbstractUIController {
     }
 
     private void editPerson(Person person) {
-        person.setName(selectString(WaiterStrings.SELECT_WAITER_NAME, WaiterStrings.SELECT_WAITER_NAME_ERROR,255));
+        person.setName(selectString(WaiterStrings.SELECT_WAITER_NAME, WaiterStrings.SELECT_WAITER_NAME_ERROR, 255));
         person.setEmail(selectString(WaiterStrings.SELECT_WAITER_EMAIL, WaiterStrings.SELECT_WAITER_EMAIL_ERROR, 255));
         person.setPhoneNumber(selectString(WaiterStrings.SELECT_WAITER_PHONE_NUMBER, WaiterStrings.SELECT_WAITER_PHONE_NUMBER_ERROR, 255));
         saveInDatabase(person);

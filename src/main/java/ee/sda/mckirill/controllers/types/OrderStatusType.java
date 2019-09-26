@@ -29,44 +29,44 @@ public class OrderStatusType extends DatabaseController {
 
     public OrderStatus getOpen() {
         if (openStatus == null) {
-            openStatus = getByEnum(OrderStatusEnum.OPEN);
+            openStatus = getByType(OrderStatusEnum.OPEN);
         }
         return openStatus;
     }
 
     public OrderStatus getServing() {
         if (servingStatus == null) {
-            servingStatus = getByEnum(OrderStatusEnum.SERVING);
+            servingStatus = getByType(OrderStatusEnum.SERVING);
         }
         return servingStatus;
     }
 
     public OrderStatus getPaid() {
         if (paidStatus == null) {
-            paidStatus = getByEnum(OrderStatusEnum.PAID);
+            paidStatus = getByType(OrderStatusEnum.PAID);
         }
         return paidStatus;
     }
 
     public OrderStatus getClosed() {
         if (closedStatus == null) {
-            closedStatus = getByEnum(OrderStatusEnum.CLOSED);
+            closedStatus = getByType(OrderStatusEnum.CLOSED);
         }
         return closedStatus;
     }
 
     public OrderStatus getRejected() {
         if (rejectedStatus == null) {
-            rejectedStatus = getByEnum(OrderStatusEnum.REJECTED);
+            rejectedStatus = getByType(OrderStatusEnum.REJECTED);
         }
         return rejectedStatus;
     }
 
-    private OrderStatus getByEnum(OrderStatusEnum statusType) {
+    public OrderStatus getByType(OrderStatusEnum statusType) {
         Optional<OrderStatus> orderStatus = findByNaturalId(OrderStatus.class, "name", statusType);
         if (orderStatus.isEmpty()) {
             saveInDatabase(new OrderStatus(statusType));
-            orderStatus = Optional.of(getByEnum(statusType));
+            orderStatus = Optional.of(getByType(statusType));
         }
         return orderStatus.get();
     }

@@ -34,4 +34,6 @@ public class OrderStrings extends BaseString {
     public static final String PAYMENT_TOTAL_CHANGE = GREEN + "Total change:" + RESET;
     public static final String PAYMENT_TOTAL_TIP = GREEN + "Total tip:" + RESET;
     public static final String TIME_TO_ORDER_INVALID = RED + "Date to Order is invalid. Please select another day." + RESET;
+    public static final String SELECT_ORDER_STATUS = GREEN + "Select order status:" + RESET;
+    public static final String SELECT_ORDER_STATUS_WRONG = RED + "Order status is wrong" + RESET;
 }

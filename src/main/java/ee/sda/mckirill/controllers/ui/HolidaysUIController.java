@@ -34,7 +34,7 @@ public class HolidaysUIController extends AbstractUIController {
         ConsoleTablePrint holidayTable = new ConsoleTablePrint();
         holidayTable.setShowVerticalLines(true);
         holidayTable.setHeaders(HolidaysStrings.TABLE_ID, HolidaysStrings.TABLE_FROM_TIME, HolidaysStrings.TABLE_TO_TIME);
-        for(Holiday holiday: holidays) {
+        for (Holiday holiday : holidays) {
             holidayTable.addRow(holiday.getId() + "", holiday.getFromDate().toString(), holiday.getToDate().toString());
         }
         holidayTable.print();

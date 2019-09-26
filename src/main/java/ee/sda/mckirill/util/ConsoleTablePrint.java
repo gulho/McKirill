@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.List;
 
 
-
 public class ConsoleTablePrint {
 
     private static final String HORIZONTAL_SEP = "-";

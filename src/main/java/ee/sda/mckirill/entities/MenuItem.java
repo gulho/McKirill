@@ -10,7 +10,7 @@ import java.util.List;
 
 @NamedQueries({
         @NamedQuery(
-                name ="get_all_menuItems",
+                name = "get_all_menuItems",
                 query = "from MenuItem order by type"
         )
 })
@@ -29,7 +29,8 @@ public class MenuItem {
     @OneToMany(mappedBy = "menuItem")
     private List<OrderedMenuItem> orderedMenuItems = new ArrayList<>();
 
-    public MenuItem(){}
+    public MenuItem() {
+    }
 
     public MenuItem(String name, MenuItemsTypeEnum type, BigDecimal price) {
         this.name = name;

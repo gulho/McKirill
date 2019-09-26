@@ -89,10 +89,10 @@ public abstract class AbstractUIController extends DatabaseController {
 
     public static <E extends Enum<E>> E selectEnum(String headerString, String errorString, Class<E> enumType) {
         while (true) {
-                System.out.println(headerString);
-                for (Enum<E> paymentTypeEnum : enumType.getEnumConstants()) {
-                    System.out.println(paymentTypeEnum.toString());
-                }
+            System.out.println(headerString);
+            for (Enum<E> paymentTypeEnum : enumType.getEnumConstants()) {
+                System.out.println(paymentTypeEnum.toString());
+            }
             try {
                 endOfUIInteraction();
                 String typedEnumItem = scanner.nextLine().toUpperCase();
@@ -117,7 +117,7 @@ public abstract class AbstractUIController extends DatabaseController {
             endOfUIInteraction();
             try {
                 Integer selectedInt = Integer.valueOf(scanner.nextLine());
-                if(selectedInt <= 0) {
+                if (selectedInt <= 0) {
                     throw new NumberFormatException();
                 }
                 returnObject = (Optional<R>) function.apply(selectedInt);
@@ -151,7 +151,7 @@ public abstract class AbstractUIController extends DatabaseController {
     }
 
     public static LocalDate selectDate(String selectDateString) {
-        while(true) {
+        while (true) {
             try {
                 System.out.println(selectDateString);
                 String[] dateStrings = selectString(BaseString.SELECT_DATE, BaseString.SELECT_DATE_INVALID, 10).split("\\.");

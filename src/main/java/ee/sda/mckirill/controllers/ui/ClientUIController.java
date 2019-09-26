@@ -56,7 +56,7 @@ public class ClientUIController extends AbstractUIController {
     }
 
     private void editPerson(Person person) {
-        person.setName(selectString(ClientStrings.SELECT_CLIENT_NAME, ClientStrings.SELECT_CLIENT_NAME_ERROR,255));
+        person.setName(selectString(ClientStrings.SELECT_CLIENT_NAME, ClientStrings.SELECT_CLIENT_NAME_ERROR, 255));
         person.setEmail(selectString(ClientStrings.SELECT_CLIENT_EMAIL, ClientStrings.SELECT_CLIENT_EMAIL_ERROR, 255));
         person.setPhoneNumber(selectString(ClientStrings.SELECT_CLIENT_PHONE_NUMBER, ClientStrings.SELECT_CLIENT_PHONE_NUMBER_ERROR, 255));
         saveInDatabase(person);

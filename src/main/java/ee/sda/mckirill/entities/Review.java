@@ -20,7 +20,7 @@ public class Review {
     @JoinColumn(name = "person_id")
     private Person person;
     private int score;
-    @Column(name = "review_text",length = 5000)
+    @Column(name = "review_text", length = 5000)
     private String reviewText;
     private LocalDateTime date;
 

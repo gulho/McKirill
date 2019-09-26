@@ -28,7 +28,7 @@ public class DatabaseController {
 
     public <T> void saveInDatabase(T... objectToSaves) {
         session.beginTransaction();
-        for (Object objectToSave : objectToSaves){
+        for (Object objectToSave : objectToSaves) {
             session.saveOrUpdate(objectToSave);
         }
         session.getTransaction().commit();
@@ -51,9 +51,10 @@ public class DatabaseController {
     public <T> List<T> getListFromNamedQuery(String queryName, Class<T> objectClass) {
         return session.createNamedQuery(queryName, objectClass).getResultList();
     }
+
     public <T> List<T> getListFromNamedQueryWithParameters(String queryName, Class<T> objectClass, Map<String, Object> parameters) {
         Query query = session.createNamedQuery(queryName, objectClass);
-        parameters.forEach((S,O) -> query.setParameter(S, O));
+        parameters.forEach((S, O) -> query.setParameter(S, O));
         return query.getResultList();
     }
 }

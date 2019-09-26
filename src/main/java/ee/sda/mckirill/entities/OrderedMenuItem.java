@@ -5,7 +5,7 @@ import javax.persistence.Table;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name= "ordered_menu_item")
+@Table(name = "ordered_menu_item")
 public class OrderedMenuItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,8 +21,8 @@ public class OrderedMenuItem {
     @Column(name = "total_price", nullable = false)
     private BigDecimal sum;
 
-    public OrderedMenuItem () {
-        
+    public OrderedMenuItem() {
+
     }
 
     public OrderedMenuItem(MenuItem menuItem, Integer quantity, BigDecimal sum, Order order) {
