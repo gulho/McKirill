@@ -5,7 +5,6 @@ import ee.sda.mckirill.entities.Person;
 import ee.sda.mckirill.entities.WaiterTip;
 import ee.sda.mckirill.enums.ControllersEnum;
 import ee.sda.mckirill.enums.WaiterAction;
-import ee.sda.mckirill.strings.BaseString;
 import ee.sda.mckirill.strings.WaiterStrings;
 import ee.sda.mckirill.util.ConsoleTablePrint;
 
@@ -35,9 +34,9 @@ public class WaiterUIController extends AbstractUIController {
             case MANAGER:
                 Map<Integer, Consumer> managerWaitersActions = new HashMap<>();
                 managerWaitersActions.put(1, T -> showWaiterTable());
-                managerWaitersActions.put(2, T -> System.out.println(BaseString.TODO));
-                managerWaitersActions.put(3, T -> System.out.println(BaseString.TODO));
-                managerWaitersActions.put(4, T -> System.out.println(BaseString.TODO));
+                managerWaitersActions.put(2, T -> editPerson(new Person()));
+                managerWaitersActions.put(3, T -> editPerson(selectWaiter()));
+                managerWaitersActions.put(4, T -> removeWaiter(selectWaiter()));
 
                 selectMenuAction(WaiterStrings.MANAGER_WAITER_MAIN_ACTION, managerWaitersActions);
                 break;
@@ -60,20 +59,21 @@ public class WaiterUIController extends AbstractUIController {
         clientTable.print();
     }
 
-    private Person selectClient() {
+    private Person selectWaiter() {
         showWaiterTable();
         Function<Integer, Optional<Person>> menuItemFunction = R -> findById(Person.class, R);
         return selectObjectById(WaiterStrings.SELECT_WAITER_ID, WaiterStrings.SELECT_WAITER_WRONG_ID, menuItemFunction);
     }
 
     private void editPerson(Person person) {
+        person.setPersonType(personTypeType.getWaiter());
         person.setName(selectString(WaiterStrings.SELECT_WAITER_NAME, WaiterStrings.SELECT_WAITER_NAME_ERROR, 255));
         person.setEmail(selectString(WaiterStrings.SELECT_WAITER_EMAIL, WaiterStrings.SELECT_WAITER_EMAIL_ERROR, 255));
         person.setPhoneNumber(selectString(WaiterStrings.SELECT_WAITER_PHONE_NUMBER, WaiterStrings.SELECT_WAITER_PHONE_NUMBER_ERROR, 255));
         saveInDatabase(person);
     }
 
-    private void removeClient(Person person) {
+    private void removeWaiter(Person person) {
         deleteFromDatabase(person);
     }
 
