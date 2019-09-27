@@ -20,4 +20,6 @@ public class ClientStrings extends BaseString {
     public static final String SELECT_CLIENT_PHONE_NUMBER_ERROR = RED + "Wrong Client phone number" + RESET;
     public static final String SELECT_CLIENT_ID = GREEN + "Select Client ID" + RESET;
     public static final String SELECT_CLIENT_WRONG_ID = RED + "Client ID is wrong" + RESET;
+    public static final String SELECT_PASSWORD = GREEN + "Type password" + RESET;
+    public static final String SELECT_PASSWORD_WRONG = RED + "Password wrong" + RESET;
 }
