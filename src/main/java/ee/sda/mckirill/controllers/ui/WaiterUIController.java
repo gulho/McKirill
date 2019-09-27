@@ -68,6 +68,7 @@ public class WaiterUIController extends AbstractUIController {
     private void editPerson(Person person) {
         person.setPersonType(personTypeType.getWaiter());
         person.setName(selectString(WaiterStrings.SELECT_WAITER_NAME, WaiterStrings.SELECT_WAITER_NAME_ERROR, 255));
+        person.setPassword(selectString(WaiterStrings.SELECT_PASSWORD, WaiterStrings.SELECT_PASSWORD_WRONG, 8));
         person.setEmail(selectString(WaiterStrings.SELECT_WAITER_EMAIL, WaiterStrings.SELECT_WAITER_EMAIL_ERROR, 255));
         person.setPhoneNumber(selectString(WaiterStrings.SELECT_WAITER_PHONE_NUMBER, WaiterStrings.SELECT_WAITER_PHONE_NUMBER_ERROR, 255));
         saveInDatabase(person);

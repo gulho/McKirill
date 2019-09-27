@@ -22,4 +22,6 @@ public class WaiterStrings extends BaseString {
     public static final String SELECT_WAITER_PHONE_NUMBER_ERROR = RED + "Wrong Waiter phone number" + RESET;
     public static final String SELECT_WAITER_ID = GREEN + "Select Waiter ID" + RESET;
     public static final String SELECT_WAITER_WRONG_ID = RED + "Waiter ID is wrong" + RESET;
+    public static final String SELECT_PASSWORD = GREEN + "Type password" + RESET;
+    public static final String SELECT_PASSWORD_WRONG = RED + "Password wrong" + RESET;
 }
