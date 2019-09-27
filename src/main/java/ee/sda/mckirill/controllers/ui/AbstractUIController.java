@@ -3,6 +3,7 @@ package ee.sda.mckirill.controllers.ui;
 import ee.sda.mckirill.controllers.ApplicationContext;
 import ee.sda.mckirill.controllers.DatabaseController;
 import ee.sda.mckirill.controllers.types.OrderStatusType;
+import ee.sda.mckirill.controllers.types.PersonTypeType;
 import ee.sda.mckirill.entities.Person;
 import ee.sda.mckirill.strings.BaseString;
 
@@ -18,6 +19,7 @@ public abstract class AbstractUIController extends DatabaseController {
     static Person person;
     static Scanner scanner = ApplicationContext.getScanner();
     static OrderStatusType orderStatus = ApplicationContext.getOrderStatusType();
+    static PersonTypeType personTypeType = ApplicationContext.getPersonTypeType();
     //protected static Session session = ApplicationContext.getSession();
 
     AbstractUIController(Person person) {
@@ -30,9 +32,9 @@ public abstract class AbstractUIController extends DatabaseController {
     static void endOfUIInteraction() {
         /*if (scanner.hasNextLine())
             scanner.nextLine();*/
-        while (scanner.hasNext("\n")) {
+       /* while (scanner.hasNext("\n")) {
             scanner.next();
-        }
+        }*/
     }
 
     public static BigDecimal selectBigDecimal(String headerString, String belowZeroError) {
