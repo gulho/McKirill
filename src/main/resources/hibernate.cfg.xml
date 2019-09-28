@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://remotemysql.com:3306/K38ahVLhsU</property>
+        <property name="connection.username">K38ahVLhsU</property>
+        <property name="connection.password">xNORIKzWrP</property>
+
+        <property name="show_sql">false</property>
+        <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+        <property name="hbm2ddl.auto">validate</property>
+
+        <mapping class="ee.sda.mckirill.entities.Person"/>
+        <mapping class="ee.sda.mckirill.entities.PersonType"/>
+        <mapping class="ee.sda.mckirill.entities.Order"/>
+        <mapping class="ee.sda.mckirill.entities.Table"/>
+        <mapping class="ee.sda.mckirill.entities.OrderStatus"/>
+        <mapping class="ee.sda.mckirill.entities.MenuItem"/>
+        <mapping class="ee.sda.mckirill.entities.OrderedMenuItem"/>
+        <mapping class="ee.sda.mckirill.entities.PaymentType"/>
+        <mapping class="ee.sda.mckirill.entities.Holiday"/>
+        <mapping class="ee.sda.mckirill.entities.Review"/>
+        <mapping class="ee.sda.mckirill.entities.WaiterTip"/>
+
+    </session-factory>
+</hibernate-configuration>
